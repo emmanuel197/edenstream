@@ -1,0 +1,229 @@
+@import "../../../global";
+
+.drawer {
+    height: 100vh;
+    background: $black-08;
+    position: relative;
+    width: 100vw;
+    z-index: 10;
+    animation: showDrawer .12s linear;
+    display: flex;
+    align-items: center;
+    // z-index: 12;
+
+    .drawer-wrapper {
+        // position: absolute;
+        right: 0;
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        gap: clamp(12px, 0.938vw, 18px);
+        width: 100%;
+        // margin-top: auto;
+        
+        overflow-x: hidden;
+        top: 0;
+
+        
+        &::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            height: 16px;
+            border-radius: 99px;
+            // background-color: $kg_color;
+        }
+
+        .invisible {
+            visibility: hidden;
+        }
+        li {
+            list-style: none;
+            // margin: 30px -10px;
+            display: block;
+           
+            .nav-link {
+                color: $white;
+                font-weight: 400;
+                font-size: clamp(15px, 0.833vw, 15.994px);
+                line-height: 1.25vw;
+                letter-spacing: 0%;
+                font-weight: medium;
+                text-decoration: none;
+                transition: .2s linear;
+                position: relative;
+
+                &.active-link {
+                    background: #619267;
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+
+                    &::after {
+                        content: "";
+                        position: absolute;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        bottom: -.3125vw; // adjust as needed
+                        width: 15.001px; // how long the underline should be
+                        height: 3.001px; // thickness of the underline
+                        background: #619267;
+                        border-radius: 23px;
+                    }
+                }
+
+                &:hover {
+                    opacity: .5;
+                }
+            }
+        }
+    }
+
+    @keyframes showDrawer {
+        0% {
+            opacity: 0;
+            transform: translateX(60px);
+        }
+
+        100% {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    // .drawer-wrapper {
+    //     padding: 0
+    //     // background: $secondary_color;
+    //     width: 100%;
+    //     max-width: 400px;
+    //     position: absolute;
+    //     right: 0;
+    //     height: 100vh;
+    //     box-shadow: 260px 0 0 2737px #000a;
+    //     color: #fff;
+
+    //     overflow-x: hidden;
+
+
+    // }
+    .signup-login-wrapper {
+        display: flex;
+        margin-left: auto;
+        margin-right: auto;
+        gap: clamp(14px, .8854vw, 16px);
+        margin-top: .9375vw;
+        .signup-btn,
+        .login-btn {
+         
+           
+            border-radius: 8px;
+            padding: clamp(7px, .5208vw, 10px) clamp(20px, 1.25vw, 24px);
+            font-weight: 600;
+            font-size: clamp(10px, .625vw, 12px);
+            line-height: 150%;
+            letter-spacing: 0%;
+            vertical-align: middle;
+            color: $white;
+        }
+
+        .signup-btn {
+            background: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
+        }
+
+        .login-btn {
+            background: #FFFFFF1A;
+        }
+    }
+
+    .close-btn {
+        cursor: pointer;
+        
+        background: transparent;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 4.8958vw;
+        .align-content {
+            img {
+                width: clamp(50px, 3.438vw, 66px);
+                height: auto;
+            }
+        }
+    }
+
+    button,
+    a {
+        outline: none;
+        text-decoration: none;
+        padding: 0.5rem 1rem 0.5rem 1rem;
+        border: none;
+        font-size: $normal_font;
+        white-space: nowrap;
+        cursor: pointer;
+    }
+
+    .btn-ghost {
+        background: transparent;
+        // color: $kg_color;
+        transition: 0.4s all;
+        width: 100%;
+        margin-top: 10px;
+
+        &:hover {
+            // color: $tertiary_color;
+        }
+    }
+
+    .btn-filled {
+        // background-color: $kg_color;
+        // color: $primary_color;
+        border-radius: $border_rad;
+        transition: 0.4s all;
+        width: 100%;
+        // font-size: 10px;
+
+        &:hover {
+            // background-color: $tertiary_color;
+        }
+
+        // Dropdown styles
+        .dropdown-toggler {
+            background: transparent;
+            color: #fff;
+            font-weight: medium;
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+            text-align: left;
+            width: 100%;
+            transition: .2s linear;
+
+            &:hover {
+                opacity: .5;
+            }
+        }
+
+        .dropdown-menu {
+            // background: $secondary_color;
+            padding: 10px;
+            list-style: none;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+
+            li {
+                margin: 10px 0;
+
+                a {
+                    color: #fff;
+                    text-decoration: none;
+                    transition: .2s linear;
+
+                    &:hover {
+                        opacity: .5;
+                    }
+                }
+            }
+        }
+    }
+
+}

@@ -1,0 +1,81 @@
+@import "../../../global.scss";
+
+.seasons-and-episodes-section {
+    .sae-header {
+        color: $white;
+        font-weight: 600;
+        font-size: clamp(18px, 1.25vw, 24px);
+        line-height: 150%;
+        letter-spacing: 0%;
+        margin-bottom: 2.083vw;
+        margin-top: 2.083vw;
+    }
+
+    .series-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 2.083vw;
+
+        .season-header {
+            // width: 1567;
+            // height: 100;
+            display: flex;
+            justify-content: space-between;
+            border-radius: 0.625vw;
+            padding: 1.25vw 2.604vw;
+            border-width: 1px;
+            border: 0.052vw solid $black-15;
+            background: $black-06;
+
+            .season-no-episode-no {
+                display: flex;
+                gap: 0.521vw;
+                align-items: center;
+
+                .season-number {
+                    font-weight: 600;
+                    font-size: clamp(18px, 1.25vw, 24px);
+                    line-height: 150%;
+                    letter-spacing: 0%;
+                    color: $secondary-60;
+                    @media(max-width: 870px) {
+                        font-size: clamp(13px, 0.938vw, 18px);
+                    }
+                }
+
+                .no-of-episodes {
+                    font-weight: 500;
+                    font-size: clamp(12px, 0.938vw, 18.01px);
+                    line-height: 150%;
+                    letter-spacing: 0%;
+                    color: $grey-60;
+                    @media(max-width: 870px) {
+                        font-size: clamp(10px, 0.938vw, 12px);
+                    }
+                }
+            }
+
+            .season-header-toggle {
+                width: clamp(30px, 2.708vw, 51.994px);
+                aspect-ratio: 1 / 1;
+                // gap: 0.521vw;
+                border-radius: 50%;
+                border: 0.052vw solid $black-15;
+                padding: clamp(3px, 0.729vw, 13.997px);
+                background-color: $black-08;
+
+                .align-content {
+                    margin: auto;
+
+                    img {
+                        width: clamp(12px, 1.25vw, 24px);
+                        aspect-ratio: 1 / 1;
+                        height: auto;
+                        margin: auto;
+                    }
+                }
+            }
+        }
+
+    }
+}

@@ -1,0 +1,17 @@
+@import "../../../_global.scss";
+
+.contactus-page-img-wrapper{
+    width: 100%;
+    aspect-ratio: 1594 / 835;
+    margin: auto;
+    margin-top: 1.25rem;
+    // background-image: url('../../../../public/assets/contactpage-img.png');
+    .contactus-page-img {
+        width: 100%;
+        height: 100%;
+        
+        object-fit: cover;
+    border-radius: 12px;
+
+    }
+}

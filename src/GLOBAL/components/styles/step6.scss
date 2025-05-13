@@ -1,0 +1,117 @@
+    @import "../../../global.scss";
+
+    .step6 {
+        color: $secondary-60;
+        margin-top: 2.135vw;
+
+        .mobile-money-header-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 0.573vw;
+            text-align: center;
+            margin-bottom: 1.797vw;
+
+            .mobile-money-header {
+                font-weight: 500;
+                font-size: clamp(18px, 1.25vw, 24px);
+                line-height: clamp(28px, 1.667vw, 32px);
+                letter-spacing: 0%;
+
+            }
+
+            .mobile-money-paragraph {
+                font-weight: 500;
+                font-size: clamp(10px, 0.833vw, 15px);
+                line-height: clamp(14px, 1.25vw, 24px);
+                letter-spacing: 0%;
+
+            }
+        }
+
+        .mobile-money-form {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, .9375vw, 18px);
+            .form-row {
+                gap: 1.51vw;
+                width: 100%;
+            }
+
+
+        }
+
+        .change-selected-plan-wrapper {
+            padding: 1.042vw;
+            background: #0A483433;
+            width: 100%;
+            aspect-ratio: 553/ 83;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 8px;
+            margin-top: 2.188vw;
+
+            .filled-btn {
+                width: 0% !important;
+                gap: 0px !important;
+
+                &.change-plan-link {
+                    background: transparent !important;
+                    width: auto !important;
+                    padding: 0 !important;
+                    gap: 0 !important;
+                    white-space: normal !important; // Let text wrap if needed
+                    text-decoration: underline;
+                    border: none !important;
+                    // Any additional overrides you need
+                    font-weight: 500;
+                    font-size: clamp(12px, 0.938vw, 18px);
+                    line-height: 1.406vw;
+                    letter-spacing: 0%;
+                    text-decoration-style: solid;
+                    text-decoration-offset: Auto;
+                    text-decoration-thickness: Auto;
+
+                }
+            }
+
+            .selected-plan-text {
+                font-weight: 400;
+                font-size: clamp(13px, 0.938vw, 18px);
+                line-height: clamp(23px,1.406vw, 26px);
+                letter-spacing: 0%;
+
+            }
+        }
+
+        .credit-form-checkbox {
+            font-weight: 500;
+            font-size: clamp(10px, 0.938vw, 18.0096px);
+            line-height: clamp(14px, 1.406vw, 26.9952px);
+            letter-spacing: 0%;
+            align-items: start;
+            margin-top: 1.016vw;
+            gap: 0.521vw;
+
+            .checkbox-input {
+                margin-top: clamp(4px, 0.26vw, 5px);
+            }
+        }
+    }
+
+    .start-membership-btn {
+        // width: 553;
+        // height: 63;
+        border-radius: 8.0064px;
+
+        // gap: 0.521vw;
+        padding: clamp(10px, 0.938vw, 18px) clamp(13px, 1.25vw, 24px);
+        box-shadow: 0vw 0.104vw 0vw 0vw #FFFFFF0A inset;
+        font-weight: 600;
+        font-size: clamp(10px, 0.938vw, 18px);
+        line-height: 1.406vw;
+        letter-spacing: 0%;
+        margin-top: 3.073vw;
+
+    }

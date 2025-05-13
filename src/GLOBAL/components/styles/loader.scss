@@ -1,0 +1,36 @@
+@import '../../../global';
+
+:root {
+    --size: 5;
+    
+    @property --nose {
+      syntax: '<percentage>';
+      initial-value: 0%;
+      inherits: false;
+    }
+  
+    @property --tail {
+      syntax: '<percentage>';
+      initial-value: 0%;
+      inherits: false;
+    }
+  }
+  
+
+
+
+.loader {
+  // margin-left: 10px;
+  display: inline-block;
+  width: clamp(15px, 1.3021vw, 25px);               // small size to match your mockup
+  aspect-ratio: 1 / 1;
+  border: 2px solid transparent; 
+  border-top-color: #fff;      // only draw the top arc in white
+  border-right-color: #fff;    // and the right arc
+  border-radius: 50%;          // make it circular
+  animation: spin 0.75s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

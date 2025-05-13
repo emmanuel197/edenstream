@@ -1,0 +1,55 @@
+@import "../../../global.scss";
+
+.step4 {
+    color: $secondary-60;
+    margin-top: clamp(20px, 2.135vw, 40px);
+    .how-to-pay-wrapper {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        gap: 11px;
+        margin-bottom: 7.24vw;
+        .how-to-pay-header {
+            font-weight: 500;
+            font-size: clamp(16px, 1.25vw, 24px);
+            line-height: 1.667vw;
+            letter-spacing: 0%;
+            text-align: center;
+
+        }
+
+        .how-to-pay-paragraph {
+            font-weight: 500;
+            font-size: clamp(10px, 0.833vw, 15px);
+            line-height: clamp(14px, 1.25vw, 24px);
+            letter-spacing: 0%;
+            text-align: center;
+
+        }
+    }
+
+    .payment-options-btn-group {
+        display: flex;
+        flex-direction: column;
+        gap: 1.536vw;
+        margin-bottom: 12.135vw;
+        .credit-debit-btn,
+        .momo-btn {
+            width: 100%;
+            font-weight: 400;
+            font-size: clamp(12px, 0.938vw, 18px);
+            line-height: 1.406vw;
+            letter-spacing: 0%;
+
+            .align-content {
+                flex-direction: row-reverse;
+                justify-content: space-between !important;
+            }
+        }
+
+        .momo-btn {
+            background: $black-08;
+            border: 1px solid $secondary-40;
+            }
+    }
+}

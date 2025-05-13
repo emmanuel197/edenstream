@@ -1,0 +1,62 @@
+@import "../../../_global.scss";
+
+#contactForm {
+
+    padding: 2.604vw;
+    // margin: auto;
+    display: flex;
+    flex-direction: column;
+    row-gap: 3.125rem;
+
+    .form-row {
+        column-gap: 2.604vw;
+        justify-content: center;
+
+        &.checkbox-sendmsg-wrapper {
+            justify-content: space-between;
+            align-content: center;
+            
+        }
+
+        .checkbox-group {
+            &.contactus-checkbox {
+                display: flex;
+                align-items: center;
+                .checkbox-label {
+                    font-family: Manrope;
+                    font-weight: 400;
+                    font-size: clamp(13px, 0.938vw, 18.01px);
+                    line-height: 1.406vw;
+                    letter-spacing: 0%;
+                    color: $grey-60;
+                }
+
+                .checkbox-input {
+                    appearance: none;
+                    /* Standard property */
+                    -webkit-appearance: none;
+                    /* Safari/WebKit prefix */
+                    outline: none;
+                    margin: 0;
+                    padding: 0;
+                    cursor: pointer;
+                    accent-color: $black-06;
+                    width: clamp(15px, 1.458vw, 27.994px);
+                    height: clamp(15px, 1.458vw, 27.994px);
+                }
+            }
+        }
+
+        .sendmsg-btn {
+            padding: clamp(8px, 0.938vw, 18.01px) 1.25vw;
+            border-radius: 0.417vw;
+            font-weight: 600;
+            font-size: clamp(13px, 0.938vw, 18.01px);
+            line-height: clamp(20px, 1.406vw, 26.995px);
+            letter-spacing: 0%;
+
+        }
+
+        ;
+    }
+}

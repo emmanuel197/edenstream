@@ -1,0 +1,146 @@
+@import '../../../global';
+
+.landing-page-dynamic-btns {
+    padding-top: 0.1rem !important;
+    padding-bottom: 0.1rem !important;
+    width: auto !important;
+    div {
+        p {
+            @media screen and (max-width: 490px) {
+                font-size: 0.7rem;
+              }
+        }
+    }
+    
+}
+
+.filled-btn {
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+    font-size: clamp(10px, 0.75vw, 14.4px);
+    font-weight: 600;
+    // div {
+    background: $primary-main;
+    color: $secondary-60;
+    transition: 0.4s all;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    gap: 0.5rem;
+    user-select: none;
+    padding: .82rem;
+    white-space: nowrap;
+    cursor: pointer;
+    border-radius: 5px;
+    &.notification-icon, &.search-icon, &.watch-pause-play, &.mute-unmute, &.rewind-10, &.forward-10, &.video-settings-icon, &.pictureinpicture, &.watch-fullscreen, &.watch-back-arrow, &.watch-replay {
+        width: fit-content;
+        padding: 0px;
+        
+        .align-content {
+            width: fit-content;
+
+            img {
+                margin-right: auto;
+            }
+        }
+
+        &:hover {
+            background: none !important;
+        }
+    }
+    &.with-icon {
+        width: auto;
+    }
+    .align-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    img {
+        width: 20px;
+        height: 20px;
+        transition: filter 0.4s, width 0.4s, height 0.4s;
+        margin-right: 0.5rem;
+        @media only screen and (max-width: 300px) {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &:hover {
+        background: $button-hover;
+    }
+    @media only screen and (max-width: 300px) {
+        padding: .5rem;
+      }
+
+    // }
+}
+
+.outline-btn {
+    border-radius: 2px;
+    transition: 0.4s all;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: max-content;
+    gap: 0.5rem;
+    padding: 0.6rem;
+    white-space: nowrap;
+    // cursor: pointer;
+    border-radius: 2px;
+    border: 2px solid #fff;
+    color: #fff;
+    width: max-content;
+    text-decoration: none;
+    user-select: none;
+    cursor: pointer;
+
+    .align-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    img {
+        width: 20px;
+        height: 20px;
+        transition: filter 0.4s, width 0.4s, height 0.4s;
+        margin-right: 0.5rem;
+
+        @media only screen and (max-width: 300px) {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    &:hover {
+        background: #fff;
+        color: #000;
+
+        img {
+            filter: invert(1);
+          }
+    }
+}
+
+button {
+    border: none;
+    outline: none;
+    user-select: none;
+
+    &:disabled {
+        cursor: no-drop;
+        background: $btn-disabled-color;
+    }
+}
+
+// @media screen and (max-width:480px) {
+//     .outline-btn,
+//     .filled-btn div {
+// width: 100%;
+// justify-content: center;
+//     }
+// }

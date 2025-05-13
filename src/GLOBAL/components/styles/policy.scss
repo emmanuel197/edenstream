@@ -1,0 +1,45 @@
+// _Policy.scss
+@import "../../../_global.scss";
+.policy-container {
+    max-width: 768px; // Equivalent to max-w-3xl
+    margin: auto;
+    padding: 8rem 1.25rem 2rem; // Equivalent to py-32 pt-20 px-5
+    line-height: 2.5rem; // Equivalent to leading-[40px]
+    color: $tertiary_color;
+    button {
+        color: $kg_color; // Replace with your secondary color variable
+        transition: opacity 0.3s ease;
+        background: none;
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+
+    h2 {
+        font-size: 1.5rem; // Equivalent to lg:text-2xl
+        font-weight: bold;
+        margin: 1.25rem 0; // Equivalent to my-5
+    }
+
+    h3 {
+        font-size: 2rem; // Equivalent to lg:text-3xl
+        font-weight: 500;
+        margin: 2.5rem 0 1.25rem; // Equivalent to mt-10 mb-5
+    }
+
+    p,
+    b,
+    ul {
+        font-size: 1rem; // Equivalent to text-[14px]
+    }
+
+    ul {
+        margin-top: 1rem;
+        list-style-type: disc;
+        padding-left: 1.5rem; // Ensures correct spacing for list items
+    }
+
+    br {
+        margin-top: 1rem;
+    }
+}

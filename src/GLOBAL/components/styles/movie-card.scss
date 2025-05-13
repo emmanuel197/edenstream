@@ -1,0 +1,161 @@
+@import '../../../global.scss';
+
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    aspect-ratio: 1 / 1;
+    padding: clamp(8px, 0.833vw, 16px);
+    border-radius: 10px;
+    border: 0.0625rem solid $black-15;
+    row-gap: .8333vw;
+
+    @media (max-width: 650px) {
+        aspect-ratio: 178.39999389648438 / 259;
+
+
+    }
+
+    &.moviecard-profile {
+        background: $black-10;
+        border: 1.0003px solid $black-15;
+    }
+
+    .mc-image-wrapper {
+        position: relative;
+        width: 100%;
+
+        .mc-image {
+            width: 100%;
+            border-radius: 10px;
+            aspect-ratio: 339.75 / 268;
+            object-fit: fill;
+
+            @media (max-width: 650px) {
+                aspect-ratio: 154.39999389648438 / 193;
+            }
+
+            @media (max-width: 500px) {
+                object-fit: cover;
+            }
+        }
+
+        .image-overlay-wrapper {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+
+            .delete-watch-history {
+                position: absolute;
+                top: .6557vw;
+                right: .6708vw;
+                width: clamp(24px, 2.5521vw, 49px);
+                height: auto;
+
+                &:hover {
+                    path {
+                        fill: #619267;
+                    }
+                }
+            }
+
+            &.starts-in-bg {
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+                    linear-gradient(0deg, rgba(10, 72, 52, 0.6), rgba(10, 72, 52, 0.6));
+                border-radius: .521vw;
+            }
+
+            .starts-in-text {
+                align-self: center;
+                margin: auto;
+                font-weight: 600;
+                font-size: 1.25vw;
+                line-height: 150%;
+                letter-spacing: 0%;
+                text-align: center;
+                color: $secondary-60;
+
+                .starts-in-paragraph {
+                    text-align: center;
+                }
+            }
+
+            .image-overlay-vector {
+                align-self: center;
+                margin: auto;
+                width: clamp(22px, 2.3034vw, 44.22px);
+                aspect-ratio: 44.2257080078125/ 46.910003662109375;
+
+
+                // justify-content: center;
+            }
+
+            .new-episode-badge {
+                width: clamp(80px, 7.396vw, 142.003px);
+                // height: 2.625rem;
+                aspect-ratio: 142.003 / 42;
+                position: absolute;
+                bottom: 0;
+                padding: clamp(3px, 0.313vw, 6.01px);
+
+                // gap: 0.625rem;
+                border-bottom-left-radius: 0.625rem;
+                font-weight: 600;
+                font-size: clamp(8px, 0.833vw, 15.994px);
+                line-height: clamp(18px, 1.25vw, 24px);
+                letter-spacing: 0%;
+                text-align: center;
+
+                color: $secondary-40;
+                background: linear-gradient(137deg, rgba(97, 146, 103, 0.70) 6.32%, rgba(91, 127, 96, 0.63) 44.93%);
+
+            }
+        }
+    }
+
+    .mc-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 2.656vw;
+        background-color: $black-08;
+        border: 1px solid $black-15;
+        padding: clamp(4px, 0.313vw, 6px) clamp(12px, 29vw, 14px);
+        width: 100%;
+
+        &.episode-title {
+            width: fit-content
+        }
+
+        &.mc-content-bg {
+            background-color: $red-45;
+
+        }
+
+        .mc-title {
+            color: $secondary-60;
+            font-weight: 600;
+            font-size: clamp(8px, 0.833vw, 15.994px);
+            line-height: 1.25vw;
+            letter-spacing: 0%;
+            text-align: center;
+
+            @media (max-width: 650px) {
+                font-size: clamp(10px, 0.833vw, 15.994px);
+                line-height: 150%;
+            }
+
+        }
+    }
+}
+
+.poster-img-placeholder {
+    width: 100%;
+    border-radius: 10px;
+    background: #2b0e42;
+    height: max-content;
+    margin-bottom: 10px;
+}

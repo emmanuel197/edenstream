@@ -1,0 +1,8 @@
+.vercel
+node_modules/
+build/
+.DS_Store
+dist/
+.env
+.cache
+.idea/

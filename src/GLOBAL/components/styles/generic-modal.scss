@@ -1,0 +1,61 @@
+@import "../../../global.scss";
+
+.generic-modal-section {
+    display: flex;
+    flex-direction: column;
+    background: $black-08;
+    position: absolute;
+    border-radius: clamp(40px, 3.125vw, 60px);
+    top: 2.8125v;
+    left: .5208vw;
+
+    .modal-content-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-left: auto;
+        margin-right: auto;
+       
+        .modal-content-img {
+            width: clamp(80px, 8.3333vw, 160px);
+            aspect-ratio: 1 / 1;
+
+            
+        }
+
+        .modal-content-text {
+            display: flex;
+            align-items: center;
+            flex-direction: column;
+
+            .modal-content-header {
+                color: $white;
+                font-weight: 700;
+                font-size: clamp(18px, 1.25vw, 24px);
+                line-height: 150%;
+                letter-spacing: 0%;
+                text-align: center;
+
+            }
+
+            .modal-content-paragraph {
+                color: $grey-60;
+                font-weight: 400;
+                font-size: clamp(10px, .8333vw, 16px);
+                line-height: 150%;
+                letter-spacing: 0%;
+                text-align: center;
+
+            }
+        }
+
+        .modal-buttons-container {
+            display: flex;
+            margin-left: auto;
+            margin-right: auto;
+            gap: 10px;
+        }
+    }
+
+    
+}

@@ -1,0 +1,106 @@
+@import "../../../_global.scss";
+
+.plan-card {
+    display: flex;
+    border-radius: 12px;
+    flex-direction: column;
+    background-color: $black-10;
+    row-gap: clamp(20px, 2.604vw, 49.997px);
+    padding: clamp(20px, 2.604vw, 49.997px);
+    max-width: 100%; // Keeps consistency
+    flex: 1; // Allows responsiveness
+
+    @media (max-width: 650px) {
+        max-width: 80%;
+        
+    }
+
+    @media (max-width: 420px) {
+        max-width: 100%;
+    }
+
+    // aspect-ratio: 6 / 5;
+    // min-width: 200px; // Prevents shrinking too much
+    ;
+
+    &-text {
+        display: flex;
+        flex-direction: column;
+        row-gap: clamp(12px, 0.833vw, 15.994px);
+
+        .plan-card-header-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .plan-card-header {
+                // font-size: 1.5rem;
+                color: $secondary-60;
+                font-size: clamp(20px, 1.25vw, 24px); // Adapts to screen size
+
+                @media (max-width: 876px) {
+                    font-size: clamp(15px, 1.042vw, 20px);
+                }
+            }
+
+            .current-plan-badge {
+                color: $white;
+                font-weight: 500;
+                font-size: clamp(10px, .7292vw, 14px);
+                line-height: clamp(14px, .9375vw, 18px);
+                letter-spacing: 0%;
+                display: flex;
+                align-items: center;
+                border: 2px solid #619267; // ensures the border area is actually there
+                border-radius: 8px;
+                padding: clamp(7px, .7292vw, 14.0006px) clamp(15px, 1.0417vw, 20.0006px);
+            }
+        }
+
+        // Distributes space evenly
+        .plan-card-paragraph {
+            font-size: clamp(10px, 0.938vw, 18.01px);
+            color: $grey-60;
+            // flex-grow: 0.2;
+        }
+
+    }
+
+
+    &-price {
+
+
+        color: $secondary-60;
+        align-items: center;
+        // font-size: 2.5rem;
+        font-size: clamp(30px, 2.083vw, 39.994px);
+
+        @media (max-width: 850px) {
+            font-size: clamp(20px, 2.083vw, 39.994px);
+        }
+
+        .plan-duration {
+            color: $grey-60;
+            font-size: clamp(12px, 0.938vw, 18.01px);
+
+        }
+    }
+
+    .choose-plan-btn {
+        position: relative;
+        width: 100%;
+        padding: clamp(8px, 0.938vw, 18.01px) clamp(20px, 1.25vw, 24px);
+        // gap: 0.521vw;
+        border-radius: 8.0064px !important;
+        font-weight: 600;
+        font-size: clamp(10px, 0.938vw, 18.01px);
+        line-height: 1.406vw;
+        letter-spacing: 0%;
+        
+        overflow: hidden;
+        
+        &.selected-plan {
+            background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+        }
+    }
+}

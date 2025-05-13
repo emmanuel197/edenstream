@@ -1,0 +1,56 @@
+@import "../../../_global.scss";
+
+.content-card {
+    padding: clamp(15px, 1.563vw, 30.01px);
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid $black-15;
+    position: relative;
+    aspect-ratio: 16/9;
+
+    .card-image-wrapper {
+
+        // height: 15.75rem;
+        position: relative;
+        width: 100%;
+
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+        }
+
+        .image-overlay {
+            width: 100%;
+            height: 100%;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(26, 26, 26, 0) 0%, #1A1A1A 101.79%);
+
+        }
+    }
+
+    .card-content {
+        .card-title {
+            color: $secondary-40;
+            display: flex;
+            justify-content: space-between;
+            font-weight: 600;
+            font-size: clamp(13px, 0.938vw, 18.01px);
+            line-height: clamp(20px, 1.406vw, 27px);
+            letter-spacing: 0%;
+
+            // max-width: 12.8375rem;
+            &::after {
+                content: url('../../../../public/assets/svg/ArrowRight.svg');
+                width: 1.563vw;
+                height: 1.563vw;
+            }
+        }
+    }
+}

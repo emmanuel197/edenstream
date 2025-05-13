@@ -1,0 +1,38 @@
+@import '../../../global.scss';
+.faqs {
+    color: black;
+    .faqs-header {
+        // color: $kinder_color;
+        
+    
+            @media only screen and (max-width: 500px) {
+                font-size: 1.1rem;
+            }
+    
+           
+    }
+    .faq-section {
+        display: flex;
+        flex-direction: column;
+        // &:not(:first-child) {
+        margin-top: 1rem;
+        // }
+        .faq-section-header {
+            @media only screen and (max-width: 500px) {
+                font-size: 0.9rem;
+            }
+        }
+        .faq-section-body-text {
+            margin-bottom: 1rem;
+
+            
+        
+               
+                @media only screen and (max-width: 500px) {
+                    font-size: 0.8rem;
+                }
+               
+        }
+    }
+    
+}

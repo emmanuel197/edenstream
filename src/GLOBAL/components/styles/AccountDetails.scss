@@ -1,0 +1,225 @@
+@import "../../../_global.scss";
+
+.tab-wrapper {
+  max-width: 1136px;
+  margin: auto;
+  padding: 20px 0;
+}
+
+.purchases-container {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 2;
+
+  .purchase-item {
+    margin: 20px;
+    margin-left: 0;
+    // border-bottom: 1px solid #ccc;
+    // border-right: 1px solid #ccc;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    line-height: 21px;
+    font-size: small;
+  }
+}
+
+.message-unread {
+  background: #f1f1f1;
+}
+
+.message-item {
+  margin-bottom: 5px;
+  padding: 10px;
+  line-height: 22px;
+  background: #f1f1f1cc;
+
+  &:hover {
+    background: transparent;
+  }
+
+  .date-time {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.account-details {
+  .account-sub {
+    display: flex;
+    margin: 2rem 0 2rem 0;
+
+    .blue {
+      color: #104660;
+    }
+
+    .account-sub-text,
+    .account-sub-info,
+    .account-sub-edits {
+      flex: 1;
+    }
+
+    .account-sub-text {
+      p {
+        text-align: left;
+        margin-left: 3rem;
+        font-size: $account_desc_font;
+      }
+    }
+
+    .account-sub-info {
+
+      // flex: 3;
+      p {
+        line-height: 1.5rem;
+      }
+
+      .sub-date {
+        display: flex;
+        margin: 0 0 0.5rem 0;
+
+        .date {
+          margin: 0 0 0 3rem;
+
+          p {
+            color: gray;
+            font-size: $device_info_font;
+          }
+        }
+      }
+
+      .device {
+        flex-wrap: wrap;
+        display: flex;
+
+        .inside-device {
+          display: flex;
+          flex: 1;
+
+          .laptop-info {
+            display: flex;
+
+            .laptop,
+            .info {
+              flex: 1;
+            }
+
+            .info {
+              margin-left: 0.5rem;
+
+              .added-date {
+                display: flex;
+
+                p {
+                  font-size: $device_info_font;
+                  // line-height: 1rem;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .account-sub-edits {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      line-height: 1.5rem;
+      color: $account_edit_color;
+      cursor: pointer;
+
+      .payment {
+        line-height: 2rem;
+      }
+    }
+  }
+
+  .container {
+    .inside-account-details {
+      padding: 10px;
+      margin-top: 50px;
+
+      & ::-webkit-scrollbar {
+        display: none;
+      }
+
+      .account-headers {
+        display: flex;
+        background-color: #fff;
+        overflow-x: scroll;
+
+        .account,
+        .messages,
+        .settings,
+        .help {
+          flex: 1;
+          background-color: whitesmoke;
+          white-space: nowrap;
+
+          p {
+            text-align: center;
+            font-size: $normal_font;
+            font-weight: 500;
+            padding: 1rem;
+
+            &:hover {
+              background-color: $account_gray;
+              cursor: pointer;
+            }
+          }
+        }
+
+        .active-tab {
+          background: #ccc;
+        }
+      }
+
+      .divider {
+        height: 3px;
+        width: 100%;
+        background-color: whitesmoke;
+      }
+
+
+    }
+  }
+}
+
+@media only screen and (max-width: 855px) {
+
+  .tab-wrapper {
+    margin-left: 0;
+    padding: 30px;
+  }
+
+  .account-sub-text {
+    margin-bottom: 1rem;
+
+    p {
+      margin-left: 0 !important;
+    }
+  }
+
+  .account-sub {
+    margin-bottom: 1rem;
+    flex-direction: column;
+  }
+
+  .account-sub-edits {
+    margin-bottom: 1rem;
+    justify-content: start !important;
+    align-items: start !important;
+  }
+
+  .account-sub-info {
+    margin-bottom: 1rem;
+
+    .sub-date {
+      flex-direction: column;
+
+      .date {
+        margin: 0 !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,189 @@
+@import "../../../global.scss";
+
+.date-range-picker {
+  width: 100%;
+  margin: clamp(13px, 1.0417vw, 20px) auto;
+  font-family: 'Arial', sans-serif;
+  border: 1px solid #619267;
+  border-radius: 8px;
+  padding: .8333vw;
+  background: $black-06;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: clamp(10px, .8333vw, 16px);
+    position: relative;
+
+    .current-date-wrapper {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.4167vw;
+      padding: 0.4167vw 0.8333vw;
+      border-radius: 0.4167vw;
+
+      transition: all 0.2s;
+
+      &:hover {
+        background: rgba(97, 146, 103, 0.2);
+      }
+
+      .date-picker-caret {
+        width: .8333vw;
+        aspect-ratio: 1 / 1;
+
+      }
+
+      .date-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: $black-06;
+        border: 1px solid #619267;
+        border-radius: 0.8333vw;
+        box-shadow: 0 0.4167vw 2.0833vw rgba(0, 0, 0, 0.15);
+        padding: 1.6667vw;
+        z-index: 100;
+        display: flex;
+        gap: 2.0833vw;
+        margin-top: 0.8333vw;
+
+        .dropdown-section {
+          &:not(:last-child) {
+            border-right: 1px solid #619267;
+            padding-right: 2.0833vw;
+          }
+        }
+
+        .dropdown-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.8333vw;
+          max-height: 16.6667vw;
+          overflow-y: auto;
+
+          .dropdown-item {
+            padding: 0.4167vw 0.8333vw;
+            border-radius: 0.4167vw;
+            cursor: pointer;
+            text-align: center;
+            font-size: clamp(10px, 0.8333vw, 16px);
+            color: #CCCCCC;
+            transition: all 0.2s;
+
+            &:hover {
+              background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+              color: white;
+            }
+          }
+        }
+      }
+    }
+
+    .date-header-controls {
+      display: flex;
+
+
+      button {
+        background: none;
+        width: clamp(14px, 1.25vw, 24px);
+        aspect-ratio: 1 / 1;
+        color: #CCCCCC;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.2s;
+
+        &:hover {
+          background: rgba(97, 146, 103, 0.3);
+        }
+      }
+    }
+
+    h2 {
+      margin: 0;
+      color: #FFFFFF;
+      font-family: Inter;
+      font-weight: 600;
+      font-size: clamp(10px, .8333vw, 16px);
+      line-height: 150%;
+    }
+  }
+
+  .day-names {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    margin-bottom: 0.8333vw;
+    color: $white;
+    font-family: Inter;
+    font-weight: 400;
+    font-size:  clamp(10px, .8333vw, 16px);
+
+    div {
+      width: 4.2634vw;
+      height: 1.25vw;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+
+    .day {
+      width: 4.2634vw;
+      aspect-ratio: 4.2634 / 1.6667;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 400;
+      font-size: clamp(10px,.8333vw, 16px);
+      color: #CCCCCC;
+      cursor: pointer;
+      transition: all 0.2s;
+      @media (max-width: 840px) {
+        width: 100%;
+      }
+      &.other-month {
+        color: #666666;
+        background: rgba(10, 72, 52, 0.3);
+      }
+
+      &.selected {
+        color: white;
+
+        span {
+          background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+          width: 1.6667vw;
+          aspect-ratio: 1 / 1;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+      }
+
+      &.in-range {
+        background: rgba(97, 146, 103, 0.2);
+      }
+
+      &:hover:not(.other-month) {
+        background: rgba(97, 146, 103, 0.15);
+      }
+    }
+  }
+
+  .download-history {
+    h3 {
+      color: white;
+      font-size: 0.8333vw;
+      margin-bottom: 0.8333vw;
+    }
+  }
+}

@@ -1,0 +1,37 @@
+.accountsetup-success {
+    display: flex;
+    flex-direction: column;
+    gap: 2.0833vw;
+    align-items: center;
+
+    .accountsetup-success-img {
+        width: 28.7216vw;
+        aspect-ratio: 551.4539794921875 / 453.4216613769531;
+       
+        
+    }
+    .accountsetup-success-text {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px, .8333vw, 16px);
+
+        .account-setup-success-header {
+            font-weight: 700;
+            font-size: clamp(18px, 1.25vw, 24px);
+            line-height: 150%;
+            letter-spacing: 0%;
+            text-align: center;
+            color: #619267;
+            
+        }
+
+        .account-setup-success-paragraph {
+            font-weight: 400;
+            font-size: clamp(10px, .8333vw, 16px);
+            line-height: 150%;
+            letter-spacing: 0%;
+            text-align: center;
+            color: $grey-60;
+        }
+    }
+}

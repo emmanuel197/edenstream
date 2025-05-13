@@ -1,0 +1,19 @@
+@import "../../../global";
+
+.pay-per-view-main {
+    padding: 50px;
+
+    .page-label {
+        background: $kg_color;
+        border-radius: 9px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 19px;
+        font-weight: bold;
+        gap: 10px;
+        width: max-content;
+        margin: auto;
+    }
+}

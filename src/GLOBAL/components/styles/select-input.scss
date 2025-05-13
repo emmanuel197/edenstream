@@ -1,0 +1,86 @@
+// @import '../../../global.scss';
+
+// .form-group {
+//     .field-label {}
+
+//     .form-control {
+//         flex: 1; // 2) let each input share the row
+//         min-width: 0;
+        
+
+
+//     }
+
+//     select {
+//         width: 28.802vw;
+//         background-position: right 1.042vw center !important;
+//     background-image: url('../../../../public/assets/svg/add-momo-select-down.svg');
+//     background-repeat: no-repeat;
+//     background-color: transparent;
+//         appearance: none;
+//         -webkit-appearance: none;
+//         -moz-appearance: none;
+//         background-size: 1.25vw 1.25vw; // Adjust as needed    
+
+//     }
+// }
+
+@import '../../../global.scss';
+
+.form-group {
+  width: 100%;
+  .field-label {
+    // Your label styling (if any)
+  }
+
+  // New wrapper to hold the icon and select element together
+  .select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background-color: $black-08;
+    border: 0.0521vw solid $secondary-40;
+    border-radius: 8.0064px;
+    // Styles for the icon inside the select
+    .select-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      // When the icon is placed to the left of the select
+      &.left {
+        margin-right: 0.5rem; // Adjust spacing as needed
+      }
+
+      // When the icon is placed to the right of the select
+      &.right {
+        margin-left: 0.5rem; // Adjust spacing as needed
+      }
+    }
+  }
+
+  .form-control {
+    flex: 1; // 2) let each input share the row
+    min-width: 0;
+  }
+
+  // Original select styling
+  select {
+    padding: clamp(9.9994px, 1.042vw, 20.0006px);
+    background-position: right 1.042vw center !important;
+    background-image: url('../../../../public/assets/svg/add-momo-select-down.svg');
+    background-repeat: no-repeat;
+    background-color: transparent;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-size: clamp(12px, 1.25vw, 24px) clamp(12px, 1.25vw, 24px); // Adjust as needed
+    border: none;
+    color: $secondary-60;
+
+    &:focus {
+      outline: none;
+      border: none;
+    }
+  }
+}

@@ -1,0 +1,96 @@
+@import "../../../_global.scss";
+
+.want-to-access-section {
+    position: relative;
+    display: flex;
+    align-items: center;
+    // height: 836px;
+    background-image: url('../../../../public/assets/want-to-access-bg-img.png');
+    background-size: contain;
+    // width: 100%;
+    aspect-ratio: 1920 / 836;
+    
+    .fade-out-top {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0vw;
+        background: linear-gradient(180deg, #141414, rgba(20, 20, 20, 0));
+    }
+
+    .wta-content-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+        margin: auto;
+        row-gap: 2.604vw;
+        width: 57.083vw;
+        @media (max-width: 670px) {
+            width: 100%;
+            padding: clamp(40px, 49.997px, 50px) clamp(20px, 1.563vw, 30px);
+          } 
+        //   @media (max-width: 470px) {
+        //     width: 90%;
+        //   }
+        .wta-header-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            row-gap: 0.729vw;
+
+            .want-to-access-section-header {
+                font-weight: 700;
+                font-size: clamp(30px, 3.021vw, 58.003px);
+                line-height: clamp(43px, 4.531vw, 86.995px);
+                letter-spacing: 0%;
+                text-align: center;
+                color: $secondary-60;
+
+                @media (max-width: 876px) {
+                    font-size: clamp(18px, 1.25vw, 24px);
+                  }
+                  @media (max-width: 710px) {
+                    line-height: clamp(25px, 3vw, 57.6px);
+                  } 
+            }
+
+            .want-to-access-section-paragraph {
+                font-weight: 400;
+                font-size: clamp(13px, 0.938vw, 18.01px);
+                line-height: clamp(20px, 1.406vw, 26.995px);
+                letter-spacing: 0%;
+                text-align: center;
+                color: $secondary-40;
+                @media (max-width: 500px) {
+                    line-height: 150%
+                  } 
+                  @media (max-width: 876px) {
+                    font-size: clamp(10px, 0.729vw, 14px);
+                  }
+            }
+        }
+
+        .wta-get-started-button {
+            font-weight: 600;
+            font-size: clamp(13px, 0.938vw, 18.01px);
+            line-height: clamp(20px, 1.406vw, 26.995px);
+            letter-spacing: 0%;
+            display: flex;
+            padding: clamp(4px, 0.938vw, 18.01px) clamp(13px, 1.25vw, 24px);
+            gap: 0.208vw;
+            border-radius: 0.521vw;
+
+        }
+
+    }
+
+    .fade-out-bottom {
+        height: 30.26vw;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        background: linear-gradient(180deg, rgba(20, 20, 20, 0.5), #141414);
+    }
+
+}

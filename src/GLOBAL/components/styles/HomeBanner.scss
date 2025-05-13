@@ -1,0 +1,149 @@
+@import "../../../_global.scss";
+
+.homebanner {
+  position: relative;
+
+  .video {
+    background-color: $primary_color;
+  }
+  .desc {
+    position: absolute;
+    top: 30%;
+    border-radius: 10px;
+  }
+
+  .sound {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    background-color: $kg_color;
+    width: 5rem;
+    height: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    svg {
+      // transform: scale(3);
+      height: 50%;
+      width: 50%;
+      color: $secondary_color;
+      cursor: pointer;
+    }
+    // align-items: center;
+    // justify-content: center;
+  }
+
+  .description {
+    background-color: $primary_color;
+    // opacity: 0.8;
+    padding: 1.5rem;
+    max-width: 400px;
+
+    h1 {
+      color: $tertiary_color;
+      font-weight: normal;
+      font-size: $banner_text;
+      text-align: left;
+    }
+
+    .play-trailer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 1rem;
+      .play {
+        p {
+          svg {
+            font-size: 2rem;
+            color: $secondary_color;
+          }
+
+          .play-text {
+            top: -7px;
+            position: relative;
+          }
+          font-size: $normal_font;
+          border-radius: 5px;
+          background-color: $kg_color;
+          text-align: center;
+          padding: 0.2rem 0.7rem;
+        }
+      }
+
+      .trailer {
+        flex: 1;
+        margin-left: 1rem;
+
+        p {
+          color: $tertiary_color;
+          font-size: $normal_font;
+        }
+      }
+    }
+
+    .excerpt {
+      margin-top: 1.5rem;
+      p {
+        color: gray;
+      }
+    }
+
+    .age {
+      margin-top: 1rem;
+      p {
+        background-color: gray;
+        color: white;
+        display: inline;
+        padding: 0.3rem 1rem;
+        font-size: 0.8rem;
+        border-radius: 5px;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .excerpt,
+  .age {
+    display: none;
+  }
+
+  .description {
+    h1 {
+      font-size: 1.7rem !important;
+    }
+  }
+
+  .play-trailer {
+    .play {
+      p {
+        svg {
+          font-size: 1rem;
+        }
+
+        .play-text {
+          top: -7px;
+          position: relative;
+        }
+        font-size: $m_normal_font !important;
+      }
+    }
+
+    .trailer {
+      p {
+        color: $tertiary_color;
+        font-size: $m_normal_font !important;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .homebanner {
+    .sound {
+      height: 2rem;
+      width: 2rem;
+    }
+  }
+}

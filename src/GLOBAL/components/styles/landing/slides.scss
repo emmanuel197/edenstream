@@ -1,0 +1,329 @@
+
+@import '../../../../global';
+
+html .top-10-movie-card {
+    background: #241431;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 14px;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .card-text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .card-text .category {
+        font-size: small;
+    }
+
+    .card-text .number {
+        // color: $kg_color;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    img {
+        border-radius: 14px;
+        margin-bottom: 20px;
+    }
+}
+
+html {
+    .poster-img-placeholder {
+        width: 100%;
+        border-radius: 14px;
+        background: #2b0e42;
+        height: max-content;
+        margin-bottom: 10px;
+    }
+
+    .livetv-poster-img-placeholder {
+        height: max-content;
+    }
+}
+
+html .livetv-movie-card {
+    .movie-box {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        img {
+            background: #2b0e42;
+            height: fit-content;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+    }
+}
+
+.slides-container {
+    color: #fff;
+
+    .slider-section-name {
+        display: flex;
+        align-items: center;
+
+        img {
+            // background: $kg_color;
+            margin-left: 10px;
+            padding: 7px;
+            border-radius: 9999px;
+            transform: scale(0.7);
+            position: relative;
+            top: -4px;
+            transition: .1s linear;
+            cursor: pointer;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+
+        h3 {
+            z-index: 100;
+            margin-bottom: 5px;
+            margin-left: 10px;
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 700;
+            line-height: 25px;
+            text-transform: uppercase;
+        }
+    }
+
+    .slides-wrapper {
+        max-width: 1500px;
+        margin: auto;
+        // padding: 1rem;
+    }
+
+    .card-text {
+        line-height: 30px;
+        margin-top: -5px;
+
+        .price {
+            display: none;
+        }
+    }
+}
+
+.banner-movie-card {
+    img {
+        display: block;
+        width: 95vw;
+        height: 460px;
+        object-fit: cover;
+        border-radius: 23px;
+    }
+}
+
+html .slides-container {
+
+    .slick-prev:before,
+    .slick-next:before {
+        // color: $kg_color !important;
+        font-size: 2.5rem;
+    }
+}
+
+// html .movie-card {
+//     text-decoration: none;
+//     border-radius: 14px;
+
+//     a {
+//         color: #fff;
+//         text-decoration: none;
+//     }
+//     &:hover {
+//         transform: scale(1.05); /* Slight scale-up effect on hover */
+//     }
+//     img {
+//         // border-radius: 14px;
+//         background: #2b0e42;
+//         width: 100%;
+//         height: 280px;
+//         /* Consistent height for images */
+//         object-fit: contain;
+//         border-radius: 14px;
+        
+//         @media only screen and (max-width: 1211px) {
+//             height: 240px;
+
+            
+//           }
+//         // margin-bottom: 10px;
+//     }
+
+//     .trailer-player {
+//         border-radius: 14px;
+//         background: #2b0e42;
+//         height: 100%;
+//     }
+// }
+
+@import '../../../../global';
+
+html .top-10-movie-card {
+    background: #241431;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 14px;
+
+    a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .card-text {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        white-space: nowrap;
+    }
+
+    .card-text .category {
+        font-size: small;
+    }
+
+    .card-text .number {
+        // color: $kg_color;
+        font-size: 2rem;
+        font-weight: bold;
+    }
+
+    img {
+        border-radius: 14px;
+        margin-bottom: 20px;
+    }
+}
+
+html {
+    .poster-img-placeholder {
+        width: 100%;
+        border-radius: 14px;
+        background: #2b0e42;
+        height: max-content;
+        margin-bottom: 10px;
+    }
+
+    .livetv-poster-img-placeholder {
+        height: max-content;
+    }
+}
+
+html .livetv-movie-card {
+    .movie-box {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+
+        img {
+            background: #2b0e42;
+            height: 150px !important;
+            margin-bottom: 10px;
+            object-fit: cover;
+        }
+    }
+}
+
+.slides-container {
+    color: #fff;
+
+    .slider-section-name {
+        display: flex;
+        align-items: center;
+
+        img {
+            // background: $kg_color;
+            margin-left: 10px;
+            padding: 7px;
+            border-radius: 9999px;
+            transform: scale(0.7);
+            position: relative;
+            top: -4px;
+            transition: .1s linear;
+            cursor: pointer;
+
+            &:hover {
+                opacity: .8;
+            }
+        }
+
+        h3 {
+            margin-bottom: 5px;
+            margin-left: 10px;
+            font-family: 'Open Sans';
+            font-style: normal;
+            font-weight: 700;
+            line-height: 25px;
+            text-transform: uppercase;
+        }
+    }
+
+    .slides-wrapper {
+        max-width: 1500px;
+        margin: auto;
+        // padding: 1rem;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+    }
+
+    .card-text {
+        line-height: 30px;
+        margin-top: -5px;
+
+        
+        .price {
+            display: none;
+        }
+    }
+}
+
+.banner-movie-card {
+    img {
+        display: block;
+        width: 95vw;
+        height: 460px;
+        object-fit: cover;
+        border-radius: 23px;
+    }
+}
+
+html .slides-container {
+
+    .slick-prev:before,
+    .slick-next:before {
+        // color: $kg_color !important;
+        font-size: 2.5rem;
+    }
+}
+
+// html .movie-card {
+//     text-decoration: none;
+//     border-radius: 14px;
+
+//     a {
+//         color: #fff;
+//         text-decoration: none;
+//     }
+
+//     img {
+//         border-radius: 14px;
+//         background: #2b0e42;
+//     }
+
+//     .trailer-player {
+//         border-radius: 14px;
+//         background: #000000;
+//         height: 280px !important;
+//     }
+// }
+

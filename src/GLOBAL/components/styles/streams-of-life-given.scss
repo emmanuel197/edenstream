@@ -1,0 +1,100 @@
+@import "../../../_global.scss";
+
+.streams-of-life-given-section {
+    display: flex;
+    flex-direction: column;
+    row-gap: 4.167vw;
+    padding-top: 4.01vw;
+    position: relative;
+    padding-bottom: clamp(20px, 2.0833vw, 40px); 
+    @media (max-width: 500px) {
+        margin-left: 16px;
+        margin-right: 16px;
+    }
+    .streams-of-life-given-section-header-wrapper {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+
+        .streams-of-life-given-section-header-container {
+            width: 751.008px;
+            display: flex;
+            flex-direction: column;
+            row-gap: 0.729vw;
+
+            .streams-of-life-given-section-header {
+                color: $secondary-40;
+                font-weight: 700;
+                font-size: clamp(30px, 2.5vw, 48px);
+                line-height: clamp(50px, 3.75vw, 72px);
+                letter-spacing: 0%;
+
+                @media (max-width: 876px) {
+                    font-size: clamp(20px, 2.5vw, 48px);
+                    line-height: clamp(25px, 2.604vw, 50px);
+                }
+
+            }
+
+            .streams-of-life-given-section-paragraph {
+                color: $grey-60;
+                font-weight: 600;
+                font-size: clamp(13px, 0.938vw, 18.01px);
+                line-height: clamp(20px, 1.406vw, 26.995px);
+                letter-spacing: 0%;
+                
+            }
+        }
+
+        .view-all-btn {
+            border-radius: 0.521vw;
+            border: 0.026vw solid !important;
+            border-image-source: $view-all-btn-border-color ;
+            box-shadow: 0px 2px 0px 0px #FFFFFF0A inset;
+            background-color: $view-all-btn-bg-color;
+            font-weight: 600;
+            font-size: clamp(13px, 0.938vw, 18.01px);
+            line-height: 1.406vw;
+            letter-spacing: 0%;
+            box-shadow: 0px 2px 0px 0px #FFFFFF0A inset;
+            padding: clamp(5px, 0.521vw, 10.003px) clamp(18px, 1.25vw, 24px);
+        }
+    }
+
+    .streams-of-life-given-content-container {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        position: relative;
+        height: fit-content;
+        /* Hide default scrollbar */
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+        &::-webkit-scrollbar {
+          display: none;
+        }
+    
+        > * {
+          flex: 0 0 calc(25% - 0.78125vw); /* 4 columns with gap math */
+      margin-right: clamp(20px, 1.5625vw, 30px);
+      scroll-snap-align: start;
+        }
+    
+        > *:last-child {
+          margin-right: 0;
+        }
+
+        @media (max-width: 950px) {
+        
+            > * {
+                flex: 0 0 calc(33.33% - 1.0417vw); /* 3 columns with gap adjustment */
+       
+            }}
+            @media (max-width: 630px) {
+            
+                > * {
+                    flex: 0 0 calc(50% - 0.5208vw);
+                   
+                  } }
+    }
+}

@@ -1,0 +1,86 @@
+@import '../../../../global.scss';
+
+.profile-support-section {
+    .profile-support-section-header-wrapper {
+        display: flex;
+        align-items: center;
+        gap: .7813vw;
+        margin-bottom: clamp(20px, 2.1354vw, 41px);
+        @media (max-width: 500px) {
+            padding-left: 15px;
+        }
+        .profile-support-section-header-icon {
+            width: clamp(25px, 2.6476vw, 50.8339px);
+            // height: 45.750003814697266;
+            aspect-ratio: 50.833343505859375 / 45.750003814697266;
+
+        }
+
+        .profile-support-header {
+            font-family: Manrope;
+            font-weight: 600;
+            font-size: clamp(14px, 1.5625vw, 30px);
+            line-height: 1.9792vw;
+            letter-spacing: 0%;
+            color: $white;
+        }
+    }
+
+    .support-main-wrapper {
+        background: #26262699;
+        width: 35.9896vw;
+        // aspect-ratio: 691 / 674;
+        border-radius: 12px;
+        border: 1px solid $black-15;
+        margin: auto;
+        @media (max-width: 840px) {
+            width: 80%;
+        }
+
+        @media (max-width: 500px) {
+            width: 100%;
+        }
+        .support-main {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, .625vw, 12px);
+            width: 31.3542vw;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 6.4063vw;
+            margin-bottom: 8.0729vw;
+            @media (max-width: 840px) {
+                width: 90%;
+            }
+            .support-detail {
+                width: 100%;
+                
+                padding: clamp(10px, .8333vw, 16px);
+                background: $black-08;
+                border: 2px solid $black-20;
+                box-shadow: 0px 1px 0px 0px #363B4740 inset;
+                border-radius: 6px;
+                align-items: center;
+                display: flex;
+
+                &-img {
+                    margin-right: 1.4583vw;
+                    width: clamp(12px, 1.25vw, 24px);
+                    aspect-ratio: 1 / 1;
+                
+                    path {
+                        fill: #619267;
+                    }
+                }
+                
+                &-text {
+                    font-weight: 500;
+                    font-size: clamp(10px, .8333vw, 16px);
+                    line-height: 1.25vw;
+                    letter-spacing: 0%;
+                    color: $white;
+                }
+            }
+        }
+    }
+}

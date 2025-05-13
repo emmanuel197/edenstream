@@ -1,0 +1,63 @@
+@import '../../../global';
+
+.modal-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 2;
+    background: #1a052bc7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    h2,
+    span {
+        color: #000;
+        margin-bottom: 10px;
+    }
+
+    span {
+        position: absolute;
+        top: 0px;
+        right: 14px;
+        font-size: 2.3rem;
+        cursor: pointer;
+        opacity: .4;
+
+        &:hover {
+            color: red;
+        }
+    }
+
+    .modal-content {
+        position: relative;
+        background: #fff;
+        max-width: 400px;
+        padding: 2rem;
+        border-radius: 20px;
+        animation: modal .15s linear;
+    }
+
+    @keyframes modal {
+        0% {
+            opacity: 0;
+            transform: scale(.8);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 9999px;
+        border: 1px solid #D8D8D8;
+        margin: 20px 0;
+        margin-top: 5px;
+    }
+}

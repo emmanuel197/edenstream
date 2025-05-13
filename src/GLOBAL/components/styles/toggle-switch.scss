@@ -1,0 +1,57 @@
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: clamp(20px, 2.0833vw, 40px);
+    aspect-ratio: 40 / 22;
+
+
+    &.disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+
+    // Hide the native checkbox
+    .toggle-switch-input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .toggle-switch-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        border-radius: 2rem;
+        background: linear-gradient(136.62deg, #5B7F60 6.32%, #3E6042 44.93%, #04271C 88.82%);
+
+        transition: background 0.4s, transform 0.4s;
+
+        // White circular knob
+        &::before {
+            content: "";
+            position: absolute;
+            top: .125vw;
+            left: .125vw;
+            width: clamp(10px, .9375vw, 18px);
+            aspect-ratio: 1 / 1;
+            border-radius: 50%;
+            background-color: #fff;
+            transition: transform 0.4s;
+        }
+    }
+
+    // When checkbox is checked, shift the knob to the right
+    .toggle-switch-input:checked+.toggle-switch-slider::before {
+        transform: translateX(clamp(8.6px, 0.9vw, 17.28px)); // Move the circle to the right
+    }
+
+    // If you want a different background when OFF
+    .toggle-switch-input:not(:checked)+.toggle-switch-slider {
+        background: #666; // Or any color for OFF state
+    }
+}

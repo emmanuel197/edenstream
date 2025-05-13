@@ -1,0 +1,393 @@
+@import "../../../_global.scss";
+@import "./step2.scss";
+@import "./step3.scss";
+@import "./step4.scss";
+@import "./step5.scss";
+@import "./step6.scss";
+@import "./change-avatar.scss";
+@import "./accountsetup-success.scss";
+
+
+
+
+  .date-picker-position {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    
+  }
+
+.auth-layer {
+  position: relative;
+  height: 100%; // Takes full height of parent (if parent has a defined height)
+}
+
+.auth-wrapper {
+  display: flex;
+  gap: 7.396vw;
+  width: 100%;
+  flex-direction: row;
+
+  @media (max-width: 650px) {
+    position: relative;
+    min-height: fit-content;
+  }
+
+  // Ensure it takes the full viewport height
+  @media (max-width:790px) {
+    gap: 2.604vw;
+  }
+
+  .form-aside {
+    background: url('../../../../public/assets/signup-bg-img (2).png');
+    min-height: 100px;
+    width: 100%;
+    background-size: cover;
+
+    @media (max-width: 650px) {
+      position: fixed;
+      ;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+  }
+}
+
+.auth-form {
+ 
+  // position: absolute;
+  // top: 0;
+  // left: 0;
+  @media (max-width: 650px) {
+    position: relative; // Change from absolute
+    z-index: 2;
+    padding-bottom: 80px; // Add space for footer
+    padding-top: 50px;
+    // min-height: 100vh;
+  }
+
+  display: flex;
+  width: 100%;
+
+  .auth-form-wrapper {
+    margin-top: 12.813vw;
+    margin-left: 12.604vw;
+    width: 36.875vw;
+    // height: 898px;
+    // aspect-ratio: 708 / 898;
+    border-radius: 0.625vw;
+    background-color: #26262699;
+    position: relative;
+    @media (max-width:790px) {
+      margin-left: auto;
+      width: 90%;
+
+
+    }
+
+    @media (max-width: 650px) {
+      width: 80%;
+      margin-right: auto;
+
+      height: fit-content;
+    }
+
+    .sign-up-pagination {
+      display: flex;
+      gap: 5px;
+      margin-top: 3.9063vw;
+      margin-left: auto;
+      margin-right: auto;
+      width: 18.9063vw;
+
+      .pagination-rectangle {
+        background: $grey-60;
+        width: 4.5313vw;
+        height: 2px;
+        border-radius: 2px;
+
+        &.active-rectangle {
+          background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+        }
+      }
+    }
+
+    &.step3 {
+      width: 47.708vw;
+      aspect-ratio: 916 / 940;
+
+      @media (max-width: 650px) {
+        width: 75%;
+      }
+
+      .auth-form-container {
+        width: 44.063vw;
+
+        @media (max-width: 650px) {
+          width: 80%;
+        }
+      }
+
+      .auth-close-btn {
+        margin-left: auto;
+      }
+    }
+
+    .back-close-btns-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 1.719vw;
+      margin-bottom: clamp(10px, .7292vw, 14px);
+      width: 100%;
+
+      .back-arrow {
+        background: transparent;
+        width: fit-content;
+        padding: 0;
+        margin-left: 3.6224vw;
+
+        .align-content {
+          img {
+            width: clamp(15px, 1.0417vw, 20px);
+            aspect-ratio: 20 / 40;
+
+          }
+        }
+      }
+
+      .auth-close-btn {
+
+        padding: 0;
+        background: transparent;
+        margin-right: 0.924vw !important;
+        margin-left: auto;
+
+        .align-content {
+          width: fit-content;
+
+          img {
+            width: clamp(15px, 1.979vw, 37.997px);
+            aspect-ratio: 1 / 1;
+            height: none;
+          }
+        }
+      }
+    }
+
+
+    .auth-form-container {
+      margin-left: auto;
+      margin-right: auto;
+      width: 29.323vw;
+
+      @media (max-width: 790px) {
+        width: 80%;
+      }
+
+      .auth-form-header {
+        color: $secondary-60;
+        font-weight: 700;
+        font-size: clamp(18px, 1.875vw, 36px);
+        line-height: 2.292vw;
+        letter-spacing: -2%;
+
+      }
+
+      .form-fields {
+        margin-top: clamp(25px, 2.865vw, 55px);
+        display: flex;
+        flex-direction: column;
+        gap: clamp(15px, 1.302vw, 24px);
+
+        .form-row {
+          .signup-textinput {
+            width: 100%;
+
+          }
+
+          input {
+            color: $secondary-60;
+            font-weight: 400;
+            font-size: clamp(10px, 0.938vw, 18.01px);
+            line-height: 1.406vw;
+            letter-spacing: 0%;
+
+            &::placeholder {
+              color: $secondary-60;
+              font-weight: 400;
+              font-size: clamp(10px, 0.938vw, 18.01px);
+              line-height: 1.406vw;
+              letter-spacing: 0%;
+            }
+          }
+        }
+      }
+
+      .signup-next-btn {
+        width: 100%;
+        border-radius: 8px;
+        padding: 0.938vw 1.25vw;
+        background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+
+
+        margin-top: clamp(30px, 4.01vw, 76.992px);
+
+        @media (max-width: 650px) {
+          width: 100%;
+          border-radius: 6px;
+          padding: clamp(8px, .7292vw, 14.0006px, ) clamp(14px, 1.0417vw, 20px);
+
+
+        }
+      }
+
+      .checkbox-signinnow-wrapper {
+        margin-top: 1.615vw;
+        display: flex;
+        flex-direction: column;
+        gap: clamp(16px, 1.615vw, 31px);
+        margin-bottom: 3.49vw;
+
+        .checkbox-group {
+          &.signup-checkbox {
+            .checkbox-label {
+              font-family: Manrope;
+              font-weight: 500;
+              font-size: clamp(8px, 0.938vw, 18.01px);
+              line-height: 1.406vw;
+              letter-spacing: 0%;
+              color: $secondary-60;
+            }
+          }
+        }
+
+        .signin-now-wrapper {
+          display: flex;
+          gap: clamp(4px, 0.417vw, 8.006px);
+          align-items: center;
+
+          .already-have-an-account {
+            color: $linear ;
+            font-weight: 500;
+            font-size: clamp(12px, 0.938vw, 18.01px);
+            line-height: clamp(17px, 1.406vw, 26px);
+            letter-spacing: 0%;
+
+          }
+
+          .signin-now-link {
+            text-decoration: none;
+            font-weight: 500;
+            font-size: clamp(10px, 0.938vw, 18.01px);
+            line-height: clamp(20px, 1.406vw, 26px);
+            letter-spacing: 0%;
+            color: $secondary-40;
+
+          }
+        }
+      }
+
+      .forget-password-wrapper {
+        display: flex;
+        justify-content: end;
+        margin-top: 23px;
+
+        .forget-password-link {
+          text-align: right;
+          font-weight: 400;
+          font-size: clamp(10px, 0.938vw, 18px);
+          line-height: clamp(20px, 1.406vw, 27px);
+          letter-spacing: 0%;
+          color: $secondary-60;
+          text-decoration: none;
+
+        }
+      }
+
+    }
+  }
+
+  .signup-page-bg {}
+}
+
+
+// .signup {
+//   height: 80vh;
+//   background: linear-gradient(rgba(26, 5, 43, 0.58), rgba(26, 5, 43, 0.58)),
+//     url("");
+//   background-size: cover;
+
+// .container {
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+//   height: 80vh;
+
+//   .inside-signup {
+//     max-width: 400px;
+//     width: 100%;
+//     background: $tertiary_color;
+//     padding: 2rem;
+//     // background: #000;
+//     border-radius: $border_rad;
+
+//     h4 {
+//       font-size: $normal_font;
+//       color: gray;
+//       font-weight: normal;
+//     }
+
+//     form {
+//       margin-top: 1rem;
+//       label {
+//         color: $gray;
+//       }
+//       input {
+//         margin-top: 0.3rem;
+//         width: 100%;
+//         border-radius: 50px;
+//         outline: none;
+//         padding: 0.5rem;
+//         border: 1px solid gray;
+//         font-size: 1rem;
+//         padding: 0.5rem;
+//       }
+
+//       button {
+//         width: 100%;
+//         border-radius: 50px;
+//         padding: 0.5rem;
+//         margin: 1rem 0rem;
+//         background: $kg_color;
+//         border: none;
+//         font-size: $normal_font;
+
+//         &:hover {
+//           cursor: pointer;
+//         }
+//       }
+
+//       .account-already {
+//         margin-top: 1rem;
+//         color: $gray;
+
+//         a {
+//           color: black;
+//           text-decoration: none;
+//           font-weight: bold;
+//         }
+//       }
+//     }
+//   }
+// }
+
+//   .signing-disable {
+//     // color: white;
+//     opacity: 0.6;
+//     cursor: not-allowed !important;
+//     // background-color: green !important;
+//   }
+// }

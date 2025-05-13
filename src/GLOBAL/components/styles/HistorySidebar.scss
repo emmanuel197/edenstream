@@ -1,0 +1,243 @@
+@import '../../../global';
+#nav-toggle:checked {
+    &~#nav-header {
+        width: calc(var(--navbar-width-min) - 16px);
+    }
+
+    &~#nav-content,
+    ~#border-top-wrapper {
+        width: var(--navbar-width-min);
+    }
+
+    &~#nav-header {
+        #nav-title {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .1s;
+        }
+
+        label[for="nav-toggle"] {
+            left: calc(50% - 8px);
+            transform: translate(-50%);
+        }
+
+    
+    }
+
+    &~#nav-content {
+        .nav-button {
+            span {
+                opacity: 0;
+                transition: opacity .1s;
+            }
+
+            .fas {
+                min-width: calc(100% - 16px);
+            }
+        }
+    }
+
+    &~#border-top-wrapper {
+        .nav-button {
+            span {
+                opacity: 0;
+                transition: opacity .1s;
+            }
+
+            .fas {
+                min-width: calc(100% - 16px);
+            }
+        }
+    }
+}
+
+
+#nav-bar,
+#nav-bar:hover {
+    position: absolute;
+    left: 20px;
+    top: inherit;
+    height: calc(80% - 2vw);
+    background: $kinder_color;
+    border-radius: 16px;
+    display: flex;
+    flex-direction: column;
+    color: var(--navbar-light-primary);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    overflow: hidden;
+    user-select: none;
+    z-index: 99;
+
+    // &::-webkit-scrollbar {
+    //     width: 8px;
+    //     height: 8px;
+    //   }
+      
+    // &::-webkit-scrollbar-thumb {
+    //     height: 16px;
+    //     border-radius: 99px;
+    //     background-color: $kg_color;
+    //   }
+
+    @media screen and (max-width: 500px) {
+        height: calc(70% - 2vw);
+    }
+
+    hr {
+        margin: 0;
+        position: relative;
+        left: 16px;
+        width: calc(100% - 32px);
+        border: none;
+        border-top: solid 1px $tertopas_color;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: inherit;
+    }
+
+    input[type="checkbox"] {
+        display: none;
+    }
+}
+
+#nav-header {
+    position: relative;
+    width: var(--navbar-width);
+    left: 16px;
+    width: calc(var(--navbar-width) - 16px);
+    min-height: 80px;
+    background: $kinder_color;
+    border-radius: 16px;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    transition: width .2s;
+
+    hr {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+
+#nav-title {
+    font-size: 1.5rem;
+    transition: opacity 1s;
+}
+
+
+label[for="nav-toggle"] {
+    position: absolute;
+    right: 0;
+    width: 3rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+
+#nav-toggle-burger {
+
+    width: 1rem;
+
+    &:after {
+        top: 6px;
+        transform: translate(2px, -8px) rotate(-30deg);
+    }
+}
+
+#nav-content {
+    margin: -16px 0;
+    padding: 16px 0;
+    position: relative;
+    flex: 1;
+    width: var(--navbar-width);
+    background: $kinder_color;
+    box-shadow: 0 0 0 16px $kinder_color;
+    direction: rtl;
+    overflow-x: hidden;
+    transition: width 0.2s;
+
+    &::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+      }
+      
+    &::-webkit-scrollbar-thumb {
+        height: 16px;
+        border-radius: 99px;
+        background-color: $kg_color;
+      }
+}
+
+#nav-content-highlight {
+    position: absolute;
+    left: 16px;
+    top: -54 - 16px;
+    width: calc(100% - 16px);
+    height: 54px;
+    background: var(--background);
+    background-attachment: fixed;
+    border-radius: 16px 0 0 16px;
+    transition: top 0.2s;
+
+    &:before,
+    &:after {
+        content: '';
+        position: absolute;
+        right: 0;
+        bottom: 100%;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        box-shadow: 16px 16px var(--background);
+    }
+
+    &:after {
+        top: 100%;
+        box-shadow: 16px -16px var(--background);
+    }
+}
+
+.nav-button {
+    position: relative;
+    margin-left: 16px;
+    height: 54px;
+    display: flex;
+    align-items: center;
+    color: $tertiary_color;
+    direction: ltr;
+    cursor: pointer;
+    z-index: 1;
+    transition: color 0.2s;
+
+    &.active {
+        color: $kg_color;
+    }
+
+    span {
+        transition: opacity 1s;
+
+        &:hover {
+            color: $kg_color !important;
+            transition: color 1s !important;
+        }
+    }
+
+
+    .fas {
+        width: 1.5rem;
+        margin-right: 0.5rem !important;
+        transition: min-width 0.2s;
+    }
+
+    #nav-bar .fas {
+
+        min-width: 3rem;
+        text-align: center;
+    }
+}

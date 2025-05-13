@@ -1,0 +1,92 @@
+@import "../../../_global.scss";
+
+.auth {
+    height: 80vh;
+    background: linear-gradient(rgba(26, 5, 43, 0.58), rgba(26, 5, 43, 0.58)),
+        url("https://res.cloudinary.com/dou9sjstz/image/upload/v1664554166/auth-page-bg_hx5p9o.png");
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+
+    // .auth-container {
+    //     padding: 20px;
+    // }
+
+    .form-container {
+        background: #fff;
+        min-width: auto;
+        padding: 2rem;
+        border-radius: 20px;
+
+        .network-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+
+            li {
+                list-style: none;
+                background: #f1f1f1;
+                margin: 10px;
+                margin-left: 0;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                padding: 20px;
+                border-radius: 4px;
+                border: 3px solid #f1f1f1;
+                user-select: none;
+                transition: .3s linear;
+
+                &:active {
+                    transform: scale(0.9);
+                }
+            }
+
+            .selected-network {
+                // border: 3px solid $kg_color;
+                // color: $kg_color;
+            }
+        }
+
+        h2 {
+            margin-bottom: 20px;
+        }
+        input {
+            width: 25vw;
+            min-width: 200px;
+            padding: 10px;
+            border-radius: 9999px;
+            border: 1px solid #D8D8D8;
+            margin: 20px 0;
+            margin-top: 5px;
+        }
+
+        .margin-bottom {
+            margin-bottom: 0.75rem;
+        }
+        .sign-in-link, .sign-up-link, .forgot-password-link {
+            font-size: 0.875rem;
+            text-decoration: none;
+        }
+
+        .sign-up-link, .sign-in-link {
+            color: #c4bd47;
+            transition: .2s linear;
+        }
+
+        .password-reset-container {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: center;
+        }
+
+        .forgot-password-link {
+            color: #1a052b;
+        }
+        
+    }
+}

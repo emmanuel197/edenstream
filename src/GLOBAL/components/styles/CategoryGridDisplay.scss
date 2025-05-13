@@ -1,0 +1,104 @@
+@import "../../../_global.scss";
+
+.hide-me {
+  display: none !important;
+}
+.categoryGridDisplay {
+  margin-top: -0.5rem;
+  background-color: $primary_color;
+  padding-bottom: 3rem;
+
+  .category {
+    .grid-container {
+      max-width: 95% !important;
+      margin: 0 auto;
+      padding-top: 3rem;
+      padding-bottom: 1rem;
+
+      .movie-box {
+        background-color: $kinder_color;
+
+        p {
+          padding: 1rem;
+          color: $tertiary_color;
+        }
+      }
+      .movie-all {
+        display: flex;
+
+        a {
+          background-color: $kg_color;
+          color: $primary_color;
+          border-radius: $border_rad;
+          transition: 0.4s all;
+          text-decoration: none;
+          padding: 0.5rem 1rem;
+
+          &:hover {
+            background-color: $tertiary_color;
+          }
+        }
+        .movie {
+          flex: 1;
+          display: flex;
+          align-items: start;
+
+          h1 {
+            position: relative;
+            top: 4px;
+          }
+        }
+
+        .all {
+          flex: 1;
+          display: flex;
+          align-items: start;
+          justify-content: end;
+        }
+      }
+      h1 {
+        font-size: $normal_font;
+        color: $tertiary_color;
+        font-weight: normal;
+        margin-bottom: 1rem;
+      }
+      .slick-prev:before,
+      .slick-next:before {
+        color: $kg_color !important;
+        font-size: 2.5rem;
+      }
+    }
+  }
+
+  .afripremiere {
+    background-color: black;
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .categoryGridDisplay {
+    .category {
+      .grid-container {
+        max-width: 90% !important;
+        margin: 0 auto;
+        padding-top: 3rem;
+        padding-bottom: 1rem;
+
+        h1 {
+          font-size: $m_normal_font !important;
+          color: $tertiary_color;
+          font-weight: normal;
+          margin-bottom: 1rem;
+          text-align: left !important;
+        }
+        .slick-prev:before,
+        .slick-next:before {
+          color: $kg_color !important;
+          font-size: 2.5rem;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,13 @@
+.range {
+    height: 10px;
+    border: 1px solid black;
+    position: relative;
+    overflow: hidden;
+}
+
+.slider {
+    height: 30px;
+    width: 0px;
+    margin-top: -10px;
+    background-color: #150522;
+}

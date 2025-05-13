@@ -1,0 +1,129 @@
+@import "../../../_global.scss";
+
+.family {
+  // background-color: $primary_color;
+  padding-top: 0rem;
+  padding-bottom: 6rem;
+  padding-top: 6rem;
+
+
+  .inside-family {
+    display: flex;
+    gap: 2rem;
+    margin-top: -150px;
+    margin-bottom: -120px;
+    max-width: 1300px;
+    margin: auto;
+
+    p {
+      color: #fff;
+      font-size: 1.3rem;
+      margin-top: 30px;
+    }
+
+    .picture {
+      flex: 1;
+      display: flex;
+      justify-content: end;
+      align-items: center;
+
+      img {
+        max-width: 100%;
+        height: auto;
+      }
+    }
+
+    .texts {
+      flex: 1;
+      text-align: center;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+
+      h1 {
+        // color: $tertiary_color;
+        font-size: $banner_text;
+        font-weight: $banner_font_weight;
+        font-weight: medium;
+      }
+
+      .yellow-span {
+        // color: $kg_color;
+      }
+
+      .play {
+        margin-top: 3rem;
+        display: flex;
+        justify-content: start;
+        align-items: start;
+        color: white;
+        gap: 0.5rem;
+        font-size: $normal_font;
+        cursor: pointer;
+
+        p {
+          // text-align: center;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
+
+.family .container .data-friendly {
+  margin-top: -200px;
+}
+
+.store-icons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: #f1f1f1;
+  margin-top: 30px;
+  padding: 10px;
+  border-radius: 15px;
+  padding-top: 5px;
+
+  img:nth-child(2) {
+    width: 180px;
+    
+  }
+}
+
+@media only screen and (max-width: 1000px) {
+  h1 {
+    font-size: $m_banner_text !important;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  h1 {
+    font-size: clamp(18px, 1.25vw, 24px) !important;
+    text-align: center;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .inside-family {
+    flex-direction: column;
+  }
+
+  .data-friendly {
+    .texts {
+      margin-top: 150px;
+    }
+  }
+
+  .texts {
+    margin-top: 1rem;
+    justify-content: center !important;
+    align-items: center !important;
+
+    h1 {
+      font-size: $m_banner_text !important;
+    }
+  }
+}

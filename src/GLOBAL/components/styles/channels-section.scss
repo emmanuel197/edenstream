@@ -1,0 +1,67 @@
+@import "../../../global.scss";
+
+.channels-section {
+    .recentlywatched-allchannels-wrapper {
+        display: flex;
+        gap: 30px;
+        margin-top: clamp(20px, 2.0313vw, 39.001px);
+        margin-left: 8.4375vw;
+        .rw-ac-item {
+            font-weight: 400;
+            font-size: clamp(14px, 1.0417vw, 20px);
+            line-height: 150%;
+            letter-spacing: 0%;
+            color: $white;
+            position: relative; // So the pseudo-element is positioned correctly
+            &.selected {
+                color: #619267;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    bottom: -.3125vw; // adjust as needed
+                    width: clamp(10px, .7813vw, 15.001px);     // how long the underline should be
+                    height: clamp(2px, .1563vw, 3.001px);  // thickness of the underline
+                    background: #619267;
+                    border-radius: 23px;
+                  }
+            }
+        }
+
+.rw-content-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(clamp(150px, 10.417vw, 200.006px), 1fr));
+    gap: clamp(15px, 1.042vw, 20px);
+    
+    @media (max-width: 600px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+    }
+
+    .no-recently-watched {
+        display: flex;
+        flex-direction: column;
+        gap: 2.6042vw;
+        margin-top: 12.1875vw;
+
+        .no-recently-watched-img {
+            width: 20.7813vw;
+            aspect-ratio: 399 / 359;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .no-recently-watched-text {
+            font-weight: 400;
+            font-size: clamp(18px, 1.25vw, 24px);
+            line-height: 1.6667vw;
+            letter-spacing: 0%;
+            text-align: center;
+            color: $white;
+        }
+    }
+
+    
+}

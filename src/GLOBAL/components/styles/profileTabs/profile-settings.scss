@@ -1,0 +1,303 @@
+@import '../../../../global.scss';
+
+.profile-settings-section {
+
+
+    .profile-settings-section-header-wrapper {
+        display: flex;
+        gap: 9.9994px;
+        align-items: center;
+        margin-bottom: clamp(20px, 2.1354vw, 41px);
+        @media (max-width: 500px) {
+            padding-left: 15px;
+        }
+        .profile-settings-section-header-icon {
+            width: clamp(20px, 3.1771vw, 61px);
+            aspect-ratio: 1 / 1;
+        }
+
+        .profile-settings-header {
+            font-weight: 600;
+            font-size: clamp(14px, 1.5625vw, 30px);
+            line-height: 1.9792vw;
+            letter-spacing: 0%;
+            color: $white;
+        }
+    }
+
+    .setting-main-wrapper {
+        width: 35.9896vw;
+    //    aspect-ratio: 691 / 674;
+        background: #26262699;
+        border: 1.0003px solid #262626;
+        border-radius: 12px;
+        padding: clamp(20px, 1.8229vw, 34.9997px) 2.2917vw  8.0729vw  2.2917vw;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+
+        @media (max-width: 840px) {
+            width: 80%; 
+        }
+        @media (max-width: 500px) {
+            width: 100%; 
+        }
+        &.main-detail-padding {
+            padding-top: 6.4063vw;
+            padding-bottom: 6.4063vw;
+        }
+
+        .watch-back-arrow {
+            background: transparent;
+            width: .8233vw;
+            aspect-ratio: 15.81 / 33.94000244140625;
+
+        }
+
+        .setting-main {
+            width: 31.3542vw;
+            display: flex;
+            flex-direction: column;
+            gap: clamp(20px, 1.5625vw, 30px);
+                 margin-left: auto;
+            margin-right: auto;
+           @media (max-width: 840px) {
+            width: 90%; 
+
+        }
+            .setting-detail {
+                display: flex;
+                flex-direction: row;
+                width: 100%;
+                aspect-ratio: 605 / 60;
+                padding: clamp(8px, .8333vw, 16px);
+                background: $black-08;
+                border: 2.0006px solid $black-20;
+                border-radius: 6px;
+                align-items: center;
+                
+                .setting-detail-text {
+                    font-weight: 500;
+                    font-size: clamp(10px, .8333vw, 16px);
+                    line-height: 1.25vw;
+                    letter-spacing: 0%;
+                    color: $white;
+                }
+
+                .settings-arrow-right {
+                    margin-left: auto;
+                    width: clamp(6px, .599vw, 11px);
+                    aspect-ratio: 11.5/ 23;
+                }
+            }
+        }
+    }
+}
+
+
+.delete-account-main {
+    display: flex;
+    gap: clamp(20px, 1.5625vw, 30px);
+    width: 21.3542vw;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    @media (max-width: 840px) {
+        width: 100%;
+    }
+    .delete-account-img {
+        width: clamp(125px, 13.0208vw, 250px);
+        // height: 249.9994px;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+    }
+
+    .delete-account-text {
+        display: flex;
+        flex-direction: column;
+        gap: clamp(8px, .5208vw, 10px);
+
+        .delete-account-header {
+            font-family: Manrope;
+            font-weight: 600;
+            font-size: clamp(12px, 1.25vw, 24px);
+            line-height: clamp(18px, 1.6667vw, 32px);
+            letter-spacing: 0%;
+            text-align: center;
+            color: $white;
+        }
+
+        .delete-account-paragraph {
+            font-family: Manrope;
+            font-weight: 500;
+            font-size: clamp(10px,  .8333vw, 16px);
+            line-height: 150%;
+            letter-spacing: 0%;
+            text-align: center;
+            color: $grey-60;
+        }
+    }
+
+    .cancel-delete-btns {
+        display: flex;
+        width: 26.9271vw;
+        gap: .8854vw;
+
+        .cancel-account-delete-btn,
+        .confirm-account-delete-btn {
+            border-radius: 6px;
+            padding: clamp(10px, .7292vw, 14px) clamp(15px, 1.0417vw, 20px);
+        }
+
+        .cancel-account-delete-btn {
+            background: $black-15;
+        }
+
+        .confirm-account-delete-btn {
+            background: $red-40;
+        }
+    }
+}
+
+
+
+.dark-mode-main {
+    width: 30.7292vw;
+    aspect-ratio: 602 / 396;
+    gap: clamp(7px, .5208vw, 10px);
+    display: flex;
+    flex-direction: column;
+
+    @media (max-width:840px) {
+        width: 100%;
+
+    }
+    .dark-mode-main-header {
+        font-weight: 600;
+        font-size: clamp(12px, .8333vw, 16px);
+        line-height: 150%;
+        letter-spacing: 0%;
+        color: $white;
+    }
+
+    .toggle-wrapper {
+        display: flex;
+        width: 100%;
+
+        .toggle-item {
+            display: flex;
+            gap: .5208vw;
+            border-radius: 6px;
+            padding: clamp(10px, .7292vw, 14.0006px) clamp(15px, 1.0417vw, 20px);
+            background: $black-15;
+            width: 50%;
+            align-items: center;
+            &.active {
+                background: linear-gradient(136.62deg, #5B7F60 6.32%, #3E6042 44.93%, #04271C 88.82%);
+                box-shadow: 0px 2px 0px 0px #FFFFFF0A inset;
+            }
+
+            .toggle-item-img {
+                width: clamp(12px, 1.25vw, 24px);
+                // height: 24;
+                aspect-ratio: 1 / 1;
+            }
+
+            .toggle-item-text {
+
+                font-weight: 600;
+                font-size: clamp(10px, .7292vw, 14px);
+                line-height: 150%;
+                letter-spacing: 0%;
+                color: $white
+            }
+        }
+    }
+}
+
+.playback-setting-main {
+    width: 31.5104vw;
+    aspect-ratio: 602 / 396;
+    @media (max-width: 840px) {
+        width: 100%;
+    }
+    .autoplay-toggle-wrapper {
+        display: flex;
+        justify-content: space-between;
+        border: 2px solid $black-20;
+        background: $black-08;
+        box-shadow: 0px 1px 0px 0px #363B4740 inset;
+        border-radius: 6px;
+        padding: clamp(12px, .8333vw, 16px);
+
+        .autoplay-toggle-img-text-wrapper {
+            display: flex;
+            gap: .9896vw;
+
+            .autoplay-toggle-img {
+                width: clamp(12px, 1.25vw, 24px);
+                aspect-ratio: 1 / 1;
+            }
+
+            .autoplay-toggle-text {
+                font-family: Manrope;
+                font-weight: 400;
+                font-size: clamp(10px, .8333vw, 16px);
+                line-height: clamp(12px, 1.25vw, 24px);
+                letter-spacing: 0%;
+                color: $white;
+            }
+        }
+
+    }
+}
+
+.generic-modal-section {
+
+    &.language-modal-section {
+        width: 45vw;
+        padding-top: 32px;
+        padding-bottom: 30px;
+    }
+
+    .modal-content-wrapper {
+
+        &.language-modal-content-wrapper {
+            width: 32.0833vw;
+            gap: 2.8646vw;
+
+            .modal-buttons-container {
+                .language-reset-btn {
+                    width: 12.9688vw;
+                    aspect-ratio: 249 / 52;
+                    gap: 10px;
+                    border-radius: 6px;
+                    padding: .7292vw 1.0417vw;
+                    background: $black-15;
+                }
+
+                .language-savechanges-btn {
+                    width: 12.9688vw;
+                    aspect-ratio: 249 / 52;
+                    border-radius: 6px;
+                    padding: .7292vw 1.0417vw;
+
+
+                }
+
+                .got-it-btn {
+                    width: 25.8333vw;
+                    height: 496 / 52;
+                  
+                    border-radius: 6px;
+                    padding: .7292vw 1.0417vw;
+                  
+
+                }
+            }
+
+        }
+    }
+
+}

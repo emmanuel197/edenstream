@@ -1,0 +1,176 @@
+@import '../../../../global.scss';
+@import '../../../components/styles/channels-section.scss';
+.watch-history-section {
+    .watch-history-section-header-wrapper {
+        display: flex;
+        gap: clamp(7px, .5208vw, 10px);
+        align-items: center;
+        margin-bottom: 2.7344vw;
+
+        @media (max-width: 500px) {
+            padding-left: 15px;
+        }
+        .watch-history-section-header {
+            font-weight: 600;
+            font-size: clamp(14px, 1.5625vw, 30px);
+            line-height: 38.0006px;
+            letter-spacing: 0%;
+            color: $white;
+        }
+
+        .watch-history-section-icon {
+            width: clamp(20px, 3.1771vw, 61px);
+            aspect-ratio: 1/1;
+        }
+    }
+
+    .yes-no-watch-history {
+        width: 100%;
+        background-color: $black-15;
+        border: .0521vw solid $black-15;
+        padding: 2.049vw 2.3vw;
+        display: flex;
+        flex-direction: column;
+
+        .watch-history-three-dots {
+            align-self: end;
+            width: clamp(20px, 1.3021vw, 25px);
+            margin-bottom: 4.2188vw;
+            aspect-ratio: 1 / 1;
+        }
+
+        .no-watch-history-detail {
+            width: 22.6563vw;
+            aspect-ratio: 435/ 327;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: .7292vw;
+            align-self: center;
+            margin-bottom: 6.4063vw;
+
+            .no-watch-history-icon {
+                width: 9.1146vw;
+                aspect-ratio: 1 / 1;
+
+                path {
+                    fill: $black-08;
+                }
+            }
+
+            .no-watch-history-text {
+                font-weight: 500;
+                font-size: .8333vw;
+                line-height: 1.0417vw;
+                letter-spacing: 0%;
+                text-align: center;
+                color: $white;
+            }
+
+            .browse-content-btn {
+                font-weight: 500;
+                font-size: .8333vw;
+                line-height: 153%;
+                letter-spacing: 0%;
+                width: 9.1146vw;
+                aspect-ratio: 175/ 45;
+                gap: .2083vw;
+                border-radius: .2604vw;
+                padding: .7292vw 1.25vw;
+            }
+        }
+
+        .yes-watch-history-detail {
+            margin-bottom: 4.8438vw;
+            position: relative;
+        }
+
+        .pagination-wrapper {
+            display: flex;
+            gap: 10px;
+            align-self: center;
+
+            .page-number {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: clamp(21px, 2.1875vw, 42px);
+                aspect-ratio: 42 / 40;
+                border-radius: 50%;
+                background: $black-15;
+                border: 1px solid $black-20;
+                font-family: Manrope;
+                font-weight: 600;
+                font-size: clamp(10px, .7292vw, 14px);
+                line-height: 150%;
+                letter-spacing: 0%;
+                text-align: center;
+                vertical-align: middle;
+                color: $black-30;
+            }
+
+            .next-page {
+                width: clamp(21px, 2.1875vw, 42px);
+                aspect-ratio: 42 / 40;
+                border-radius: 50%;
+                background: $black-08;
+                border: 1px solid $black-20;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+        }
+    }
+}
+
+.generic-modal-section {
+
+    &.watch-history-section-modal {
+        width: 45vw;
+        z-index: 1;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding-top: 3.4115vw;
+        padding-bottom: 3.3594vw;
+
+    @media (max-width: 600px) {
+        width: 100%;
+    }
+    }
+
+    .modal-content-wrapper {
+        &.watch-history-modal-content-wrapper {
+            width: 26.9271vw;
+            gap: 2.8646vw;
+
+            @media (max-width: 600px) {
+                width: 90%;
+            }
+            .delete-watch-history {
+                width: 14.8438vw;
+                aspect-ratio: 285 / 140;
+
+                path {
+                    fill: $red-40;
+                }
+            }
+
+            .cancel-btn,
+            .clearall-btn {
+                // width: 12.9688vw;
+                // aspect-ratio: 249 / 52;
+                border-radius: 6px;
+                padding: clamp(10px, .7292vw, 14px) clamp(15px, 1.0417vw, 20.0006px);
+            }
+
+            .cancel-btn {
+                background: $black-15;
+            }
+
+            .clearall-btn {
+                background: $red-40;
+            }
+        }
+    }
+}

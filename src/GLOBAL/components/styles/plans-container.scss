@@ -1,0 +1,84 @@
+@import "../../../global.scss";
+
+.plans-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.813vw, 1fr));
+    column-gap: 1.563vw;
+    justify-content: center;
+
+    @media (max-width: 690px) {
+        grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 7.613vw, 146.17px), 1fr));
+        align-items: center;
+        
+    }
+
+    @media (max-width: 650px) {
+        display: flex;
+        // flex-direction: column;
+        row-gap: clamp(20px, 1.563vw, 30px);
+        column-gap: clamp(20px, 1.563vw, 30px);
+        flex-wrap: wrap;
+        justify-content: start;
+    }
+    @media (max-width: 420px) {
+        flex-direction: column;
+        align-items: center;
+    }
+
+   
+    &--column {
+        display: flex;
+        flex-direction: column;
+        gap: 31px;
+    }
+    &--step3 {
+        grid-template-columns: repeat(auto-fit, minmax(13.594vw, 1fr));
+        column-gap: 1.302vw;
+        justify-content: center;
+        
+        @media (max-width: 1000px) {
+            display: flex;
+            // flex-direction: column;
+            row-gap: clamp(20px, 1.563vw, 30px);
+            column-gap: clamp(20px, 1.563vw, 30px);
+            flex-wrap: wrap;
+          
+            align-items: start;
+
+          
+        }
+
+       
+        .plan-card {
+           
+            &-header-wrapper {
+                .plan-card-header {
+                    font-weight: 700;
+                    font-size: clamp(18px, 1.25vw, 24px);
+                    line-height: clamp(20px, 1.875vw, 36px);
+                    letter-spacing: 0%;
+
+                }
+
+                .plan-card-paragraph {
+                    font-weight: 400;
+                    font-size: clamp(10px, 0.938vw, 18px);
+                    line-height: clamp(16px, 1.406vw, 27px);
+                    letter-spacing: 0%;
+
+                }
+            }
+
+            &-price {
+                font-weight: 600;
+                font-size: clamp(20px, 2.083vw, 40px);
+                line-height: clamp(24px, 1.521vw, 29.2px);
+                letter-spacing: 0%;
+
+                .plan-duration {}
+            }
+
+            .choose-plan-btn {}
+        }
+    }
+}

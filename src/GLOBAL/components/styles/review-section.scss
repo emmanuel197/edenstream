@@ -1,0 +1,107 @@
+@import "../../../_global.scss";
+
+.review-section {
+    width: 100%;
+    display: flex;
+    border-radius: 0.625vw;
+    padding: clamp(20px, 2.604vw, 49.997px);
+    gap: 2.083vw;
+    margin: auto;
+    background-color: $black-10;
+    border: 0.052vw solid $black-15;
+    flex-direction: column;
+
+    .reviews-header-wrapper {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+
+        .reviews-header {
+            color: $secondary-60;
+            font-weight: 500;
+            font-size: clamp(18px, 1.25vw, 24px);
+            line-height: clamp(26px, 1.875vw, 36px);
+            letter-spacing: 0%;
+
+            @media(max-width: 870px) {
+                font-size: clamp(14px, 0.938vw, 18px);
+            }
+        }
+
+        .add-your-review-btn {
+            width: clamp(170px, 11.823vw, 227.002px);
+            // height: 62.995px;
+            border-radius: 0.833vw;
+            gap: 0.833vw;
+            padding: clamp(4px, 0.885vw, 16.992px) clamp(8px, 0.833vw, 15.994px) clamp(8px, 0.833vw, 15.994px) clamp(8px, 0.833vw, 15.994px);
+            box-shadow: 0px 2px 0px 0px #FFFFFF0A inset;
+            border: 0.026vw solid;
+            border-image-source: linear-gradient(117.79deg, rgba(255, 255, 255, 0.625843) 26.56%, rgba(255, 255, 255, 0.1) 73.44%);
+            color: $secondary-60;
+            background-color: rgba(255, 255, 255, 0.1);
+            @media (max-width: 580px) {
+                width: clamp(130px, 8.333vw, 160px);;
+            }
+            .align-content {
+                img {
+                    width: clamp(15px, 1.563vw, 30.01px);
+                    aspect-ratio: 30 / 30;
+                }
+
+                p {
+                    font-weight: 600;
+                    font-size: clamp(13px, 0.938vw, 18.01px);
+                    line-height: clamp(20px, 1.406vw, 26.995px);
+                    letter-spacing: 0%;
+
+                    @media (max-width: 580px) {
+                        font-size: clamp(10px, 0.729vw, 14px);
+                    }
+                }
+            }
+        }
+    }
+
+    .reviews-container {
+        display: flex;
+        gap: 1.042vw;
+        flex-direction: column;
+
+        .review-wrapper {
+            display: flex;
+            flex-direction: column;
+            background-color: $black-06;
+            width: 100%;
+            gap: 1.042vw;
+            border-radius: 0.625vw;
+            padding: clamp(18px, 2.083vw, 39.994px);
+            border: 0.052vw solid $black-15;
+
+            .reviewer-name-country-wrapper {
+                .reviewer-name {
+                    font-weight: 500;
+                    font-size: clamp(13px, 1.042vw, 20.006px);
+                    line-height: clamp(16px, 1.563vw, 30.01px);
+                    letter-spacing: 0%;
+                    color: $secondary-60;
+                }
+
+                .reviewer-country {
+                    font-weight: 500;
+                    font-size: clamp(12px, 0.938vw, 18.01px);
+                    line-height: clamp(16px, 1.406vw, 26.995px);
+                    letter-spacing: 0%;
+                    color: $grey-60;
+                }
+            }
+
+            .review-text {
+                font-weight: 400;
+                font-size: clamp(13px, 0.938vw, 18.01px);
+                line-height: clamp(20px, 1.406vw, 26.995px);
+                letter-spacing: 0%;
+                color: $grey-60;
+            }
+        }
+    }
+}

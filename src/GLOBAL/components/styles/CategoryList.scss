@@ -1,0 +1,45 @@
+@import "../../../_global.scss";
+
+.CategoryList {
+  padding-top: 5rem;
+  padding-bottom: 10rem;
+  background-color: $primary_color;
+  min-height: 100vh;
+  h1 {
+    font-size: $normal_font;
+    font-weight: normal;
+    color: $tertiary_color;
+  }
+
+  .loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50vh;
+  }
+
+  .container {
+    .results {
+      margin-top: 2rem;
+      .inside-results {
+        display: grid;
+        grid-gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        .image-results {
+          img {
+            height: auto;
+            max-width: 100%;
+          }
+        }
+        .movie-box {
+          background-color: $kinder_color;
+
+          p {
+            padding: 1rem;
+            color: $tertiary_color;
+          }
+        }
+      }
+    }
+  }
+}

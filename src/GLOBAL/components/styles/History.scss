@@ -1,0 +1,261 @@
+@import '../../../global';
+@import '../../components/styles/HistorySidebar.scss';
+
+
+.history-main-shadow {
+  border: none;
+  width: 100%;
+  height: 100px;
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(180deg, $tertopaszero_color 0%, $kinder_color 100%);
+  z-index: 1;
+}
+
+main {
+  background: linear-gradient(180deg, $tertopaszero_color 0%, $kinder_color 100%);
+}
+
+.subscription-history-page {
+  
+  color: $tertiary_color;
+  position: relative;
+  height: 80vh;
+  padding-top: 20px;
+  margin: auto !important;
+  width: 100vw;
+
+  @media only screen and (min-width: 1200px) {
+    width: 95vw;
+  }
+}
+
+
+.subscription-history-main {
+  box-sizing: border-box;
+  width: 100%;
+  padding-bottom: 40px;
+  height: 100%;
+  overflow-x: hidden;
+
+  input[type="checkbox"] {
+    display: none;
+  }
+}
+
+
+.history-heading {
+  margin-bottom: 1rem !important;
+}
+
+
+.history-cards-wrapper {
+  overflow-y: scroll;
+  height: calc(100% - 60px);
+  
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    height: 16px;
+    border-radius: 99px;
+    background-color: $kg_color;
+  }
+}
+
+
+.history-card {
+  z-index: 999;
+  margin-top: 4px;
+  margin-left: calc(var(--navbar-width) + 30px);
+  margin-right: 20px;
+  margin-bottom: 4px;
+  max-width: calc(100% + var(--navbar-width));
+  
+
+  &.clickable:hover {
+    cursor: pointer;
+    transition: all 1s;
+    border-radius: 4px;
+    outline: 1px solid #c4bd47;
+    
+  }
+  .card-container {
+    max-width: auto;
+    min-width: 215px;
+    transition: all 50ms linear 0ms;
+    border-radius: 4px;
+  }
+
+  .card-wrapper-no-data {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent !important;
+    text-align: center;
+    gap: 1rem;
+    
+
+    
+    .no-data-img {
+      width:  20%;
+      height: auto;
+      object-fit: contain;
+
+      @media screen and (max-width: 1024px) {
+        max-width: 40%;
+        min-width:  30%;
+        
+      }
+    }
+  }
+
+  .card-wrapper {
+    width: 100%;
+    height: 100%;
+    transition: all 0.2s ease-in-out;
+    background-color: $tertopas_color;
+    border-radius: 4px;
+
+    .card-content {
+      display: flex;
+      box-sizing: border-box;
+      align-items: center;
+      height: 100%;
+      padding-left: 10px;
+      padding-right: 5px;
+
+      .img-wrapper {
+        padding-top: 8px;
+        padding-bottom: 8px;
+
+        .package-img {
+          max-width: 80px;
+          min-width: 40px;
+          object-fit: cover;
+          border-radius: 5px;
+        }
+
+        .package-img-placeholder {
+          max-width: 80px;
+          min-width: 70px;
+        }
+      }
+
+      .text-content {
+        margin-left: 20px;
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+        align-items: center;
+
+        >* {
+          flex: 1;
+          /* Make children of text-content equally take up available space */
+          /* Adjust margin as needed */
+        }
+      }
+    }
+  }
+}
+
+
+#sub-main-toggle:checked {
+
+  &~#history-card {
+    margin-left: 90px;
+
+    &~.package-img {
+      width: 100px;
+    }
+  }
+}
+
+
+@media only screen and (max-width: 800px) {
+  .history-card {
+    font-size: 0.7rem;
+    height: 60px;
+    max-width: 490px;
+    min-width: 400px;
+
+    .card-wrapper {
+      .card-content {
+        .img-wrapper {
+          .package-img {
+            height: 45px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 520px) {
+  .history-card {
+
+    margin-left: 90px !important;
+    max-width: 390px;
+    min-width: 300px;
+
+    .card-wrapper {
+      .card-content {
+        .text-content {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .history-card {
+    font-size: 0.8rem;
+    margin-left: 90px !important;
+    max-width: 400px;
+    min-width: 250px;
+
+    .card-wrapper {
+      .card-content {
+        .img-wrapper {
+          .package-img {
+            height: 60px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 460px) {
+  .history-card {
+    height: auto;
+    max-width: 330px;
+    min-width: 200px;
+
+    .card-wrapper {
+      .card-content {
+        .img-wrapper {
+          height: 100%;
+          display: flex;
+
+          .package-img {
+            height: 60px;
+
+          }
+        }
+
+        .text-content {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+      }
+    }
+  }
+}

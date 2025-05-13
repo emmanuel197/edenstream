@@ -1,0 +1,32 @@
+.step3 {
+    display: flex;
+    flex-direction: column;
+    color: $secondary-60;
+    margin-top: 2.135vw;
+    gap: 2.135vw;
+
+    .choose-how-wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 11px;
+
+        .choose-how-header {
+            font-weight: 500;
+            font-size: clamp(18px, 1.25vw, 24px);
+            line-height: clamp(25px, 1.667vw, 32px) ;
+            letter-spacing: 0%;
+            text-align: center;
+
+        }
+
+        .choose-how-paragraph {
+            font-weight: 500;
+            font-size: clamp(10px, 0.833vw, 16px);
+            line-height: clamp(14px, 1.25vw, 24px);
+            letter-spacing: 0%;
+            text-align: center;
+
+        }
+    }
+
+}

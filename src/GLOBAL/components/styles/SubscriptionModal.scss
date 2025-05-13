@@ -1,0 +1,132 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,700&display=swap');
+@import '../../../global';
+
+.modalBackground {
+  width: 100vw;
+  height: calc(100vh - 80.44px);
+  /* Adjusted to full height */
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.modalContainer {
+  width: 80%;
+  /* Adjusted for responsiveness */
+  max-width: 500px;
+  /* Added maximum width */
+  height: auto;
+  /* Changed to auto for dynamic height */
+  border-radius: 12px;
+  background-color: $tertopas_color;
+  color: $tertiary_color;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background-color: #000;
+  outline: 1px solid #c4bd47;
+
+}
+
+.modalContainer .title {
+  display: inline-block;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  h1 {
+    font-size: 1.3rem !important;
+  }
+}
+
+.titleCloseBtn {
+  display: flex;
+  justify-content: flex-end;
+
+}
+
+.titleCloseBtn button {
+  background-color: transparent;
+  border: none;
+  font-size: 20px;
+  color: $tertiary_color;
+  cursor: pointer;
+
+  &:hover {
+    transition: all ease 1s;
+    color: $kg_color;
+  }
+}
+
+.modalContainer .footer {
+  flex: 20%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalContainer .footer button {
+  width: 150px;
+  height: 45px;
+  margin: 10px;
+  border: none;
+  background-color: $kg_color;
+  color: white;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    transition: all ease 1s;
+    background-color: darken($kg_color, 20%);
+  }
+}
+
+.cancelBtn {
+  background-color: $kinder_color !important;
+
+  &:hover {
+    transition: all ease 1s;
+    background-color: darken($kinder_color, 5%);
+  }
+}
+
+// Media queries for responsiveness
+@media screen and (max-width: 768px) {
+  .modalContainer {
+    width: 90%;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .modalContainer {
+    width: 95%;
+
+    .title {
+      h1 {
+        font-size: 1rem !important; // Adjusted font size for mobile
+      }
+    }
+
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .modalContainer {
+    padding: 10px;
+
+    .title {
+      h1 {
+        font-size: 0.825rem !important; // Adjusted font size for mobile
+      }
+    }
+
+    .footer button {
+      height: 35px;
+      font-size: 0.725rem;
+    }
+  }
+}

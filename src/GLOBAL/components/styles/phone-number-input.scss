@@ -1,0 +1,57 @@
+@import "../../../_global.scss";
+
+.form-group {
+  &.contact-form-phoneinput-size {
+    width: 100% !important;
+    max-width: 38.047vw !important;
+  }
+}
+
+.react-tel-input .flag-dropdown {
+  background: transparent;
+  border: none;
+}
+
+.react-tel-input .selected-flag:hover,
+.react-tel-input .flag-dropdown.open .selected-flag {
+  background: transparent;
+
+
+
+
+}
+
+.react-tel-input {
+  .phone-form-control {
+    // padding-left: 40px !important;
+    width: 100% !important;
+    height: 100%;
+    padding: clamp(15px, 1.042vw, 20.006px) 40px !important;
+    border-radius: 8.0064px;
+    appearance: none;
+    // /* Standard property */
+    -webkit-appearance: none;
+    background: $black-08 !important;
+    /* Safari/WebKit prefix */
+    // outline: none;
+    margin: 0;
+    padding: 0;
+    // &.contact-form-phoneinput-size {
+    //     width: 100% !important;
+    //     max-width: 45.6563rem !important;  
+    // }
+    font-weight: 400;
+    font-size: clamp(10px, 0.938vw, 18px);
+    line-height: 1.406vw;
+    letter-spacing: 0%;
+    color: $secondary-60;
+  }
+
+}
+
+
+.phone-input::placeholder, .phone-input {
+  color: #888888;
+
+
+}

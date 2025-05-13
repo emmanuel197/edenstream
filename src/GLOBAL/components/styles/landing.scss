@@ -1,0 +1,15 @@
+@import "../../../_global.scss";
+
+main {
+   
+    .landing-page-bg {
+        padding-top: 0.75rem;
+       display: flex;
+       flex-direction: column;
+        background-image: url('../../../../public/assets/landing-page-bg.png');
+        height: auto;
+        width: 100%;
+        margin-bottom: clamp(25px, 4.0104vw, 77px);
+    }
+    
+}

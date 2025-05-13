@@ -1,0 +1,51 @@
+@import "../../../_global.scss";
+
+.stream-on-multiple-devices-section {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top:  9.167vw;
+    margin-bottom: 9.167vw;
+    @media (max-width: 500px) {
+        padding-left: 14px;
+        padding-right: 14px;
+    }
+    .stream-on-multiple-devices-header {
+        color: $secondary-60;
+        font-weight: 700;
+        font-size: clamp(40px, 2.5vw, 48px);
+        line-height: clamp(52px, 3vw, 57.6px);
+        letter-spacing: 0%;
+        text-align: center;
+
+        @media (max-width: 876px) {
+            font-size: clamp(20px, 2.5vw, 48px);
+            line-height: clamp(25px, 3vw, 57.6px);
+        }
+
+    }
+
+    .stream-on-multiple-devices-paragraph {
+        color: $grey-60;
+        font-weight: 600;
+        font-size: clamp(14px, 0.938vw, 18.01px);
+        line-height: clamp(20px, 1.406vw, 26.995px);
+        letter-spacing: 0%;
+        text-align: center;
+    }
+    .stream-on-multiple-devices-img-wrapper {
+        width: clamp(600px, 52.865vw, 1015.008px);
+        // height: 47.5781rem;
+        aspect-ratio: 1015.008 / 761.2496;
+
+        @media (max-width: 610px) {
+            width: clamp(335px, 31.25vw, 600px);
+        }
+        .stream-on-multiple-devices-img {
+            width: 100%;
+            height: 100%;
+            object-fit: fill;
+            // object-fit: contain;
+        }
+    }
+}

@@ -1,0 +1,101 @@
+// @import "../../../_global.scss";
+
+// .radio-group {
+//     display: flex;
+//     align-items: center;
+//     gap: 3.4944px;
+//     .radio-input {
+//         width: 20.0064px;
+//         aspect-ratio: 1 / 1;
+        
+//         &:checked {
+            
+//             // outline: .1042vw solid blue;
+//         }
+
+//     }
+
+//     .radio-label {
+
+//         font-weight: 400;
+//         font-size: 15.9936px;
+//         line-height: 150%;
+//         letter-spacing: 0%;
+//         vertical-align: middle;
+
+//     }
+// }
+/* src/components/styles/radio.scss */
+.radio-group {
+  display: flex;
+  justify-content: space-between; /* icon + label on left, input on right */
+  align-items: center;
+  padding: clamp(10px, .8333vw, 15.9994px); /* Adjust spacing as needed */
+  border: .0521vw solid #444; /* or your brand color */
+  border-radius: 0.5rem; 
+  cursor: pointer; /* So user knows it’s clickable */
+
+  &:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+  }
+
+  .radio-left-content {
+    display: flex;
+    align-items: center;
+    gap: 8.0006px; /* space between icon and text */
+  }
+
+  .radio-icon {
+    font-size: clamp(12px, 1.25vw, 24px); /* adjust if using emoji or images */
+  }
+
+  .radio-label {
+    font-weight: 400;
+    font-size: clamp(10px, .938vw, 18px); /* or px/rem */
+    line-height: 150%;
+    color: #ccc; /* or your brand color */
+  }
+
+  .radio-right-input {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    
+    .radio-input {
+      appearance: none; 
+      width: clamp(10px, 1vw, 19.2px);
+      height: clamp(10px, 1vw, 19.2px);
+      border: .1042vw solid #999; 
+      border-radius: 50%;
+      cursor: pointer;
+      margin: 0;
+
+      &:checked {
+        border-color: #66ff99; /* highlight color */
+      }
+
+      &:checked::before {
+        content: "";
+        display: block;
+        width: clamp(7.5px, .5vw, 9.6px);
+        height: clamp(7.5px, .5vw, 9.6px);
+        background: #66ff99; /* fill color */
+        border-radius: 50%;
+        margin: auto;
+        position: relative;
+        top: clamp(0.539px, .125vw, 2.4px); 
+      }
+    }
+
+    /* The label tied to input’s ID, used for accessibility/clicking */
+    label {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      cursor: pointer;
+    }
+  }
+}

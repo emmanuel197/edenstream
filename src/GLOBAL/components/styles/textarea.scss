@@ -1,0 +1,8 @@
+@import "../../../_global.scss";
+
+.form-group {
+    &.contact-form-textarea-size {
+        width: 100%;
+        max-width: 78.698vw;
+    }
+}

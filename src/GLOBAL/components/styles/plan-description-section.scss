@@ -1,0 +1,62 @@
+@import '../../../global.scss';
+
+.plan-description-section {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); // 4 equal columns (Features + 3 Plans)
+    border: 1px solid $black-10;
+
+    .pds-header-wrapper {
+        padding: clamp(20px, 1.563vw, 30.01px);
+        background-color: $black-06;
+        border-bottom: 1px solid $black-15;
+        display: flex;
+        align-items: center;
+        .pds-header {
+            color: $secondary-60;
+            font-weight: 600;
+            font-size: clamp(15px, 1.042vw, 20.006px);
+            line-height: 1.563vw;
+            letter-spacing: 0%;
+        }
+
+        &:not(:first-child) {
+            border-left: 1px solid $black-15;
+        }
+
+        .popular-badge {
+            margin-left: 8px;
+            border-radius: 0.156vw;
+            padding: clamp(3px, 0.313vw, 6.01px) clamp(7px, 0.521vw, 10.003px);
+            color: $secondary-60;
+            font-weight: 500;
+            font-size: clamp(8px, 0.729vw, 13.997px);
+            leading-trim: Cap height;
+            line-height: clamp(16px, 1.094vw, 21.005px);
+            letter-spacing: 0%;
+            background: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
+        }
+    }
+
+    .pds-feature-wrapper,
+    .pds-detail {
+        padding: 1.563vw;
+        border-bottom: 1px solid $black-15;
+        // display: flex;
+        // gap: 0.625rem;
+
+    }
+}
+
+.pds-feature,
+.pds-detail {
+
+    font-weight: 500;
+    font-size: clamp(13px, 0.938vw, 18.01px);
+    line-height: clamp(20px, 1.406vw, 26.995px);
+    letter-spacing: 0%;
+    color: $secondary-60;
+}
+
+.pds-detail {
+    border-left: 1px solid $black-15;
+}

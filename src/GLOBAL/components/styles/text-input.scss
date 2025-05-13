@@ -1,0 +1,74 @@
+@import "../../../_global.scss";
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    row-gap: clamp(.4167vw, 15.9936px, .833vw);
+    &.contact-form-textinput-size {
+        width: 100%;
+        max-width: 730.5024px;
+    }
+
+    &.header-search-textinput {
+      row-gap: 0}
+
+    &.step5-form-textinput-size, &.step6-form-textinput-size {
+        flex: 1;             // 2) let each input share the row
+        min-width: 0;        // avoid overflow in some browsers
+        
+    }
+    .field-label {
+        font-weight: 600;
+        font-size: clamp(13.0003px, .938vw, 18.0096px);
+        line-height: 26.9952px;
+        letter-spacing: 0%;
+        color: $secondary-40;
+    }
+    .form-control-wrapper {
+        display: flex;
+  align-items: center;  // Vertically centers icon & text
+  background-color: $black-08;
+  border: .0521vw solid $secondary-40;
+  border-radius: 8.0064px;
+
+  .form-control {
+    flex: 1;                  // Input takes remaining space
+    border: none;
+    background: none;         // If you want to inherit the wrapper's bg
+    padding: clamp(9.9994px, 1.042vw, 20.0006px);
+    font-size: clamp(13.0003px, .938vw, 18.0096px);
+    color: $secondary-60;
+
+    &:focus, &:active {
+        border: none;
+        outline: none;
+    }
+  }
+        .input-icon {
+              // If you need spacing around the icon:
+     // or margin-left if the icon is on the right
+     width: clamp(12px, 1.25vw, 24px);
+aspect-ratio: 1 / 1;
+    margin-left: clamp(10px, .8333vw, 16px);
+    display: flex;
+    align-items: center; // ensures the icon is also centered within its box
+            /* Adjust spacing as needed: */
+            
+           
+        }
+
+        &.error {}
+
+        &.entry-background {}
+}
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}

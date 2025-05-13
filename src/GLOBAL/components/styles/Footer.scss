@@ -1,0 +1,371 @@
+@import "../../../_global.scss";
+
+footer {
+  background: $black-08;
+  color: #fff;
+  // padding: 2rem 1.042vw;
+  font-size: clamp(10px, 0.729vw, 16px);
+  // font-size: 0.729vw;
+  position: relative;
+  z-index: 9;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  max-width: 1920px;
+  width: 100%;
+  margin: auto;
+  z-index: 1; // Keep below auth content
+  .footer-wrapper {
+    margin: auto;
+    margin-bottom: clamp(50px, 4.167vw, 80.006px);
+
+    display: flex;
+    // justify-content: space-between; // Space between main content and back-to-top
+    // align-items: flex-start; // Align items at the top
+    // gap: 2rem; // Add gap between columns
+    // padding: 2rem 1.042vw; // Add padding
+    position: relative; // For absolute positioning of back-to-top
+    align-items: start;
+    @media (max-width: 480px) {
+      margin-left: clamp(16px, 1.042vw, 20.006px);
+      margin-right: clamp(16px, 1.042vw, 20.006px);
+      flex-direction: column-reverse;
+      align-items: end;
+      
+    }
+    .footer-main {
+      display: grid;
+      grid-template-columns: clamp(300px, 22.083vw, 423.994px) repeat(4, clamp(100px, 10.417vw, 200px));
+      padding-top: 0.599vw;
+      width: 100%;
+      grid-gap: clamp(5px, 1.042vw, 20px);
+
+      max-width: clamp(1320px, 68.75vw, 1370px);
+
+      @media (max-width: 858px) {
+        grid-template-columns: clamp(200px, 15.625vw, 300px) repeat(4, clamp(110px, 10.417vw, 200px));
+
+      }
+
+      @media (max-width: 788px) {
+        grid-gap: clamp(20px, 3.646vw, 70px);
+        grid-template-columns: clamp(200px, 15.625vw, 300px) repeat(2, clamp(110px, 10.417vw, 200px));
+
+        .footer-column:nth-child(4) {
+          // Target the last two columns
+          grid-column-start: 2;
+        }
+      }
+
+      @media (max-width: 565px) {
+        grid-template-columns: clamp(180px, 13.021vw, 250px) repeat(2, clamp(90px, 10.417vw, 200px));
+      }
+     
+      @media (max-width: 480px) {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: start;
+        row-gap: 30px;
+        justify-content: end;
+        column-gap: 30px;
+        .footer-column {
+          width: 45%;
+          &.download-column {
+            .download-links-container {
+              width: 110px;
+              // margin: auto;
+            }
+          }
+          .column-title{
+            // text-align: center;
+          }
+
+          .footer-links {
+            li {
+              // margin: auto;
+
+              .footer-link {
+                display: flex;
+              //  justify-content: center;
+              }
+            }
+          }
+          // margin: auto;
+         
+        }}
+        @media (max-width: 350px) {
+          justify-content: center;
+        }  
+      //   .footer-main {
+      //     display: block !important;
+      //   }
+        
+        
+      // }
+
+      // @media (max-width: 463px) {
+      //   grid-template-columns: repeat(2, 1fr);
+      //   .footer-column:not(:first-child) {
+      //     width: 70%;
+      //     margin-left: auto;
+      //   }
+      // }
+      .footer-column {
+        display: flex;
+        flex-direction: column;
+        row-gap: 1.042vw;
+        
+        // width: 100%;
+
+
+        .column-title {
+          position: relative;
+          font-size: clamp(10px, 0.729vw, 16px);
+          line-height: 100%;
+          text-transform: uppercase;
+          font-weight: 500;
+          font-family: Inter;
+          color: $white;
+
+
+        }
+
+        .footer-links {
+          list-style: none;
+          display: flex;
+          flex-direction: column;
+          row-gap: 0.625vw;
+
+
+          li {
+
+
+            .footer-link {
+              text-decoration: none;
+              color: $grey-65;
+              padding-top: 0.313vw;
+              padding-bottom: 0.313vw;
+              display: flex;
+              align-items: center;
+              white-space: nowrap;
+              column-gap: 1.042vw;
+
+              width: clamp(100px, 5.833vw, 111.994px);
+              // height: 2.0004rem;
+              aspect-ratio: 111.994 / 32.0064;
+
+              &::after {
+                width: 0.833vw;
+                // height: 0.9996rem;
+                aspect-ratio: 15.994 / 15.9936;
+                content: url('../../../../public/assets/svg/ArrowRight.svg'); // Update path if needed
+                visibility: hidden;
+              }
+
+              &:hover {
+
+                background-color: $footer-link-hover-color;
+                color: $white;
+
+                &::after {
+                  visibility: visible;
+                }
+              }
+            }
+          }
+        }
+
+        .download-links-container {
+          display: flex;
+          flex-direction: column;
+          gap: 0.625vw;
+          width: 100%;
+
+          .download-link {
+            width: 100%;
+            background-color: #363b47;
+            display: flex;
+            padding: 0.625vw clamp(5px, 1.042vw, 20.006px);
+            text-decoration: none;
+            gap: clamp(10px, 0.729vw, 13.997px);
+            align-items: center;
+
+            .download-platform-img {
+              width: clamp(13px, 1.667vw, 32.006px);
+              // height: 2.0004rem;
+              aspect-ratio: 32.006 / 32.0064
+            }
+
+            &:hover {
+              background-color: #363B4766;
+            }
+
+            &.selected {
+              background-color: #363B4766;
+              border-bottom: 0.104vw solid;
+              border-image-source: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
+
+              ;
+            }
+
+            .download-text {
+              display: flex;
+              flex-direction: column;
+              gap: 0.104vw;
+
+              .download-now {
+                font-size: clamp(6px, 0.521vw, 10.003px);
+                line-height: clamp(6px, 0.521vw, 10.003px);
+                font-family: Inter;
+                color: #b7bac7;
+                text-align: justify;
+              }
+
+              strong {
+                color: $white;
+                font-size: clamp(10px, 0.833vw, 15.994px);
+                line-height: clamp(20px, 1.146vw, 22.003px);
+                font-weight: 500;
+                font-family: Inter;
+                white-space: nowrap;
+              }
+            }
+          }
+        }
+
+      }
+
+      .logo-column {
+        width: 100% !important;
+        max-width: clamp(300px, 22.083vw, 423.994px) !important;
+        height: 12.8748rem;
+        gap: 1.354vw;
+        @media(max-width: 480px) {
+         height: auto;
+          max-width: none !important;
+          width: 45% !important;
+        }
+        
+        .logo-container {
+
+          display: flex;
+          flex-direction: column;
+          row-gap: 1.042vw;
+          @media(max-width: 480px) {
+            // align-items: center;
+       
+          }
+          
+          .logo-header-wrapper {
+            display: flex;
+            column-gap: 0.479vw;
+
+            .logo-image {
+              width: clamp(141px, 12.4479vw, 239px);
+              aspect-ratio: 239 / 52;
+            }
+
+            .logo-header {
+              font-family: Inter;
+              font-weight: 600;
+              font-size: clamp(18px, 1.917vw, 36.806px);
+              line-height: clamp(45.638px, 2.377vw, 50px);
+              letter-spacing: -3%;
+              text-align: justify;
+
+              @media (max-width: 1058px) {
+                font-size: clamp(20px, 1.563vw, 30.003px)
+              }
+
+              @media(max-width: 360px) {
+                font-size: clamp(16px, 0.938vw, 18px);
+              }
+
+            }
+          }
+
+          .logo-description {
+            font-size: clamp(10px, 0.729vw, 16px);
+            line-height: clamp(18px, 1.042vw, 24px);
+            font-family: Manrope;
+            text-align: justify;
+            color: $grey-65;
+            font-weight: 400;
+            max-width: clamp(150px, 14.438vw, 277.21px);
+            width: 100%;
+            @media(max-width: 360px) {
+              max-width: clamp(130px, 7.813vw, 150px);
+            }
+          }
+        }
+
+        .social-links-container {
+          display: flex;
+          column-gap: 0.625vw;
+          @media(max-width: 480px) {
+            // justify-content: center;
+          }
+          .social-link {
+            width: clamp(30px, 2.396vw, 46.003px);
+            aspect-ratio: 1 / 1;
+            background: $black-15;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 0.26vw;
+
+            &:hover {
+              background: $social-link-hover;
+
+            }
+
+            &.selected {
+              background: $social-link-selected;
+            }
+
+            .platform-img {
+              width: clamp(13px, 0.938vw, 18.01px);
+              aspect-ratio: 1 / 1;
+            }
+
+          }
+        }
+      }
+    }
+
+
+
+    .back-to-top {
+      width: clamp(30px, 3.021vw, 58.003px);
+      // height: 3.6252rem;
+      aspect-ratio: 58.003 / 58.0032;
+      background: $primary-main;
+      border-radius: 4.992px;
+      margin-left: clamp(50px, 4.115vw, 79.008px);
+
+      @media (max-width: 565px) {
+        margin-left: clamp(10px, 1.563vw, 30px)
+      }
+
+      &-arrow-vector {
+        width: clamp(16px, 1.667vw, 32.006px);
+        // height: 1.667vw;
+        aspect-ratio: 1 / 1
+      }
+    }
+  }
+
+  .footer-bottom {
+    background: $black-06;
+
+    // position: absolute;
+    // bottom: 0;
+    // width: 100%;
+    .copyright {
+      padding-top: 1.25vw;
+      padding-bottom: 1.25vw;
+      text-align: center;
+      color: #8C94A3
+    }
+  }
+}

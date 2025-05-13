@@ -1,0 +1,16 @@
+.lg-banner-slider {
+    width: 100%;
+
+    &>img {
+        width: 100%;
+        border-radius: 23px;
+        height: 500px;
+        object-fit: cover;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .lg-banner-slider>img {
+        height: 100%;
+    }
+}

@@ -1,0 +1,105 @@
+@import "../../../_global.scss";
+
+.signup {
+  // height: 80vh;
+  // background: linear-gradient(rgba(26, 5, 43, 0.58), rgba(26, 5, 43, 0.58)),
+  //   url("https://res.cloudinary.com/dou9sjstz/image/upload/v1664554166/auth-page-bg_hx5p9o.png");
+  // background-size: cover;
+
+  .container {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    // height: 80vh;
+
+
+    // h4 {
+    //   font-size: $normal_font;
+    //   color: gray;
+    //   font-weight: normal;
+    // }
+
+    // .otp {
+    //   margin-top: 3rem;
+
+    //   label {
+    //     color: $gray;
+    //   }
+
+    //   input {
+    //     margin-top: clamp(4px, .25vw, 4.8px);
+    //     width: clamp(25px, 2.6042vw, 50px) !important;
+    //     aspect-ratio: 1 / 1;
+    //     border-radius: 5px;
+    //     outline: none;
+    //     padding: clamp(6px, .4167vw, 8px);
+    //     border: 1px solid gray;
+    //     font-size: clamp(16px, 1.6667vw, 32px);
+    //     padding: 8px;
+
+    //     &:focus {
+    //       border: 2px solid black !important;
+    //     }
+    //   }
+
+
+    // }
+  }
+}
+
+.signing-disable {
+  opacity: 0.6;
+  cursor: not-allowed !important;
+}
+
+
+
+// @media screen and (max-width: 768px) {
+//   html .signup .container .inside-signup {
+//     padding: 20px;
+
+// .otp input {
+//   width: 10px;
+//   height: 10px;
+//   margin: -2px;
+// }
+//   }
+// }
+
+
+.otp-verification-step {
+  display: flex;
+  flex-direction: column;
+  margin-top: clam(15px, 1.0417vw, 20px);
+
+  .otp-verification-header {
+    font-size: clamp(11px, .9375vw, 18px);
+    margin-top: 15px;
+    margin-bottom: 2px;
+
+  }
+
+  .otp-verification-paragraph {
+    font-size: clamp(10px, .8333vw, 16px);
+    margin-bottom: clamp(20px, 1.5625vw, 30px);
+  }
+
+  .otp-input {
+   
+    width: clamp(30px, 4.1667vw, 80px) !important;
+    aspect-ratio: 1 / 1;
+    border-radius: 5px;
+    outline: none;
+    padding: clamp(3px, .4167vw, 8px);
+    border: 1px solid $linear;
+    font-size: clamp(16px, 1.6667vw, 28px);
+    padding: 8px;
+
+    @media (max-width: 640px) {
+      width: clamp(20px, 8.8542vw, 170px) !important;
+    }
+    &:focus {
+      border: 2px solid $primary-2;
+    }
+  }
+}

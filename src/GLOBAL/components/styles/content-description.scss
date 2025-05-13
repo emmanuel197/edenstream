@@ -1,0 +1,283 @@
+@import '../../../global.scss';
+
+.content-description-section {
+    width: 100%;
+    padding: clamp(24px, 2.604vw, 49.997px);
+    border-radius: 0.625vw;
+    background-color: $black-10;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin: auto;
+   
+    .cds-header {
+        font-weight: 500;
+        font-size: clamp(16px, 1.25vw, 24px);
+        line-height: 1.875vw;
+        letter-spacing: 0%;
+        color: $secondary-60;
+    }
+
+    .cds-paragraph {
+        color: $grey-60;
+        font-weight: 500;
+        font-size: clamp(13px, 0.938vw, 18.01px);
+        line-height: clamp(20px, 1.406vw, 26.995px);
+        letter-spacing: 0%;
+        text-align: justify;
+    }
+
+    .release-genres-ratings-wrapper {
+        display: flex;
+        gap: 0.729vw;
+
+        @media(max-width: 600px) {
+            flex-direction: column;;
+            gap: clamp(18px, 1.042vw, 20.006px)
+        }
+        .release-year-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(12px, 1.042vw, 20px);
+            min-width: 10.99vw;
+            
+        // @media(max-width: 999px) {
+        //     width: 25%;
+        // }
+            .release-year-header-wrapper {
+                display: flex;
+                gap: clamp(3px, 0.208vw, 3.994px);
+                align-items: center;
+                .release-year-header-text {
+                    color: $secondary-60;
+                    font-weight: 500;
+                    font-size: clamp(13px, 0.938vw, 18.01px);
+                    line-height: 1.406vw;
+                    letter-spacing: 0%;
+
+                }
+
+                .release-year-header-icon {
+                    width: clamp(16px, 1.25vw, 24px);
+                    aspect-ratio: 24 / 24;
+                }
+            }
+
+            .release-year-text {
+                font-weight: 600;
+                font-size: clamp(16px, 1.042vw, 20.006px);
+                line-height: 1.563vw;
+                letter-spacing: 0%;
+                color: $secondary-60;
+
+                @media(max-width: 700px) {
+                    font-size: clamp(13px, 0.833vw, 16px);
+                }
+            }
+        }
+
+        .genres-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: clamp(10px, 0.729vw, 13px);
+            min-width: 14.844vw;
+
+            // @media(max-width: 999px) {
+            //     width: 50%;
+            // }
+            .genres-header-wrapper {
+                display: flex;
+                gap: 0.208vw;
+                align-items: center;
+                .genres-header-text {
+                    color: $secondary-60;
+                    font-weight: 500;
+                    font-size: clamp(13px, 0.938vw, 18.01px);
+                    line-height: 1.406vw;
+                    letter-spacing: 0%;
+                }
+
+                .genres-header-icon {
+                    width: clamp(16px, 1.25vw, 24px);
+                   aspect-ratio: 24/ 24
+                }
+            }
+
+            .genres-badges-wrapper {
+                display: flex;
+                gap: 0.521vw;
+
+                .genre-badge {
+
+                    border-radius: 0.417vw;
+                    font-weight: 500;
+                    font-size: clamp(13px, 0.938vw, 18.01px);
+                    line-height: clamp(20px, 1.406vw, 26.995px);
+                    letter-spacing: 0%;
+                    color: $secondary-60;
+                    padding: clamp(3px, 0.417vw, 8.006px) clamp(10px, 0.729vw, 13.997px);
+                    border: 1px solid $black-15;
+                    background-color: $black-08;
+
+                    @media (max-width: 700px) {
+                        font-size: clamp(11px, 0.729vw, 14px);;
+                    }
+                }
+            }
+        }
+
+        .ratings-wrapper {
+            display: flex;
+            gap: 4px;
+            align-items: start;
+            .ratings-text {
+                font-weight: 500;
+                font-size: clamp(13px, 0.938vw, 18.01px);
+                line-height: clamp(16px, 1.406vw, 26.995px);
+                letter-spacing: 0%;
+                color: $grey-60;
+            }
+
+            .ratings-icon {
+                width: clamp(16px, 1.25vw, 24px);
+                aspect-ratio: 24 / 24;
+            }
+        }
+    }
+
+    .director-music-wrapper,
+    .cast-wrapper,
+    .cast-cards-container {
+        display: flex;
+        width: 100%;
+        gap: 0.729vw;
+
+        @media (max-width: 600px) {
+            flex-direction: column;
+        }
+        .director-wrapper,
+        .music-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            gap: 0.729vw;
+
+            .director-header,
+            .music-header {
+                font-weight: 500;
+                font-size: clamp(14px, 0.938vw, 18.01px);
+                line-height: clamp(20px, 1.406vw, 26.995px);
+                letter-spacing: 0%;
+                color: $grey-60;
+            }
+
+            .director-container,
+            .music-container {
+                border: 0.052vw solid;
+                border-image-source: linear-gradient(136.62deg, rgba(10, 72, 52, 0.7) 6.32%, rgba(5, 84, 60, 0.625843) 44.93%, #0F0F0F 88.82%);
+                background: #0A483433;
+                border-radius: 0.417vw;
+                padding: clamp(6.8px, 0.729vw, 13.997px);
+                display: flex;
+                align-items: center;
+                gap: 0.521vw;
+
+                .director-image,
+                .music-author-image {
+                    border-radius: 0.417vw;
+                    width: clamp(28px, 2.946vw, 56.563px);
+                    aspect-ratio: 2.946 /3.125;
+                }
+
+                .name-country-wrapper {
+                    
+                    .director-name,
+                    .music-author-name {
+                        color: $secondary-60;
+                        font-weight: 500;
+                        font-size: clamp(13px, 0.938vw, 18.01px);
+                        line-height: clamp(20px, 1.406vw, 26.995px);
+                        letter-spacing: 0%;
+
+                    }
+
+                    .director-country,
+                    .music-author-country {
+                        font-weight: 500;
+                        font-size: clamp(12px, 0.833vw, 15.994px);
+                        line-height: clamp(18px, 1.25vw, 24px);
+                        letter-spacing: 0%;
+                        color: $grey-60;
+                    }
+                }
+            }
+
+        }
+
+
+    }
+
+    .cast-wrapper {
+        flex-direction: column;
+
+        .cast-header {
+            color: $grey-60;
+            font-weight: 500;
+            font-size: clamp(13px, 0.938vw, 18.01px);
+            line-height: clamp(20px, 1.406vw, 26.995px);
+            letter-spacing: 0%;
+
+        }
+
+        .cast-cards-container {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(clamp(200px, 20.833vw, 399.994px), 1fr));
+            @media (max-width: 788px) {
+                grid-template-columns: repeat(2, 1fr); // Change to 2 columns
+            }
+
+            @media (max-width: 600px) {
+                grid-template-columns: repeat(1, 1fr); // Change to 2 columns
+            }
+            .cast-card {
+                display: flex;
+                align-items: center;
+                gap: 0.729vw;
+                width: 100%;
+                background: #0A483433;
+                border: 0.052vw solid;
+                border-image-source: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
+                border-radius: 0.417vw;
+                padding: 0.729vw;
+                // @media (max-width: 788px) {
+                //     grid-column: span 2; // Make each card span 2 columns 
+                //  }
+                .cast-img {
+                    width: clamp(28px,2.946vw, 56.563px);
+                    aspect-ratio: 2.946 /3.125;
+                    border-radius: 0.417vw;
+
+                }
+
+                .cast-name-country-wrapper {
+                    .cast-name {
+                        font-weight: 500;
+                        font-size: clamp(13px, 0.938vw, 18.01px);
+                        line-height: clamp(20px, 1.406vw, 26.995px);
+                        letter-spacing: 0%;
+                        color: $secondary-60;
+                    }
+
+                    .cast-country {
+                        font-weight: 500;
+                        font-size: clamp(10px, 0.833vw, 15.994px);
+                        line-height: clamp(20px, 1.25vw, 24px);
+                        letter-spacing: 0%;
+                        color: $grey-60;
+                    }
+                }
+            }
+        }
+    }
+
+}

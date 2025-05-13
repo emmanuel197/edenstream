@@ -1,0 +1,75 @@
+@import "../../../_global.scss";
+
+.watch-movie {
+  background-color: $primary_color;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  overflow: hidden;
+
+  button {
+    background-color: $kg_color;
+    color: $primary_color;
+    border-radius: $border_rad;
+    transition: 0.4s all;
+    padding: 0.4rem 0.8rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+    cursor: pointer;
+
+    &:hover {
+      background-color: $tertiary_color;
+    }
+  }
+
+  video {
+    // border: 10px solid ;
+    height: 100vh;
+    width: 100vw;
+    background-color: #fff;
+  }
+
+}
+
+html .next-popup-wrapper {
+  >a {
+    color: #000
+  }
+
+  .next-popup {
+    background: #fff;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 350px;
+    padding: 10px;
+    right: 20px;
+    bottom: 90px;
+    position: fixed;
+    display: flex;
+    align-items: center;
+    box-shadow: 0 0 20px 0px #00000012;
+
+    span {
+      position: absolute;
+      right: 10px;
+      top: 0;
+      cursor: pointer;
+
+      &:hover {
+        opacity: .5;
+      }
+    }
+
+    &>div {
+      padding: 10px;
+    }
+
+    img {
+      height: 120px;
+      border-radius: 8px;
+    }
+  }
+}
