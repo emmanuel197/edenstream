@@ -165,8 +165,8 @@ export const verifyOTP = async (isPhoneNumber, OTPCode, password) => {
       username: username,
     })
 
-    // console.warn('signupResponse >>', signupResponse.data)
-    console.log('signupResponse >>', signupResponse.data)
+    console.warn('signupResponse >>', signupResponse.data)
+    
     if (signupResponse.data.message === "subscriber already exist") {
       TOAST.error(`Subscriber may already exist. Try signing in`)
       return
@@ -177,11 +177,11 @@ export const verifyOTP = async (isPhoneNumber, OTPCode, password) => {
       signupResponse.data.message !== "subscriber already exist"
     ) {
       store.dispatch(isLoadingReducer(false))
-      console.log(signupResponse.data)
+
       TOAST.error(`Oops! ${signupResponse.data.message}. Try again`)
       return
     }
-
+    console.log("signupresponse", signupResponse.data.status)
     if (signupResponse.data.status === "ok") {
       await LoginUnicast(true, mobileNumber, email, password)
       return true
@@ -239,10 +239,11 @@ export const LoginUnicast = async (isPhoneNumber, mobileNumber, email, password)
       device_os: "Windows"
     })
 
-    // console.warn('login uniqcast response >>', loginResponse.data)
+    console.warn('login uniqcast response >>', loginResponse.data)
 
     if (loginResponse.data.status === "ok") {
-      // console.warn('uniqcast login pass >>', loginResponse.data)
+
+      console.warn('uniqcast login pass >>', loginResponse.data)
       COOKIES.set("user_info", loginResponse)
 
       await sendLog({ action: 'login' })

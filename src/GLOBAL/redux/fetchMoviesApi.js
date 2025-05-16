@@ -1618,30 +1618,33 @@ export const removeWatchlist = async (id, _type) => {
     // console.error("removeWatchlist", e);
   }
 };
-
-export const fetchGenres = (dispatch) => {
-  const { operator_uid, access_token } = user_info.data.data;
-
+export const fetchGenres = async (dispatch) => {
+  const { access_token } = user_info.data.data;
   interceptResponse();
 
-  var config = {
-    method: "get",
-    url: `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/genres`,
-    headers: {
-      Authorization: `Bearer ${access_token}`,
-      "Content-Type": "application/json"
-    }
-  };
+  try {
+    const response = await axios.get(
+      `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/genres`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      }
+    );
 
-  axios(config)
-    .then((response) => dispatch(fetchGenresReducer(response.data.data)))
-
-    .catch((e) => {
-      // console.error(e);
-      // dispatch(fetchMovieVideo_error());
-    });
+    // Extract uids from the response data
+    const genreUids = response.data.data.map(genre => genre.uid);
+    
+    // Dispatch the uids array to the reducer
+    dispatch(fetchGenresReducer(genreUids));
+    
+    console.log(genreUids); // Should log: ['action', 'adventure', 'animation', ...]
+  } catch (e) {
+    // Error handling
+    // console.error(e);
+    // dispatch(fetchMovieVideo_error());
+  }
 };
-
 export const fetchBannerContent = async (type) => {
   try {
     const { access_token, operator_uid } = user_info.data.data;

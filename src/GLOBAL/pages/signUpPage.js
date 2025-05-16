@@ -149,7 +149,7 @@ import { format } from "date-fns";
 import {useSignupForm} from "../../utils/useSignupForm";
 import OTPVerification from "../components/otpVerificationPage/otpVerification";
 import { fetchGenres } from "../redux/fetchMoviesApi";
-
+import Cookies from "universal-cookie";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -332,12 +332,11 @@ export const Step3 = ({ className }) => {
   const dispatch = useDispatch();
   const genres = useSelector(state => state.genres || []);
   const [selectedCategories, setSelectedCategories] = useState([]);
-
   // Fetch genres on component mount
   useEffect(() => {
     fetchGenres(dispatch);
   }, [dispatch]);
-
+console.log(genres)
   // Update to use genre names and IDs
   const toggleCategory = (genreId, genreName) => {
     setSelectedCategories(prevSelected => {
