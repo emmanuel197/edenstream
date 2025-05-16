@@ -5,7 +5,7 @@ import SignUpPage from "./GLOBAL/pages/signUpPage";
 import SignInPage from "./GLOBAL/pages/signInPage";
 import ResetPasswordPage from "./GLOBAL/pages/resetPasswordPage";
 import OTPVerification from "./GLOBAL/pages/otpVerification";
-
+import MovieDetailsPage from "./GLOBAL/pages/MovieDetailsPage";
 import Home from "./GLOBAL/pages/home";
 import ProtectedRoute from "./GLOBAL/components/ProtectedRoute";
 
@@ -40,6 +40,7 @@ function App() {
         <Route path="/contact" element={<ContactUsPage />} />
         <Route path="/subscription" element={<SubscriptionPage />} />
         <Route path="/movies" element={<MoviesPage/>}/>
+        <Route path="/movie/:id" element={<MovieDetailsPage />} />
         <Route path="/livetv" element={<LiveTvPage/>}/>
         <Route path="/series" element={<SeriesPage/>}/>
         <Route path="/word" element={<DevotionalPage/>}/>

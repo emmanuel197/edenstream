@@ -764,6 +764,7 @@ export const fetchMovie = async (dispatch) => {
 
     if (cachedData) {
       console.log('=== Using cached data ===');
+      console.log('cachedData -<',cachedData)
       dispatch(fetchMovies_fromCache(cachedData));
       return;
     }
@@ -798,6 +799,7 @@ export const fetchMovie = async (dispatch) => {
     const categorizedMovies = {};
     categories.data.data.forEach(category => {
       // Convert category name to camelCase and use as key
+      console.log('category -<',category)
       const categoryKey = category.name.toLowerCase().replace(/\s+/g, '');
       categorizedMovies[categoryKey] = [];
     });
