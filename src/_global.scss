@@ -7,6 +7,7 @@
   --size: 5;
   --navbar-width: 256px;
   --navbar-width-min: 55px;
+
   @property --nose {
     syntax: '<percentage>';
     initial-value: 0%;
@@ -19,18 +20,27 @@
     inherits: false;
   }
 }
+
 body {
   overflow-x: hidden;
+  background: linear-gradient(
+    to left,
+    #441A76 0%,
+    #441A76 50%,
+    #141414 100%
+  );
+  min-height: 100vh;
 }
 
 
 main {
   margin: auto;
   position: relative;
-  
+
   width: 100%;
 
 }
+
 body,
 html,
 * {
@@ -44,7 +54,7 @@ html,
   max-width: 90%;
   margin: 0 auto;
 }
- 
+
 
 
 // Absolute Colors
@@ -52,7 +62,8 @@ $white: #FFF;
 $black: #000;
 
 // Primary Colors (Green Shades)
-$primary-main: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);;
+$primary-main: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+;
 $button-hover: linear-gradient(136.62deg, #0C573F -5.14%, #05543C 63.61%, #04271C 88.82%);
 $button-disabled: linear-gradient(173.58deg, rgba(97, 146, 103, 0.24) 19.75%, rgba(15, 15, 15, 0.12) 98.37%);
 
@@ -106,16 +117,16 @@ $sign-up-link-bg-color: linear-gradient(137deg, #619267 6.32%, #04271C 88.82%);
 $log-in-link-bg-color: rgba(255, 255, 255, 0.1);
 $hero-header-gradient: linear-gradient(184.54deg, rgba(255, 255, 255, 0.85) 3.67%, rgba(182, 182, 182, 0.85) 96.33%);
 
-$linear:  #0A4834;
+$linear: #0A4834;
 
 
 
 
-$view-all-btn-border-color:  linear-gradient(117.79deg, rgba(255, 255, 255, 0.625843) 26.56%, rgba(255, 255, 255, 0.1) 73.44%);
+$view-all-btn-border-color: linear-gradient(117.79deg, rgba(255, 255, 255, 0.625843) 26.56%, rgba(255, 255, 255, 0.1) 73.44%);
 $view-all-btn-bg-color: rgba(255, 255, 255, 0.1);
 $faq-border-botton-color: linear-gradient(90deg, rgba(166, 166, 166, 0.5) 26.69%, rgba(10, 72, 52, 0.5) 61.69%);
 
-$btn-filled-hover-color:  linear-gradient(136.62deg, #0C573F -5.14%, #05543C 63.61%, #04271C 88.82%);
+$btn-filled-hover-color: linear-gradient(136.62deg, #0C573F -5.14%, #05543C 63.61%, #04271C 88.82%);
 $btn-disabled-color: linear-gradient(136.62deg, rgba(10, 72, 52, 0.35) 6.32%, rgba(5, 84, 60, 0.312922) 44.93%, rgba(15, 15, 15, 0.5) 88.82%);
 $social-link-hover: linear-gradient(136.62deg, rgba(10, 72, 52, 0.7) 6.32%, rgba(5, 84, 60, 0.625843) 44.93%, #0F0F0F 88.82%);
 $social-link-selected: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
@@ -141,6 +152,8 @@ $m_headings_font_size: 1.5rem;
   color: $secondary-60;
 }
 
+
+primary-color
 button {
   display: block !important;
 }
@@ -230,20 +243,21 @@ button {
 .inner-sections-wrapper {
   max-width: 83.281vw;
   // min-width: 18.75vw;
-  width: 100%; 
-  margin: auto;   
+  width: 100%;
+  margin: auto;
 
-    &.tab-wrapper-variant {
-      
-      @media (max-width: 1000px) {
-        max-width: 100%;
+  &.tab-wrapper-variant {
 
-      }
-    }
-
-    @media (max-width: 500px) {
+    @media (max-width: 1000px) {
       max-width: 100%;
 
     }
+  }
+
+  @media (max-width: 500px) {
+    max-width: 100%;
+
+  }
+
   // margin: 0 clamp(50px, 8.333vw, 159.994px); 
 }

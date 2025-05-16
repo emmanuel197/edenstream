@@ -1,4 +1,3 @@
-
 import React from "react";
 import MovieCard from "../cards/MovieCard";
 import Button from "../buttons/Button";
@@ -9,11 +8,19 @@ import { useCustomScrollbar } from "../../../utils/scrollbarLogic";
 import CustomScrollbar from "../customScrollbar";
 
 const ReelWrapper = ({title, movies}) => {
-    
+    console.log(`ReelWrapper ${title} - Movie data structure:`, {
+        moviesArray: movies,
+        sampleMovie: movies?.[0],
+        sampleMovieKeys: movies?.[0] ? Object.keys(movies[0]) : [],
+        metadata: movies?.[0]?.metadata,
+        imageInfo: {
+            image_id: movies?.[0]?.image_id,
+            image_store_id: movies?.[0]?.image_store_id
+        }
+    });
 
-    console.log(movies)
     const location = useLocation();
-  const isSearchPage = location.pathname === "/search"; 
+    const isSearchPage = location.pathname === "/search"; 
     return (
         <section className="reel-wrapper-section">
             <div className="rw-header-wrapper">
@@ -53,9 +60,20 @@ export const RwContentContainer = ({ movies, marginTop, isChannelsSection = fals
         style={{ marginTop }}
         ref={containerRef}
       >
-        {movies?.map((movie) => (
-          <MovieCard key={movie.id} movie={movie} />
-        ))}
+        {movies?.map((movie) => {
+          // Transform the movie data to match MovieCard expected props
+          const movieCardProps = {
+            id: movie.id,
+            name: movie.title,
+            poster: movie.image_id ? 
+                `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movie.image_id}?accessKey=WkVjNWNscFhORDBLCg==` : 
+                null,
+            type: movie.type,
+            newEpisode: false
+          };
+          console.log('Movie card props:', movieCardProps);
+          return <MovieCard key={movie.id} movie={movieCardProps} />;
+        })}
       </div>
       {!isChannelsSection && <CustomScrollbar thumbRef={scrollThumbRef} />}
     </div>

@@ -1,4 +1,4 @@
-@import '../../../global';
+@import '../../../styles/variables';
 
 .landing-page-dynamic-btns {
     padding-top: 0.1rem !important;
@@ -20,9 +20,12 @@
     cursor: pointer;
     font-size: clamp(10px, 0.75vw, 14.4px);
     font-weight: 600;
-    // div {
-    background: $primary-main;
-    color: $secondary-60;
+    background: linear-gradient(
+        to right,
+        $gold-gradient-default,
+        $gold-gradient-default-secondary
+    );
+    color: $color-white;
     transition: 0.4s all;
     border: none;
     display: flex;
@@ -71,7 +74,11 @@
     }
 
     &:hover {
-        background: $button-hover;
+        background: linear-gradient(
+            to right,
+            $gold-gradient-hover,
+            $gold-gradient-hover-secondary
+        );
     }
     @media only screen and (max-width: 300px) {
         padding: .5rem;
@@ -92,8 +99,8 @@
     white-space: nowrap;
     // cursor: pointer;
     border-radius: 2px;
-    border: 2px solid #fff;
-    color: #fff;
+    border: 2px solid $color-white;
+    color: $color-white;
     width: max-content;
     text-decoration: none;
     user-select: none;
@@ -117,8 +124,8 @@
     }
 
     &:hover {
-        background: #fff;
-        color: #000;
+        background: $color-white;
+        color: $color-black;
 
         img {
             filter: invert(1);
@@ -133,7 +140,12 @@ button {
 
     &:disabled {
         cursor: no-drop;
-        background: $btn-disabled-color;
+        background: linear-gradient(
+            to right,
+            $gold-gradient-disabled,
+            $gold-gradient-disabled-secondary
+        );
+        opacity: $gold-gradient-disabled-opacity;
     }
 }
 

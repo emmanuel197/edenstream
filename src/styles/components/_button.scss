@@ -1,0 +1,103 @@
+.button {
+  // Base dimensions from Figma
+  width: 106px;
+  height: 38px;
+  border-radius: 5px;
+  padding: {
+    top: 14px;
+    right: 24px;
+    bottom: 14px;
+    left: 24px;
+  }
+  gap: 4px;
+
+  // Default state
+  background: linear-gradient(
+    to bottom,
+    $gold-gradient-default,
+    $gold-gradient-default-secondary
+  );
+  border: none;
+  color: $color-white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+
+  // Hover state
+  &:hover {
+    background: linear-gradient(
+      to bottom,
+      $gold-gradient-hover,
+      $gold-gradient-hover-secondary
+    );
+  }
+
+  // Active/Pressed state
+  &:active {
+    background: linear-gradient(
+      to bottom,
+      $gold-gradient-active,
+      $gold-gradient-active-secondary
+    );
+  }
+
+  // Disabled state
+  &:disabled {
+    background: linear-gradient(
+      to bottom,
+      $gold-gradient-disabled,
+      $gold-gradient-disabled-secondary
+    );
+    opacity: $gold-gradient-disabled-opacity;
+    cursor: not-allowed;
+  }
+
+  // Primary variant
+  &--primary {
+    background: linear-gradient(
+      to bottom,
+      $gold-gradient-default,
+      $gold-gradient-default-secondary
+    );
+  }
+
+  // Secondary variant
+  &--secondary {
+    background: transparent;
+    border: 1px solid $gold-gradient-default;
+    color: $gold-gradient-default;
+
+    &:hover {
+      border-color: $gold-gradient-hover;
+      color: $gold-gradient-hover;
+    }
+
+    &:active {
+      border-color: $gold-gradient-active;
+      color: $gold-gradient-active;
+    }
+
+    &:disabled {
+      border-color: $gold-gradient-disabled;
+      color: $gold-gradient-disabled;
+      opacity: $gold-gradient-disabled-opacity;
+    }
+  }
+
+  // Play Now variant (as seen in Figma)
+  &--play-now {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(
+      to bottom,
+      $gold-gradient-default,
+      $gold-gradient-default-secondary
+    );
+    font-weight: 500;
+    
+    &::before {
+      content: "▶";
+      margin-right: 8px;
+    }
+  }
+} 

@@ -757,40 +757,61 @@ export const fetchAllMovies = async () => {
 // };
 export const fetchMovie = async (dispatch) => {
   try {
+    dispatch(fetchMovies_begin());
+    
     // Try to get cached data from IndexedDB first
     const cachedData = await getDataFromIndexedDB('moviesDB', 'movieCategories');
 
     if (cachedData) {
-      // Dispatch cached data to Redux immediately
-      dispatch(fetchMovies_fromCache({
-        movies: cachedData.movies,
-        packageNameToId: cachedData.packageNameToId,
-        moviesByCategories: cachedData.moviesByCategories,
-        trending: cachedData.trending,
-        recentlyadded: cachedData.recentlyadded,
-        bingeworthy: cachedData.bingeworthy,
-      }));
-      return; // Exit early if data is found in cache
+      console.log('=== Using cached data ===');
+      dispatch(fetchMovies_fromCache(cachedData));
+      return;
     }
 
-    // If no cached data, proceed with API request
     const { access_token, operator_uid, user_id } = user_info.data.data;
-    interceptResponse();
+    const packageIds = [];
 
+    // Get user packages
     const packages = await axios.get(
       `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/users/${user_id}/packages?device_class=desktop`,
       {
         headers: {
-          Authorization: `Bearer ${access_token}`,
-        },
+          Authorization: `Bearer ${access_token}`
+        }
       }
     );
 
-    if (packages.data.status === 'ok') {
-      const packageIds = packages.data.data.map((item) => item.id).join(',');
+    [...packages.data.data].forEach((item) => packageIds.push(item.id));
+    const packagesString = packageIds.join(',');
 
-      const categories = await axios.get(
-        `https://ott.tvanywhereafrica.com:28182/api/client/v3/${operator_uid}/categories/vod?packages=${packageIds}`,
+    // Get categories
+    const categories = await axios.get(
+      `https://ott.tvanywhereafrica.com:28182/api/client/v3/${operator_uid}/categories/vod?packages=${packagesString}`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      }
+    );
+
+    // Initialize categorizedMovies dynamically based on category response
+    const categorizedMovies = {};
+    categories.data.data.forEach(category => {
+      // Convert category name to camelCase and use as key
+      const categoryKey = category.name.toLowerCase().replace(/\s+/g, '');
+      categorizedMovies[categoryKey] = [];
+    });
+
+    if (packages.data.status === 'ok') {
+      const categoryMap = new Map();
+      categories.data.data.forEach((item) => {
+        categoryMap.set(item.uid, item.id);
+      });
+
+      const categoryIds = [...categoryMap.values()].join(',');
+
+      const movies = await axios.get(
+        `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/categories/vod/content?packages=${packageIds}&categories=${categoryIds}`,
         {
           headers: {
             Authorization: `Bearer ${access_token}`,
@@ -798,84 +819,65 @@ export const fetchMovie = async (dispatch) => {
         }
       );
 
-      if (categories.data.status === 'ok') {
-        const categoryMap = new Map();
-        categories.data.data.forEach((item) => {
-          categoryMap.set(item.uid, item.id);
-        });
+      console.log('Movies Response:', {
+        status: movies.data.status,
+        totalMovies: movies.data.data?.length || 0
+      });
 
-        const categoryIds = [...categoryMap.values()].join(',');
+      movies.data.data.forEach((movie) => {
+        const categoryUid = [...categoryMap.entries()].find(
+          ([, id]) => id === movie.id
+        )?.[0];
 
-        const movies = await axios.get(
-          `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/categories/vod/content?packages=${packageIds}&categories=${categoryIds}`,
-          {
-            headers: {
-              Authorization: `Bearer ${access_token}`,
-            },
+        if (categoryUid) {
+          const key = categoryUid.toLowerCase();
+          if (categorizedMovies[key]) {
+            categorizedMovies[key].push(movie);
           }
-        );
-        // console.log(movies)
-        const categorizedMovies = {
-          mostwatched: [],
-          recentlyadded: [],
-          comingSoon: [],
-          trending: [],
-          afriplaytop10: [],
-          afriPlaylive: [],
-          afriPremiere: [],
-          mtnrecommends: [],
-          doubledrama: [],
-          topepicmovies: [],
-          exciting: [],
-          hiddengems: [],
-          viewersfavourites: [],
-          randompicks: [],
-          bingeworthy: [],
-          nostalgia: [],
-          romcom: [],
-          omg: [],
-          suggestedmoviesforyou: [],
-          readysetpopcorn: [],
-          watchagain: [],
-        };
+        }
+      });
 
-        movies.data.data.forEach((movie) => {
-          const categoryUid = [...categoryMap.entries()].find(
-            ([, id]) => id === movie.id
-          )?.[0];
-
-          if (categoryUid) {
-            const key = categoryUid.toLowerCase();
-            if (categorizedMovies[key]) {
-              categorizedMovies[key].push(movie);
-            }
+      console.log('=== FINAL DATA STRUCTURE ===');
+      console.log('Category Map:', Object.fromEntries(categoryMap));
+      console.log('Movies by Category:', Object.entries(categorizedMovies).map(([key, value]) => ({
+        category: key,
+        movieCount: value.length
+      })));
+      
+      if (movies.data.data[0]) {
+        console.log('Sample Movie Structure:', {
+          sampleMovie: {
+            id: movies.data.data[0].id,
+            metadata: movies.data.data[0].metadata,
           }
         });
+      }
+      console.log('========================');
 
-        // Store fetched data in IndexedDB for future use
-        await storeDataInIndexedDB('moviesDB', 'movieCategories', {
+      // Store fetched data in IndexedDB for future use
+      await storeDataInIndexedDB('moviesDB', 'movieCategories', {
+        movies: movies.data.data,
+        packageNameToId: Object.fromEntries(categoryMap),
+        moviesByCategories: categorizedMovies,
+        ...categorizedMovies,
+      });
+
+      // Dispatch the fetched data to Redux
+      dispatch(
+        fetchMovies_success({
           movies: movies.data.data,
           packageNameToId: Object.fromEntries(categoryMap),
           moviesByCategories: categorizedMovies,
-          ...categorizedMovies,
-        });
-
-        // Dispatch the fetched data to Redux
-        dispatch(
-          fetchMovies_success({
-            movies: movies.data.data,
-            packageNameToId: Object.fromEntries(categoryMap),
-            moviesByCategories: categorizedMovies,
-            trending: categorizedMovies.trending,
-            recentlyadded: categorizedMovies.recentlyadded,
-            bingeworthy: categorizedMovies.bingeworthy,
-          })
-        );
-      }
+          ...categorizedMovies
+        })
+      );
     }
   } catch (error) {
+    console.error('Error in fetchMovie:', {
+      message: error.message,
+      stack: error.stack
+    });
     dispatch(fetchMovies_error());
-    // console.error('Error fetching movies:', error);
   }
 };
 // export const fetchMovie = async (dispatch) => {

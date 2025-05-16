@@ -4,55 +4,97 @@ import GenreTabs from '../components/home/GenreTabs'
 import Reel from "../components/reels/Reel";
 import DynamicBanner from "../components/banners/DynamicBanner";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setActiveGenreTab } from "../redux/slice/genreTabSlice";
 import "../components/styles/home.scss";
+import { fetchMovie } from "../redux/fetchMoviesApi";
 
 const Home = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    
+    // Get movie categories from Redux store
+    const {
+        trending = [],
+        recentlyadded = [],
+        bingeworthy = [],
+        nostalgia = [],
+        romcom = [],
+        omg = [],
+        suggestedmoviesforyou = [],
+        readysetpopcorn = [],
+        afriPlaylive = [],
+        loading
+    } = useSelector(state => state.fetchMovies);
 
-    const filteredMovies = [{ id: 1,   name: "Angels Friends", poster: "/assets/adipurush.png"
-                }, {id: 2, name:"Faith", poster: "/assets/jackie.png"},
-                 {id: 3, name:"Faith", poster: "/assets/sincity.png", newEpisode: true},
-                {id:4, name:"Faith Tv", poster: "/assets/faith.png"}]
+    useEffect(() => {
+        // Fetch movies when component mounts
+        const loadMovies = async () => {
+            try {
+                await fetchMovie(dispatch);
+                console.log('Movies fetched successfully');
+            } catch (error) {
+                console.error('Error fetching movies:', error);
+            }
+        };
 
-   const reelSections = [{reelTitle: "Continue Watching"}, {reelTitle:"Recommended For You"}, {reelTitle: "Live Tv"}, {reelTitle: "Movies"}, {reelTitle: "Series"}, {reelTitle: "Word"}, {reelTitle: "Music"}, {reelTitle: "Sermons"}, {reelTitle: "Devotionals"}, {reelTitle: "Lifestyle"}, {reelTitle: "Kids"}]
+        loadMovies();
+    }, [dispatch]);
+
+    // Debug logs for data structure
+    console.log('Recently Added Movies:', recentlyadded);
+    if (recentlyadded.length > 0) {
+        console.log('Sample Movie Structure:', {
+            firstMovie: recentlyadded[0],
+            keys: Object.keys(recentlyadded[0]),
+            metadata: recentlyadded[0].metadata,
+            content: recentlyadded[0].content
+        });
+    }
+
+    // Define sections with their corresponding data from Redux
+    const reelSections = [
+        { reelTitle: "Trending", movies: trending },        
+        { reelTitle: "Inspiring", movies: recentlyadded },
+        { reelTitle: "Binge Worthy", movies: bingeworthy },
+        { reelTitle: "Nostalgia", movies: nostalgia },
+        { reelTitle: "RomCom", movies: romcom },
+        { reelTitle: "OMG", movies: omg },
+        { reelTitle: "Suggested For You", movies: suggestedmoviesforyou },
+        { reelTitle: "Ready Set Popcorn", movies: readysetpopcorn },
+        { reelTitle: "Afriplay Live", movies: afriPlaylive }
+    ].filter(section => section.movies && section.movies.length > 0);
+
+    // Debug log for sections that have movies
+    console.log('Sections with movies:', reelSections.map(section => ({
+        title: section.reelTitle,
+        movieCount: section.movies.length,
+        sampleMovie: section.movies[0]
+    })));
 
     return (
         <>
-            <main >
+            <main>
                 <Header links={5} signup={1} />
                 <div className="inner-sections-wrapper">
-                <DynamicBanner />
-               {reelSections.map(({reelTitle}) => {
-                    return <Reel title={reelTitle} movies={filteredMovies} marginTop="2.6042vw"/>
-               })}
+                    <DynamicBanner />
+                    {loading ? (
+                        <div>Loading...</div>
+                    ) : (
+                        reelSections.map(({reelTitle, movies}) => {
+                            console.log(`Rendering ${reelTitle} section with movies:`, movies[0]);
+                            return (
+                                <Reel 
+                                    key={reelTitle}
+                                    title={reelTitle} 
+                                    movies={movies} 
+                                    marginTop="2.6042vw"
+                                />
+                            );
+                        })
+                    )}
                 </div>
-             
-                <br /><br />
-                {/* <Reel title='MOST WATCHED' /> */}
-                {/* <Reel title='TRENDING' />
-                <Reel title='RECENTLY ADDED' />
-                <Reel title='BINGE WORTHY' />
-                <Reel title='NOSTALGIA' />
-                <Reel title='ROMCOM' />
-                <Reel title='OMG' />
-                <Reel title='SUGGESTED MOVIES FOR YOU' />
-                <Reel title='READY SET POPCORN' /> */}
-       
-                {/* <Reel title='COMING SOON' /> */}
-                {/* <Reel title='AFRIPLAY LIVE' /> */}
-                {/* <Reel title=''/> */}
-                {/* <Reel title='MOST WATCHED' />
-                <Reel title='RECENTLY ADDED' />
-                <Reel title='AFRIPREMIERE' />
-                <Reel title='COMING SOON' />
-                <Reel title='AFRIPLAY LIVE' /> */}
                 <Footer />
-
-                {/* <Reel title='PAY PER VIEW' /> */}
             </main>
-
         </>
     )
 }
