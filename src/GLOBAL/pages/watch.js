@@ -2,8 +2,8 @@ import React, { useRef, forwardRef } from "react";
 import VideoPlayer from "../components/videoPlayer.js";
 import "../../GLOBAL/components/styles/watch.scss";
 
-const Watch = forwardRef(({ wcClassName, showControls = true }, ref) => {
-  const videoSrc = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8";
+const Watch = forwardRef(({ wcClassName, showControls = true, videoUrl }, ref) => {
+  const videoSrc = videoUrl;
   const posterImg = "/assets/banner-background-placeholder.png ";
 
   return (

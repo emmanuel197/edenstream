@@ -49,8 +49,8 @@ function App() {
         <Route path="/login" element={<SignInPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
     
-        <Route path="/watch" element={<Watch />} />
-        
+
+        <Route path="/watch/:type/:id" element={<ProtectedRoute><Watch /></ProtectedRoute>}/>
 
         
         <Route path="/profile" element={<Profile />} />

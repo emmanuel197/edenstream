@@ -5,7 +5,8 @@ import DynamicBanner from "../components/banners/DynamicBanner";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../components/styles/home.scss";
-import { fetchMovie } from "../redux/fetchMoviesApi";
+import { fetchMovie, fetchGenres } from "../redux/fetchMoviesApi";
+import { setActiveGenreTab } from "../redux/slice/genreTabSlice";
 
 const Home = () => {
     const dispatch = useDispatch();
@@ -27,7 +28,12 @@ const Home = () => {
 
         loadMovies();
     }, [dispatch]);
-
+    useEffect(() => {
+        const _setActiveGenreTab = (_genreTab = 'ALL') => dispatch(setActiveGenreTab(_genreTab))
+        _setActiveGenreTab('ALL')
+        
+        fetchGenres(dispatch)
+    }, [dispatch])
     // Create reel sections from categories
     const reelSections = Object.entries(moviesState.moviesByCategories || {})
         .map(([categoryUid, _]) => ({

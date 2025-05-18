@@ -23,14 +23,40 @@ const MovieDetailsPage = () => {
         return <div>Loading...</div>;
     }
 
+    // Transform movie details for the banner
+    const bannerData = movieDetails ? {
+        title: movieDetails.title,
+        description: movieDetails.description,
+        imageUrl: movieDetails.image_store_id ? 
+            `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movieDetails.image_store_id}?accessKey=WkVjNWNscFhORDBLCg==` : 
+            null,
+        rating: movieDetails.rating,
+        duration: movieDetails.duration,
+        year: movieDetails.year,
+        genre: movieDetails.genre,
+        trailerUrl: movieDetails.trailer_url,
+        isInWatchlist: movieDetails.is_in_watchlist,
+        movieId: movieDetails.id,
+        type: movieDetails.type
+    } : null;
+
     return (
         <>
             <main>
                 <Header />
                 <div className="inner-sections-wrapper">
-                    <DynamicBanner />
-                    <ContentDescriptionSecton marginTop="3.021vw" />
-                    <ReviewSection marginTop="5.26vw"/>
+                    <DynamicBanner 
+                        movieData={bannerData}
+                        showSlides={false}
+                    />
+                    <ContentDescriptionSecton 
+                        marginTop="3.021vw" 
+                        movieDetails={movieDetails}
+                    />
+                    <ReviewSection 
+                        marginTop="5.26vw"
+                        movieId={id}
+                    />
                 </div>
                 <Footer />
             </main>

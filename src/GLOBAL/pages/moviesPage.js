@@ -52,7 +52,7 @@ const MoviesPage = () => {
             <main style={{ background: '#1a052b' }}>
                 <Header links={5} signup={1} />
                 <div className="inner-sections-wrapper">
-                    <DynamicBanner />
+                    <DynamicBanner/>
                     <GenreTabs />
                     <GenreMovies />
                     {loading ? (

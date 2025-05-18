@@ -22,7 +22,7 @@ export const facebook = '/assets/svg/facebookIcon.svg'
 export const linkedIn = '/assets/svg/LinkedinIcon.svg'
 export const twitter = '/assets/svg/TwitterIcon.svg'
 export const youtube = '/assets/svg/YoutubeIcon.svg'
-export const instagram = 'assets/svg/InstagramIcon.svg'
+export const instagram = '/assets/svg/InstagramIcon.svg'
 
 //download link icons
 export const appleDownload = '/assets/svg/appleDownload.svg'
@@ -43,7 +43,7 @@ export const mcPlayVector = '/assets/svg/mc-play-vector.svg'
 //released-year-genres-rating images
 export const releasedYear = '/assets/svg/released-year.svg'
 export const genresIcon = '/assets/svg/genres.svg'
-export const ratingsIcon = 'assets/svg/ratings.svg'
+export const ratingsIcon = '/assets/svg/ratings.svg'
 
 //director and music author image
 export const directorImage = '/assets/alex-kendrick.png'
@@ -54,7 +54,7 @@ export const addYourReview = '/assets/svg/add your review.svg'
 
 //dynamic banner icon
 export const playIcon = '/assets/svg/play-icon.svg'
-export const informationCircle = 'assets/svg/information-circle.svg'
+export const informationCircle = '/assets/svg/information-circle.svg'
 export const likeIcon = '/assets/svg/like-icon.svg'
 export const plusIcon = '/assets/svg/plus-icon.svg'
 export const muteIcon = '/assets/svg/mute-icon.svg'
