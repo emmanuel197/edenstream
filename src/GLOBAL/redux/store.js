@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import thunk from "redux-thunk";
 import accountSlice from "./slice/accountSlice";
 import AuthReducer from "./slice/authSlice";
 import drawerSlice from "./slice/drawerSlice";
@@ -19,5 +20,6 @@ export const store = configureStore({
     fetchPackages: fetchPackages,
     form: formReducer,
     contentPref: contentPrefSlice,
-  }
+  },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(thunk),
 });

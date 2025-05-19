@@ -48,7 +48,7 @@ function App() {
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
-    
+        <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
 
         <Route path="/watch/:type/:id" element={<ProtectedRoute><Watch /></ProtectedRoute>}/>
 

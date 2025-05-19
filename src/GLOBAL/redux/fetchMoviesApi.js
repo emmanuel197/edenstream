@@ -1252,10 +1252,12 @@ export const fetchSeries = async (dispatch) => {
   }
 };
 
-export const search = async (dispatch, keyword) => {
+export const search = (keyword) => async (dispatch) => {
   try {
+    console.log('Search function called with keyword:', keyword);
     const { access_token, operator_uid, user_id } = user_info.data.data;
     const formattedString = keyword.replace(/[^\w\s]/gi, "");
+    console.log('Formatted search string:', formattedString);
 
     interceptResponse();
 
@@ -1269,12 +1271,14 @@ export const search = async (dispatch, keyword) => {
         }
       }
     );
+    console.log('Packages response:', packages.data);
 
     [...packages.data.data].forEach((item) => {
       return packageIds.push(item.id);
     });
 
     const packagesString = packageIds.join(",");
+    console.log('Packages string:', packagesString);
 
     const response = await axios.get(
       `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/search/movies/${formattedString}?translation=hr&packages=${packagesString}`,
@@ -1284,10 +1288,15 @@ export const search = async (dispatch, keyword) => {
         }
       }
     );
+    console.log('Search API response:', response.data);
 
-    if (response.data.status === "error") return;
+    if (response.data.status === "error") {
+      console.log('Search API returned error status');
+      return;
+    }
 
     if (response.data.status === "ok") {
+      console.log('Dispatching search results:', response.data.data);
       dispatch(
         onSearchQueryType({
           query: formattedString,
@@ -1302,7 +1311,7 @@ export const search = async (dispatch, keyword) => {
       content_name: formattedString
     });
   } catch (error) {
-    // console.log(error);
+    console.error('Search function error:', error);
   }
 };
 

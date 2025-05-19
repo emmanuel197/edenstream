@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   AccountInformationIcon,
   EditProfileImg,
@@ -14,10 +15,20 @@ import PasswordInput from "../formInputs/passwordInput";
 import Button from "../buttons/Button";
 import "../../components/styles/change-avatar.scss";
 import GenericModal from "../genericModal";
+import { updateProfile, getProfile } from "../../redux/account";
+import SelectInput from "../formInputs/selectInput";
+import SingleDatePicker from "../singleDatePicker";
+import { setProfile } from "../../redux/slice/accountSlice";
+import { TOAST } from "../../../utils/constants";
 const AccountInformation = ({ active }) => {
+  const dispatch = useDispatch();
+  const { profile } = useSelector((state) => state.account);
   // 1. Always call hooks at the top level
   const [userData, setUserData] = useState({
-    username: "",
+    firstName: "",
+    lastName: "",
+    gender: "",
+    dob: "",
     email: "",
     contact: "",
     password: ""
@@ -31,21 +42,33 @@ const AccountInformation = ({ active }) => {
     { id: 4, src: "/assets/avatar4.png" },
   
   ]);
-  // 2. Simulate fetching user data from an API on mount
   useEffect(() => {
-    if (active === "Account Information") {
-      // Fake API call
-      setTimeout(() => {
-        const fakeUserResponse = {
-          username: "Veeda123",
-          email: "veeda123@example.com",
-          contact: "+233 24 522 4993",
-          password: "P@ssw0rd"
-        };
-        setUserData(fakeUserResponse);
-      }, 1000);
+    if (active === "Account Information" && (!profile || !profile.first_name)) {
+      const fetchProfile = async () => {
+        try {
+      const profileInfo = await getProfile();
+      dispatch(setProfile(profileInfo));
+    } catch (error) {
+      console.error("Error fetching profile:", error);
     }
-  }, [active]);
+  };
+  fetchProfile();
+    }
+  }, [active, profile, dispatch]);
+
+  // Update form state when profile loads
+  useEffect(() => {
+    if (active === "Account Information" && profile && profile.first_name) {
+      setUserData({
+        firstName: profile.first_name || "",
+        lastName: profile.last_name || "",
+        gender: profile.gender || "",
+        dob: profile.dob || "",
+        contact: profile.contact || "",
+        password: "",
+      });
+    }
+  }, [active, profile]);
 
   // 3. Update state as user types
   const handleInputChange = (e) => {
@@ -53,9 +76,27 @@ const AccountInformation = ({ active }) => {
     setUserData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const handleGenderChange = (e) => {
+    setUserData((prev) => ({ ...prev, gender: e.target.value }));
+  };
+
+  const handleDateChange = (date) => {
+    setUserData((prev) => ({ ...prev, dob: date }));
+  };
+
   // 4. Handle saving changes
-  const handleProfileChange = () => {
-    console.log("profile change:", userData);
+  const handleProfileChange = async () => {
+    try {
+      await updateProfile(userData.firstName, userData.lastName, userData.gender, userData.dob);
+      // Fetch the latest profile and update Redux
+      const updatedProfile = await getProfile();
+      dispatch(setProfile(updatedProfile));
+      TOAST.success("You have updated your profile successfully");
+      console.log("Profile updated successfully");
+    } catch (error) {
+      TOAST.error("Error updating profile");
+      console.error("Error updating profile:", error);
+    }
   };
   
 
@@ -79,7 +120,7 @@ const AccountInformation = ({ active }) => {
     setMainPreview(src);
   };
 
-  // 5. If this tab isn’t active, return nothing
+  // 5. If this tab isn't active, return nothing
   if (active !== "Account Information") {
     return null;
   }
@@ -89,6 +130,7 @@ const AccountInformation = ({ active }) => {
 
   return (
     <section className="account-information-section">
+       <wc-toast></wc-toast>
       <div className="account-information-section-header-wrapper">
         <AccountInformationIcon className="account-information-section-icon"/>
         <h2 className="account-information-section-header">
@@ -100,16 +142,40 @@ const AccountInformation = ({ active }) => {
         <div className="form-main">
           <div className="form">
             <TextInput
-              name="username"
-              value={userData.username}
+              name="firstName"
+              value={userData.firstName}
               onChange={handleInputChange}
               className="account-info-textinput"
-              icon={<UsernameInputIcon />}
-              iconPosition="left"
-              placeholder="Username"
+              placeholder="First Name"
             />
-
             <TextInput
+              name="lastName"
+              value={userData.lastName}
+              onChange={handleInputChange}
+              className="account-info-textinput"
+              placeholder="Last Name"
+            />
+            <SelectInput
+              name="gender"
+              value={userData.gender}
+              onChange={handleGenderChange}
+              className="account-info-textinput"
+              label="Gender"
+              options={[
+                { value: "Male", label: "Male" },
+                { value: "Female", label: "Female" },
+                { value: "Other", label: "Other" }
+              ]}
+              placeholder="Gender"
+            />
+            <SingleDatePicker
+              name="dob"
+              value={userData.dob}
+              onChange={handleDateChange}
+              className="account-info-textinput"
+              placeholder="Date of Birth"
+            />
+            {/* <TextInput
               name="email"
               value={userData.email}
               onChange={handleInputChange}
@@ -117,16 +183,15 @@ const AccountInformation = ({ active }) => {
               icon={<EmailInputIcon />}
               iconPosition="left"
               placeholder="Email"
-            />
-            <div className="account-not-verified-wrapper">
+            /> */}
+            {/* <div className="account-not-verified-wrapper">
               <img loading="lazy" className="anv-img" src={anvImg} alt="Verification Icon" />
               <p className="anv-text">
                 Your account has not been verified.
                 <span className="anv-link"> Click here </span>
                 to resend verification email.
               </p>
-            </div>
-
+            </div> */}
             <TextInput
               name="contact"
               value={userData.contact}
@@ -144,7 +209,6 @@ const AccountInformation = ({ active }) => {
                 to resend verification Code to your phone number
               </p>
             </div>
-
             <PasswordInput
               name="password"
               value={userData.password}
@@ -153,7 +217,6 @@ const AccountInformation = ({ active }) => {
               icon={<PasswordInputIcon />}
               placeholder="Password"
             />
-
             <Button
               className="save-profile-btn"
               label="Save Changes"
