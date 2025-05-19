@@ -81,6 +81,7 @@ export const fetchSimilarMovies = async (type, movieId, dispatch) => {
 };
 
 export const fetchMovieByGenre = async (activeGenre, dispatch) => {
+  console.log('fetchMovieByGenre - activeGenre:', activeGenre);
   try {
     const { access_token, operator_uid, user_id } = user_info.data.data;
     const packageIds = [];
@@ -132,6 +133,7 @@ export const fetchMovieByGenre = async (activeGenre, dispatch) => {
         }
       }
     );
+    console.log('movies', movies)
     // console.log(movies)
     // switch (activeGenre) {
     // case 'DRAMA':

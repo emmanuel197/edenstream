@@ -1,7 +1,7 @@
 @import "../../../_global.scss";
-
+@import '../../../styles/variables';
 footer {
-  background: $black-08;
+  background: linear-gradient(180deg, rgba(68, 26, 118, 0.5) 0%, #141414 100%);
   color: #fff;
   // padding: 2rem 1.042vw;
   font-size: clamp(10px, 0.729vw, 16px);
@@ -262,7 +262,7 @@ footer {
 
             .logo-image {
               width: clamp(141px, 12.4479vw, 239px);
-              aspect-ratio: 239 / 52;
+              // aspect-ratio: 239 / 52;
             }
 
             .logo-header {
@@ -308,15 +308,16 @@ footer {
           .social-link {
             width: clamp(30px, 2.396vw, 46.003px);
             aspect-ratio: 1 / 1;
-            background: $black-15;
+            background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+                        linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+                        linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
             display: flex;
             align-items: center;
             justify-content: center;
             border-radius: 0.26vw;
 
             &:hover {
-              background: $social-link-hover;
-
+              background: linear-gradient(91.84deg, #8B6A1D 7.71%, #000000 115.5%);
             }
 
             &.selected {
@@ -339,7 +340,11 @@ footer {
       width: clamp(30px, 3.021vw, 58.003px);
       // height: 3.6252rem;
       aspect-ratio: 58.003 / 58.0032;
-      background: $primary-main;
+      background: linear-gradient(
+        to right,
+        $gold-gradient-default,
+        $gold-gradient-default-secondary
+    );
       border-radius: 4.992px;
       margin-left: clamp(50px, 4.115vw, 79.008px);
 
@@ -351,6 +356,16 @@ footer {
         width: clamp(16px, 1.667vw, 32.006px);
         // height: 1.667vw;
         aspect-ratio: 1 / 1
+      }
+
+      &:hover {
+       
+          background: linear-gradient(
+              to right,
+              $gold-gradient-hover,
+              $gold-gradient-hover-secondary
+          );
+        filter: brightness(1.1);
       }
     }
   }

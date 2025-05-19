@@ -362,7 +362,7 @@
 
 
 @import "../../../_global.scss";
-
+@import '../../../styles/variables';
 .page-header {
 
   padding: .625vw;
@@ -441,12 +441,20 @@
       }
 
       &:hover {
-        background: linear-gradient(173.58deg, rgba(97, 146, 103, 0.24) 19.75%, rgba(15, 15, 15, 0.12) 98.37%);
+        background:  linear-gradient(
+          to right,
+          $gold-gradient-hover,
+          $gold-gradient-hover-secondary
+      );
 
       }
 
       &.active-link {
-        background: linear-gradient(136.62deg, rgba(97, 146, 103, 0.7) 6.32%, rgba(91, 127, 96, 0.625843) 44.93%);
+        background: linear-gradient(
+        to right,
+        $gold-gradient-default,
+        $gold-gradient-default-secondary
+    );
         border: .0625rem solid $black-10;
 
       }
@@ -1026,7 +1034,7 @@
     #logo-img {
       // width: clamp(30px, 3.125vw, 60px);
       width: clamp(8.8125rem, 12.4479vw, 14.9375rem);
-      aspect-ratio: 239/  52;
+      // aspect-ratio: 239/  52;
 
     }
 

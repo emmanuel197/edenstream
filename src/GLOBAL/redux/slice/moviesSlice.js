@@ -229,6 +229,9 @@ const fetchMovieSlice = createSlice({
     selectedMovieReducer: (state, action) => {
       state.selectedMovie = action.payload;
       localStorage.setItem("selectedMovie", JSON.stringify(action.payload));
+    },
+    clearVideoReducer: (state) => {
+      state.video = null;
     }
   }
 });
@@ -259,5 +262,6 @@ export const {
   fetchChannelCategoriesReducer,
   fetchAllSeriesReducer,
   selectedMovieReducer,
-  fetchMovies_fromCache
+  fetchMovies_fromCache,
+  clearVideoReducer
 } = fetchMovieSlice.actions;

@@ -53,8 +53,8 @@
             left: 0;
             padding: clamp(4px, 0.729vw, 13.997px);
             border-radius: 0.417vw;
-            background: #0A483499;
-            border: 1px solid #0A483499;
+            background: linear-gradient(91.84deg, rgba(139, 106, 29, 0.5) 7.71%, rgba(0, 0, 0, 0.5) 115.5%);
+            border: 1px solid rgba(139, 106, 29, 0.5);
 
             @media (max-width: 850px) {
                 width: clamp(80px, 6.25vw, 120px);
@@ -99,8 +99,8 @@
 
             .pan-arrow-left,
             .pan-arrow-right {
-                border: 1px solid rgba(10, 72, 52, 0.60);
-                background: rgba(10, 72, 52, 0.60);
+                border: 1px solid rgba(139, 106, 29, 0.5);
+                background: linear-gradient(91.84deg, rgba(139, 106, 29, 0.5) 7.71%, rgba(0, 0, 0, 0.5) 115.5%);
             }
 
             .pan-play-btn {
@@ -248,7 +248,7 @@
                 }
 
                 .bdc-play-now-btn {
-                    background: linear-gradient(137deg, rgba(97, 146, 103, 0.70) 6.32%, rgba(91, 127, 96, 0.63) 44.93%);
+                    background: linear-gradient(91.84deg, #8B6A1D 7.71%, #000000 115.5%);
                     border-radius: 0.417vw;
                     padding: clamp(8px, 0.729vw, 13.997px) clamp(20px, 1.25vw, 24px);
                     gap: 0.208vw;

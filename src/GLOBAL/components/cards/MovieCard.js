@@ -5,7 +5,15 @@ import { useDispatch } from "react-redux";
 import { selectedMovieReducer } from "../../redux/slice/moviesSlice";
 import { useHandleNavigation } from "../../components/navigationHelpers";
 import "../../components/styles/movie-card.scss";
-
+export const getImageSrc = (movie_img, movie) => {
+    if (movie_img) {
+        return `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movie_img}?accessKey=WkVjNWNscFhORDBLCg==`;
+    } else if (movie?.poster) {
+        return movie?.poster;
+    } else {
+        return '/assets/word-of-god.png'; // fallback image
+    }
+};
 const MovieCard = ({ movie, type }) => {
     const dispatch = useDispatch();
     const handleClick = useHandleNavigation(movie);
@@ -14,15 +22,7 @@ const MovieCard = ({ movie, type }) => {
     const imageId = movie?.image_id;
     const imageStoreId = movie?.image_store_id;
     const movie_image = movie?.image_id || movie?.image_store_id;
-    const getImageSrc = () => {
-        if (movie_image) {
-            return `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movie_image}?accessKey=WkVjNWNscFhORDBLCg==`;
-        } else if (movie.poster) {
-            return movie.poster;
-        } else {
-            return '/assets/word-of-god.png'; // fallback image
-        }
-    };
+   
 
     const MovieCardComponent = () => (
         <div className="movie-card">
@@ -39,7 +39,7 @@ const MovieCard = ({ movie, type }) => {
             >
                 <LazyLoadImage
                     className="mc-image"
-                    src={getImageSrc()}
+                    src={getImageSrc(movie_image, movie)}
                     alt={movie.name || movie.title}
                     width="100%"
                     placeholder={<div className="poster-img-placeholder"></div>}

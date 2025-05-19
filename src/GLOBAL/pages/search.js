@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import ReelWrapper from "../components/reels/ReelWrapper";
@@ -7,23 +7,54 @@ import "../components/styles/search.scss";
 import Button from "../components/buttons/Button";
 import SelectInput from "../components/formInputs/selectInput";
 import { selectSortIcon, selectCountryIcon, selectReleaseYearIcon } from "../../utils/assets";
+import { fetchGenres, fetchMovieByGenre } from "../redux/fetchMoviesApi";
+import { setActiveGenreTab } from '../redux/slice/genreTabSlice';
+import { genreTabs } from '../constants/genres'
 
 const Search = () => {
+  const dispatch = useDispatch();
   const { searchQuery, searchResponse } = useSelector((state) => state.input);
+  const { genres } = useSelector((state) => state.fetchMovies);
+  const { activeGenreTab } = useSelector(state => state.genreTab);
+  const [filtered, setFiltered] = useState(false);
+
+  useEffect(() => {
+    fetchGenres(dispatch);
+  }, [dispatch]);
+
+  useEffect(() => {
+    console.log('activeGenreTab:', activeGenreTab);
+  }, [activeGenreTab]);
+
+  // Get filtered movies from Redux (e.g., actionCategory, dramaCategory, etc.)
+  const filteredMovies = useSelector(state => {
+    if (!activeGenreTab || activeGenreTab === "ALL") return searchResponse;
+    const key = activeGenreTab.toLowerCase() + "Category";
+    return state.fetchMovies[key] || [];
+  });
 
   return (
     <>
       <Header />
       <div className="inner-sections-wrapper">
-        <FilterComponent />
-        <ReelWrapper title={`Search results for: ${searchQuery}`} movies={searchResponse} />
+        <FilterComponent
+          genres={genres}
+          activeGenreTab={activeGenreTab}
+          setActiveGenreTab={genre => dispatch(setActiveGenreTab(genre))}
+          onFilter={() => setFiltered(true)}
+        />
+        <ReelWrapper
+          title={`Search results for: ${searchQuery}`}
+          movies={filtered && activeGenreTab !== "ALL" ? filteredMovies : searchResponse}
+        />
       </div>
       <Footer marginTop="24.1146vw" />
     </>
   );
 };
 
-const FilterComponent = () => {
+const FilterComponent = ({ genres, activeGenreTab, setActiveGenreTab, onFilter }) => {
+  const dispatch = useDispatch();
   const [releaseYear, setReleaseYear] = useState("");
   const [country, setCountry] = useState("");
   const [sortBy, setSortBy] = useState("");
@@ -51,17 +82,6 @@ const FilterComponent = () => {
     { value: "french", label: "French" }
   ];
 
-  const filterHandler = () => {
-    console.log("Filter clicked!");
-    console.log({
-      releaseYear,
-      country,
-      sortBy,
-      language
-    });
-    // You can do an API call or any other filtering logic here
-  };
-
   const categories = [
     { id: 1, label: "Testimonies" },
     { id: 2, label: "Series" },
@@ -73,15 +93,12 @@ const FilterComponent = () => {
     { id: 8, label: "Animation" }
   ];
 
-  const genres = [
-    { id: 1, label: "Faith" },
-    { id: 2, label: "Action" },
-    { id: 3, label: "Musical" },
-    { id: 4, label: "Comedy" },
-    { id: 5, label: "Adventure" },
-    { id: 6, label: "Sports" },
-    { id: 7, label: "School" },
-  ];
+  const handleFilter = () => {
+    if (activeGenreTab && activeGenreTab !== "ALL") {
+      fetchMovieByGenre(activeGenreTab, dispatch);
+    }
+    onFilter();
+  };
 
   return (
     <section className="filter-section">
@@ -141,14 +158,24 @@ const FilterComponent = () => {
       <div className="genre-wrapper">
         <h3 className="genre-header">Genre</h3>
         <div className="genres">
-          {genres.map((genre) => (
-            <button key={genre.id} className="genre-item">
-              {genre.label}
+          <button
+            className={`genre-item ${activeGenreTab === "ALL" ? "active" : ""}`}
+            onClick={() => setActiveGenreTab("ALL")}
+          >
+            All
+          </button>
+          {genres && genres.map((genre) => (
+            <button
+              key={genre.id || genre.uid || genre.name}
+              className={`genre-item ${activeGenreTab === genre ? "active" : ""}`}
+              onClick={() => setActiveGenreTab(genre)}
+            >
+              {genre}
             </button>
           ))}
         </div>
       </div>
-      <Button label="Filter" action={filterHandler} className="filter-btn" />
+      <Button label="Filter" action={handleFilter} className="filter-btn" />
     </section>
   );
 };

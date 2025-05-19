@@ -195,6 +195,18 @@ const VideoPlayer = forwardRef(
       }
     };
 
+    // Seek by clicking on the progress bar
+    const handleProgressBarClick = (e) => {
+      if (!playerRef.current) return;
+      const bar = e.target;
+      const rect = bar.getBoundingClientRect();
+      const clickX = e.clientX - rect.left;
+      const percent = clickX / rect.width;
+      const newTime = percent * duration;
+      playerRef.current.currentTime(newTime);
+      setCurrentTime(newTime);
+    };
+
     const videoPlayerOverlayClassName = `video-player-overlay ${
       videoEnded ? "fade-out" : ""
     }`;
@@ -213,11 +225,21 @@ const VideoPlayer = forwardRef(
 
             {!videoEnded && (
               <>
-                <div className="progress-bar">
+                <div
+                  className="progress-bar"
+                 
+                  onClick={handleProgressBarClick}
+                >
                   <div
-                    className="progress"
-                    style={{ width: `${(currentTime / duration) * 100}%` }}
-                  ></div>
+                    className="progress progress-bar-fill"
+                    style={{
+                      width: `${(currentTime / duration) * 100}%`,
+                   
+                      background: '#FFD36A',
+                      borderRadius: '4px',
+                      transition: 'width 0.1s linear',
+                    }}
+                  />
                 </div>
                 <div className="controls-wrapper">
                   <div className="left-controls">

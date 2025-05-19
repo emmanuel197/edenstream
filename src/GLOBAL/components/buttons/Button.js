@@ -110,7 +110,7 @@ const Button = ({ label, action, page, isDisabled = false, selectedMovie, classN
   const navigate = useNavigate();
   const user_info = COOKIES.get("user_info")
   // const isAuthenticated = JSON.parse(window.localStorage.getItem("isAuthenticated"));
-  console.log(svg)
+  
   const handleClick = () => {
     // if (!user_info) {
     //   navigate("/signin");
@@ -152,6 +152,7 @@ const Button = ({ label, action, page, isDisabled = false, selectedMovie, classN
   }
 
   if (page) {
+    console.log(page)
     return (
       <button disabled={isDisabled} onClick={handleClick} id={id} className={`filled-btn ${className} ${playIcon ? "with-icon" : ""}`}>
         <div className="align-content">

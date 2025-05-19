@@ -13,6 +13,7 @@ import { errorLog } from "../logger";
 import { COOKIES } from "../../utils/constants";
 import { search } from "../redux/fetchMoviesApi";
 import { useHandleNavigation } from "../components/navigationHelpers";
+import { getImageSrc } from "./cards/MovieCard";
 const user_info = COOKIES.get("user_info");
 
 const Header = ({ variantClassName }) => {
@@ -248,7 +249,7 @@ const Header = ({ variantClassName }) => {
                       <div className="search-result" key={result.id}>
                         <h6 className="search-result-header">{result.title || result.name}</h6>
                         <div className="search-result-detail">
-                          <img className="search-result-img" src={result.image_id || result.resultImg || '/assets/word-of-god.png'}/>
+                          <img className="search-result-img" src={getImageSrc(result.image_id, result)}/>
                           <p className="search-result-title">{result.title || result.name}</p>
                         </div>
                       </div>

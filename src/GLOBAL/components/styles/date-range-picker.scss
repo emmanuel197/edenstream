@@ -135,47 +135,53 @@
   .calendar-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    width: 100%;
+    box-sizing: border-box;
+  }
 
-    .day {
-      width: 4.2634vw;
-      aspect-ratio: 4.2634 / 1.6667;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 400;
-      font-size: clamp(10px,.8333vw, 16px);
-      color: #CCCCCC;
-      cursor: pointer;
-      transition: all 0.2s;
-      @media (max-width: 840px) {
-        width: 100%;
-      }
-      &.other-month {
-        color: #666666;
-        background: rgba(10, 72, 52, 0.3);
-      }
+  .day {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 400;
+    font-size: clamp(10px, 0.7vw, 15px);
+    color: #CCCCCC;
+    cursor: pointer;
+    transition: all 0.2s;
+    padding: 0.2em 0.1em;
+    box-sizing: border-box;
+    @media (max-width: 840px) {
+      width: 100%;
+    }
+    &.other-month {
+      color: #666666;
+      background: rgba(10, 72, 52, 0.3);
+    }
 
-      &.selected {
-        color: white;
+    &.selected {
+      color: white;
 
-        span {
-          background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
-          width: 1.6667vw;
-          aspect-ratio: 1 / 1;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        }
+      span {
+        background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+        width: 1.6667vw;
+        aspect-ratio: 1 / 1;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
+    }
 
-      &.in-range {
-        background: rgba(97, 146, 103, 0.2);
-      }
+    &.in-range {
+      background: rgba(97, 146, 103, 0.2);
+    }
 
-      &:hover:not(.other-month) {
-        background: rgba(97, 146, 103, 0.15);
-      }
+    &:hover:not(.other-month) {
+      background: rgba(97, 146, 103, 0.15);
     }
   }
 
@@ -184,6 +190,15 @@
       color: white;
       font-size: 0.8333vw;
       margin-bottom: 0.8333vw;
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .date-range-picker {
+    .day {
+      font-size: 10px;
+      padding: 0.1em 0;
     }
   }
 }

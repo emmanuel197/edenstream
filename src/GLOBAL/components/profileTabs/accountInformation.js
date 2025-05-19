@@ -23,6 +23,7 @@ import { TOAST } from "../../../utils/constants";
 const AccountInformation = ({ active }) => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.account);
+  console.log('Redux profile object:', profile);
   // 1. Always call hooks at the top level
   const [userData, setUserData] = useState({
     firstName: "",
@@ -59,12 +60,13 @@ const AccountInformation = ({ active }) => {
   // Update form state when profile loads
   useEffect(() => {
     if (active === "Account Information" && profile && profile.first_name) {
+      console.log('Profile in useEffect:', profile);
       setUserData({
         firstName: profile.first_name || "",
         lastName: profile.last_name || "",
         gender: profile.gender || "",
-        dob: profile.dob || "",
-        contact: profile.contact || "",
+        dob: profile.date_of_birth || "",
+        contact: profile.phone_number || "",
         password: "",
       });
     }
@@ -209,14 +211,14 @@ const AccountInformation = ({ active }) => {
                 to resend verification Code to your phone number
               </p>
             </div>
-            <PasswordInput
+            {/* <PasswordInput
               name="password"
               value={userData.password}
               onChange={handleInputChange}
               className="account-info-textinput"
               icon={<PasswordInputIcon />}
               placeholder="Password"
-            />
+            /> */}
             <Button
               className="save-profile-btn"
               label="Save Changes"

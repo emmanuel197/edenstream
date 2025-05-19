@@ -478,7 +478,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
               label="Play Now"
               page={`/watch/movie/${movieData?.uid}`}
               icon={playIcon}
-              action={handlePlayToggle}
+             
             />
             <Button
               className="bdc-information-circle-btn"
