@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   AccountInformationIcon,
@@ -7,7 +7,8 @@ import {
   UsernameInputIcon,
   ContactInputIcon,
   PasswordInputIcon,
-  anvImg
+  anvImg,
+  SignUpDateOfBirthImg
 } from "../../../utils/assets";
 import "../../components/styles/profileTabs/account-information.scss";
 import TextInput from "../formInputs/textInput";
@@ -20,6 +21,8 @@ import SelectInput from "../formInputs/selectInput";
 import SingleDatePicker from "../singleDatePicker";
 import { setProfile } from "../../redux/slice/accountSlice";
 import { TOAST } from "../../../utils/constants";
+import { format } from "date-fns";
+
 const AccountInformation = ({ active }) => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.account);
@@ -43,6 +46,9 @@ const AccountInformation = ({ active }) => {
     { id: 4, src: "/assets/avatar4.png" },
   
   ]);
+  const [showDatePicker, setShowDatePicker] = useState(false);
+  const datePickerRef = useRef(null);
+
   useEffect(() => {
     if (active === "Account Information" && (!profile || !profile.first_name)) {
       const fetchProfile = async () => {
@@ -82,9 +88,27 @@ const AccountInformation = ({ active }) => {
     setUserData((prev) => ({ ...prev, gender: e.target.value }));
   };
 
-  const handleDateChange = (date) => {
-    setUserData((prev) => ({ ...prev, dob: date }));
+  const handleDatePicker = () => {
+    setShowDatePicker((prev) => !prev);
   };
+
+  const handleDateSelect = (date) => {
+    setUserData((prev) => ({ ...prev, dob: date }));
+    setShowDatePicker(false);
+  };
+
+  useEffect(() => {
+    if (!showDatePicker) return;
+    function handleClickOutside(event) {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+        setShowDatePicker(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDatePicker]);
 
   // 4. Handle saving changes
   const handleProfileChange = async () => {
@@ -170,13 +194,23 @@ const AccountInformation = ({ active }) => {
               ]}
               placeholder="Gender"
             />
-            <SingleDatePicker
-              name="dob"
-              value={userData.dob}
-              onChange={handleDateChange}
-              className="account-info-textinput"
-              placeholder="Date of Birth"
-            />
+            {/* Date of Birth field with date picker UX */}
+            <div className="form-row date-picker-wrapper" ref={datePickerRef}>
+              <TextInput
+                icon={<SignUpDateOfBirthImg className="dateofbirth-icon "/>}
+                className="account-info-textinput"
+                placeholder="Date of Birth"
+                value={userData.dob ? format(new Date(userData.dob), 'MM/dd/yyyy') : ''}
+                readOnly
+                action={handleDatePicker}
+              />
+              {showDatePicker && (
+                <SingleDatePicker
+                  className="date-picker-dropdown"
+                  onDateSelect={handleDateSelect}
+                />
+              )}
+            </div>
             {/* <TextInput
               name="email"
               value={userData.email}

@@ -6,7 +6,7 @@ import { closeBtn, paymentOptionsArrow, previewPlaceholder, accountSetupSuccessI
 import TextInput from "../components/formInputs/textInput";
 import PasswordInput from "../components/formInputs/passwordInput";
 import Checkbox from "../components/formInputs/checkbox";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { signupBg } from "../../utils/assets";
 import { nextStep, prevStep, setStep } from "../redux/slice/formSlice";
 import { chunkArray } from "../../utils/chunkArr";
@@ -22,6 +22,7 @@ import Cookies from "universal-cookie";
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { isLoading } = useSelector((state) => state.auth);
   const { step, inputStarted } = useSelector((state) => state.form);
   const [nextAction, setNextAction] = useState(() => () => {});
@@ -32,17 +33,17 @@ const SignUpPage = () => {
       case 2:
         return <Step2 setNextButtonAction={setNextAction}/>;
       case 3:
-        return <Step3 />;
+        return <Step3 setNextButtonAction={setNextAction} />;
       case 4:
-        return <Step4 />;
+        return <ChangeAvatar setNextButtonAction={setNextAction} />;
       case 5:
-        return <Step5 />;
-      case 6:
-        return <Step6 />;
-      case 7:
-        return <ChangeAvatar />;
-      case 8:
         return <AccountSetupSuccess />;
+      // case 4:
+      //   return <Step4 />;
+      // case 5:
+      //   return <Step5 />;
+      // case 6:
+      //   return <Step6 />;
       // Add more cases for additional steps
       default:
         return <Step1 />;
@@ -54,10 +55,10 @@ const SignUpPage = () => {
       1: 'Next',
       2: 'Done',
       3: 'Next',
-      5: 'Start Membership',
-      6: 'Start Membership',
-      7: 'Next',
-      8: 'Done'
+      4: 'Next',
+      5: 'Done'
+      // 5: 'Start Membership',
+      // 6: 'Start Membership',
     };
     return labels[step] || 'Continue';
   };
@@ -65,7 +66,14 @@ const SignUpPage = () => {
   const signUpFormWrapperClassName = `${step ? ` step${step}` : ""}`;
 
   // Only show the "Next" button for certain steps
-  const showNextButton = ![5, 6, 7].includes(step);
+  // const showNextButton = ![5, 6, 7].includes(step);
+  useEffect(() => {
+    if (step === 5) {
+      setNextAction(() => () => {
+        navigate('/home');
+      });
+    }
+  }, [step, navigate]);
   return (
     // <main>
     //   <Header />
@@ -77,14 +85,14 @@ const SignUpPage = () => {
     <AuthLayout headerText="Sign Up" wrapperClassName={signUpFormWrapperClassName}>
       <wc-toast></wc-toast>
       {renderStep()}
-      {showNextButton && (
+ 
         <Button
           className="signup-next-btn"
           label={getButtonLabel(step)}
           action={nextAction}
           disabled={isLoading}
         />
-      )}
+   
       <div className="checkbox-signinnow-wrapper">
         {step === 1 && (
           <Checkbox
@@ -224,32 +232,37 @@ const Step2 = ({ setNextButtonAction, variant }) => {
    
   );
 };
-export const Step3 = ({ className }) => {
+export const Step3 = ({ setNextButtonAction, className }) => {
   const dispatch = useDispatch();
-  // Try both selectors for robustness
   const genres = useSelector(state => state.genres || state.fetchMovies?.genres || []);
   const [selectedCategories, setSelectedCategories] = useState([]);
-  // Fetch genres on component mount
+  const cookies = new Cookies();
+
   useEffect(() => {
     fetchGenres(dispatch);
   }, [dispatch]);
 
-  // Log genres every time they update
   useEffect(() => {
     console.log("Updated genres in Step3:", genres);
   }, [genres]);
 
-  // Update to use genre names and IDs
-  const toggleCategory = (genreId, genreName) => {
-    setSelectedCategories(prevSelected => {
-      const exists = prevSelected.some(item => item.id === genreId);
-      return exists
-        ? prevSelected.filter(item => item.id !== genreId)
-        : [...prevSelected, { id: genreId, name: genreName }];
-    });
+  const toggleCategory = (genre) => {
+    setSelectedCategories(prevSelected =>
+      prevSelected.includes(genre)
+        ? prevSelected.filter(item => item !== genre)
+        : [...prevSelected, genre]
+    );
   };
 
-  // Group genres into columns of 4
+  // Set the Next button action for Step3
+  useEffect(() => {
+    if (!setNextButtonAction) return;
+    setNextButtonAction(() => () => {
+      cookies.set('edenstream_genre_preferences', selectedCategories, { path: '/' });
+      dispatch(setStep(4));
+    });
+  }, [selectedCategories, setNextButtonAction, dispatch]);
+
   const columns = chunkArray(genres, 4);
 
   return (
@@ -270,10 +283,10 @@ export const Step3 = ({ className }) => {
             {column.map(genre => (
               <div
                 className={`category-item ${
-                  selectedCategories.some(item => item.id === genre.id) ? "selected" : ""
+                  selectedCategories.includes(genre) ? "selected" : ""
                 }`}
-                key={genre.id}
-                onClick={() => toggleCategory(genre.id, genre)}
+                key={genre}
+                onClick={() => toggleCategory(genre)}
               >
                 {genre}
               </div>
@@ -285,166 +298,168 @@ export const Step3 = ({ className }) => {
   );
 };
 
-const Step4 = () => {
-  return (
-    <div className="step3">
-      <div className="choose-how-wrapper">
-        <h3 className="choose-how-header">Choose how to pay</h3>
-        <p className="choose-how-paragraph">
-          Your payment is encrypted and you can change how you pay anytime
-        </p>
-      </div>
-      <PlansContainer variant="step3" />
-    </div>
-  );
-};
+// const Step4 = () => {
+//   return (
+//     <div className="step3">
+//       <div className="choose-how-wrapper">
+//         <h3 className="choose-how-header">Choose how to pay</h3>
+//         <p className="choose-how-paragraph">
+//           Your payment is encrypted and you can change how you pay anytime
+//         </p>
+//       </div>
+//       <PlansContainer variant="step3" />
+//     </div>
+//   );
+// };
 
-const Step5 = () => {
-  const dispatch = useDispatch();
-  const goCreditCard = () => {
-    dispatch(setStep(5));
-  };
+// const Step5 = () => {
+//   const dispatch = useDispatch();
+//   const goCreditCard = () => {
+//     dispatch(setStep(5));
+  // };
 
-  const goMobileMoney = () => {
-    dispatch(setStep(6));
-  };
-  return (
-    <div className="step4">
-      <div className="how-to-pay-wrapper">
-        <h3 className="how-to-pay-header">Choose how to pay</h3>
-        <p className="how-to-pay-paragraph">
-          Your payment is encrypted and you can change how you pay anytime
-        </p>
-      </div>
-      <div className="payment-options-btn-group">
-        <Button
-          className="credit-debit-btn"
-          label="Credit or Debit Card"
-          icon={paymentOptionsArrow}
-          action={goCreditCard}
-        />
-        <Button
-          className="momo-btn"
-          label="Mobile Money"
-          icon={paymentOptionsArrow}
-          action={goMobileMoney}
-        />
-      </div>
-    </div>
-  );
-};
+  // const goMobileMoney = () => {
+  //   dispatch(setStep(6));
+  // };
+//   return (
+//     <div className="step4">
+//       <div className="how-to-pay-wrapper">
+//         <h3 className="how-to-pay-header">Choose how to pay</h3>
+//         <p className="how-to-pay-paragraph">
+//           Your payment is encrypted and you can change how you pay anytime
+//         </p>
+//       </div>
+//       <div className="payment-options-btn-group">
+//         <Button
+//           className="credit-debit-btn"
+//           label="Credit or Debit Card"
+//           icon={paymentOptionsArrow}
+//           action={goCreditCard}
+//         />
+//         <Button
+//           className="momo-btn"
+//           label="Mobile Money"
+//           icon={paymentOptionsArrow}
+//           action={goMobileMoney}
+//         />
+//       </div>
+//     </div>
+//   );
+// };
 
-const Step6 = () => {
-  const dispatch = useDispatch();
-  const goBack = () => {
-    dispatch(setStep(3));
-  };
-  const avatarHandler = () => {
-    dispatch(setStep(7))
-  }
-  return (
-    <div className="step5">
-      <div className="credit-header-wrapper">
-        <h3 className="credit-header">Set up your credit or debit Card</h3>
-        <p className="credit-paragraph">
-          Your payment is encrypted and you can change how you pay anytime
-        </p>
-      </div>
-      <div className="credit-card-form">
-        <div className="form-row">
-          <TextInput
-            className="step5-form-textinput-size "
-            placeholder="Card Number"
-          />
-        </div>
-        <div className="form-row">
-          <TextInput
-            className="step5-form-textinput-size "
-            placeholder="Expiration Date"
-          />
-          <TextInput className="step5-form-textinput-size " placeholder="CVV" />
-        </div>
-        <div className="form-row">
-          <TextInput
-            className="step5-form-textinput-size "
-            placeholder="Name on the card"
-          />
-        </div>
-        <div className="change-selected-plan-wrapper">
-          <p className="selected-plan-text">GH.10.00/daily</p>
-          {/* <Link className="change-plan-link">Change</Link> */}
-          <Button className="change-plan-link" label="change" action={goBack} />
-        </div>
-        <Checkbox
-          className="credit-form-checkbox"
-          label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
-        />
-      </div>
-      <Button
-        className="start-membership-btn"
-        label="Start Membership"
-        action={avatarHandler}
-      />
-    </div>
-  );
-};
+// const Step6 = () => {
+//   const dispatch = useDispatch();
+//   const goBack = () => {
+//     dispatch(setStep(3));
+//   };
+//   const avatarHandler = () => {
+//     dispatch(setStep(7))
+//   }
+//   return (
+//     <div className="step5">
+//       <div className="credit-header-wrapper">
+//         <h3 className="credit-header">Set up your credit or debit Card</h3>
+//         <p className="credit-paragraph">
+//           Your payment is encrypted and you can change how you pay anytime
+//         </p>
+//       </div>
+//       <div className="credit-card-form">
+//         <div className="form-row">
+//           <TextInput
+//             className="step5-form-textinput-size "
+//             placeholder="Card Number"
+//           />
+//         </div>
+//         <div className="form-row">
+//           <TextInput
+//             className="step5-form-textinput-size "
+//             placeholder="Expiration Date"
+//           />
+//           <TextInput className="step5-form-textinput-size " placeholder="CVV" />
+//         </div>
+//         <div className="form-row">
+//           <TextInput
+//             className="step5-form-textinput-size "
+//             placeholder="Name on the card"
+//           />
+//         </div>
+//         <div className="change-selected-plan-wrapper">
+//           <p className="selected-plan-text">GH.10.00/daily</p>
+//           {/* <Link className="change-plan-link">Change</Link> */}
+//           <Button className="change-plan-link" label="change" action={goBack} />
+//         </div>
+//         <Checkbox
+//           className="credit-form-checkbox"
+//           label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
+//         />
+//       </div>
+//       <Button
+//         className="start-membership-btn"
+//         label="Start Membership"
+//         action={avatarHandler}
+//       />
+//     </div>
+//   );
+// };
 
-const Step7 = () => {
-  const dispatch = useDispatch();
-  const goBack = () => {
-    dispatch(setStep(3));
-  };
-  return (
-    <div className="step6">
-      <div className="mobile-money-header-wrapper">
-        <h3 className="mobile-money-header">Set up your Mobile Money</h3>
-        <p className="mobile-money-paragraph">
-          Your payment is encrypted and you can change how you pay anytime
-        </p>
-      </div>
-      <div className="mobile-money-form">
-        <div className="form-row">
-          {/* <TextInput
-            className="step5-form-textinput-size "
-            placeholder="Card Number"
-          /> */}
-          <SelectInput
-            placeholder="Select Network"
-            options={[
-              { value: "Mtn", label: "Mtn" },
-              { value: "Telecel", label: "Telecel" },
-              { value: "AirtelTigo", label: "AirtelTigo" }
-            ]}
-          />
-        </div>
-        <div className="form-row">
-          <TextInput
-            className="step6-form-textinput-size"
-            placeholder="Expiration Date"
-          />
-          <TextInput className="step6-form-textinput-size" placeholder="CVV" />
-        </div>
-        <div className="change-selected-plan-wrapper">
-          <p className="selected-plan-text">GH.10.00/daily</p>
-          {/* <Link className="change-plan-link">Change</Link> */}
-          <Button className="change-plan-link" label="change" action={goBack} />
-        </div>
-        <Checkbox
-          className="credit-form-checkbox"
-          label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
-        />
-      </div>
-      <Button
-        className="start-membership-btn"
-        label="Start Membership"
-        action={goBack}
-      />
-    </div>
-  );
-};
-const ChangeAvatar = () => {
+// const Step7 = () => {
+//   const dispatch = useDispatch();
+//   const goBack = () => {
+//     dispatch(setStep(3));
+//   };
+//   return (
+//     <div className="step6">
+//       <div className="mobile-money-header-wrapper">
+//         <h3 className="mobile-money-header">Set up your Mobile Money</h3>
+//         <p className="mobile-money-paragraph">
+//           Your payment is encrypted and you can change how you pay anytime
+//         </p>
+//       </div>
+//       <div className="mobile-money-form">
+//         <div className="form-row">
+//           {/* <TextInput
+//             className="step5-form-textinput-size "
+//             placeholder="Card Number"
+//           /> */}
+//           <SelectInput
+//             placeholder="Select Network"
+//             options={[
+//               { value: "Mtn", label: "Mtn" },
+//               { value: "Telecel", label: "Telecel" },
+//               { value: "AirtelTigo", label: "AirtelTigo" }
+//             ]}
+//           />
+//         </div>
+//         <div className="form-row">
+//           <TextInput
+//             className="step6-form-textinput-size"
+//             placeholder="Expiration Date"
+//           />
+//           <TextInput className="step6-form-textinput-size" placeholder="CVV" />
+//         </div>
+//         <div className="change-selected-plan-wrapper">
+//           <p className="selected-plan-text">GH.10.00/daily</p>
+//           {/* <Link className="change-plan-link">Change</Link> */}
+//           <Button className="change-plan-link" label="change" action={goBack} />
+//         </div>
+//         <Checkbox
+//           className="credit-form-checkbox"
+//           label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
+//         />
+//       </div>
+//       <Button
+//         className="start-membership-btn"
+//         label="Start Membership"
+//         action={goBack}
+//       />
+//     </div>
+//   );
+// };
+const ChangeAvatar = ({ setNextButtonAction }) => {
   // Main preview (the big image in the center)
   const [mainPreview, setMainPreview] = useState(null);
+  const cookies = new Cookies();
+  const dispatch = useDispatch();
 
   // Suppose we have 5 avatar options
   const [avatarOptions] = useState([
@@ -452,7 +467,6 @@ const ChangeAvatar = () => {
     { id: 2, src: "/assets/avatar2.png" },
     { id: 3, src: "/assets/avatar3.png" },
     { id: 4, src: "/assets/avatar4.png" },
-
   ]);
 
   // Keep track of original avatar to allow reset
@@ -466,10 +480,16 @@ const ChangeAvatar = () => {
     setMainPreview(originalAvatar);
   };
 
-  const handleSaveChanges = () => {
-    // ... e.g., call API or update state with the new avatar
-    console.log("Saved new avatar:", mainPreview);
-  };
+  // Set the Next button action for ChangeAvatar
+  useEffect(() => {
+    if (!setNextButtonAction) return;
+    setNextButtonAction(() => () => {
+      if (mainPreview) {
+        cookies.set('edenstream_avatar', mainPreview, { path: '/' });
+        dispatch(setStep(5));
+      }
+    });
+  }, [mainPreview, setNextButtonAction, dispatch]);
 
   return (
     <div className="change-avatar-container">
@@ -487,7 +507,7 @@ const ChangeAvatar = () => {
         <div className="edit-icon-overlay">
 
         </div>
-        <TextInput className="change-avatar-textinput" placeholder="User Name" />
+        {/* <TextInput className="change-avatar-textinput" placeholder="User Name" /> */}
       </div>
 
       <div className="thumbnail-row">
