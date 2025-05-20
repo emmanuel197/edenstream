@@ -217,7 +217,8 @@ export const LoginUnicast = async (isPhoneNumber, mobileNumber, email, password)
   if (!validateUserData(isPhoneNumber, mobileNumber, email, password)) {
     return; // Exit function if validation fails
   }
-  const deviceInfoCookie = COOKIES.get("device_info")
+  const deviceInfoCookie = COOKIES.get("device_info") || {};
+  const device = COOKIES.get("device") || "unknown-device";
 
   // Set username if not already present in local storage
 
@@ -230,15 +231,17 @@ export const LoginUnicast = async (isPhoneNumber, mobileNumber, email, password)
   // console.warn('device', deviceInfoCookie)
 
   try {
-    const loginResponse = await axios.post(loginAPI, {
+    const loginPayload = {
       username: formattedOperator,
       password: password,
-      device: COOKIES.get("device"),
-      device_class: deviceInfoCookie.device.type ? deviceInfoCookie.device.type : "Desktop",
-      device_type: deviceInfoCookie.device.vendor || "Desktop",
+      device: device,
+      device_class: deviceInfoCookie.device?.type || "Desktop",
+      device_type: deviceInfoCookie.device?.vendor || "Desktop",
       device_os: "Windows"
-    })
-
+    };
+    console.log('[LoginUnicast] Login API request payload:', loginPayload);
+    const loginResponse = await axios.post(loginAPI, loginPayload)
+    console.log('[LoginUnicast] Login API response:', loginResponse);
     console.warn('login uniqcast response >>', loginResponse.data)
 
     if (loginResponse.data.status === "ok") {
@@ -255,6 +258,7 @@ export const LoginUnicast = async (isPhoneNumber, mobileNumber, email, password)
   }
 
   catch (e) {
+    console.error('[LoginUnicast] Login API error:', e?.response || e);
     store.dispatch(isLoadingReducer(false))
     TOAST.error(ERROR_MESSAGES.AUTH.invalidLogin)
     // console.warn('login uniqcast error >>', e.message)

@@ -1512,7 +1512,7 @@ export const fetchWatchlist = async (dispatch) => {
     const { user_id, operator_uid, access_token } = user_info.data.data;
 
     interceptResponse();
-
+//continue watching or recently watched
     var config = {
       method: "get",
       url: `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/users/${user_id}/my_content`,
@@ -1634,7 +1634,14 @@ export const removeWatchlist = async (id, _type) => {
   }
 };
 export const fetchGenres = async (dispatch) => {
-  const { access_token } = user_info.data.data;
+  // Always read the latest user_info cookie
+  const user_info = cookies.get("user_info");
+  const access_token = user_info?.data?.data?.access_token;
+  if (!access_token) {
+    console.error("[fetchGenres] No access token available for fetchGenres", user_info);
+    dispatch(fetchGenresReducer([]));
+    return;
+  }
   interceptResponse();
 
   try {
@@ -1647,6 +1654,12 @@ export const fetchGenres = async (dispatch) => {
       }
     );
 
+    if (!response || !response.data || !response.data.data) {
+      console.error('[fetchGenres] No data in response:', response);
+      dispatch(fetchGenresReducer([]));
+      return;
+    }
+
     // Extract uids from the response data
     const genreUids = response.data.data.map(genre => genre.uid);
     
@@ -1655,9 +1668,8 @@ export const fetchGenres = async (dispatch) => {
     
     console.log(genreUids); // Should log: ['action', 'adventure', 'animation', ...]
   } catch (e) {
-    // Error handling
-    // console.error(e);
-    // dispatch(fetchMovieVideo_error());
+    console.error('[fetchGenres] Error:', e);
+    dispatch(fetchGenresReducer([]));
   }
 };
 export const fetchBannerContent = async (type) => {

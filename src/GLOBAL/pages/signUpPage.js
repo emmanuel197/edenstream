@@ -1,135 +1,4 @@
-// import React, { useEffect, useState } from "react"
-// import { useSelector } from "react-redux"
-// import { useNavigate } from "react-router-dom"
-// import { setDeviceInCookies } from "../constants/setDeviceInCookies"
-// import { verifyUserData } from "../redux/auth"
-// import { Link } from "react-router-dom"
-// import Spinner from "../components/Spinner"
-// import checkUserAllowed from "../../utils/checkUserAllowed"
-// import Button from "../components/buttons/Button"
-// import Footer from "../components/Footer"
-// import Header from "../components/Header"
-// import '../components/styles/auth.scss'
-// import { COOKIES } from "../../utils/constants"
-// const SignUpPage = () => {
-//   const navigate = useNavigate()
-//   const { isLoading } = useSelector((state) => state.auth)
-//   const [email, setEmail] = useState('')
-//   const [mobileNumber, setMobileNumber] = useState('')
-//   const [password, setPassword] = useState(''); //new field for password
-//   const [rePassword, setRePassword] = useState(''); //confirmation of new password
-//   const user_info = COOKIES.get("user_info");
-//   // const [useMobileNumber, setuseMobileNumber] = useState(true)
-//   // const [hasSelectedNetworks, setHasSelectedNetworks] = useState(false)
-
-//   useEffect(() => {
-//     // Check if user is authenticated
-
-//       // Redirect to home if authenticated
-//       user_info && navigate('/');
-
-//  }, [user_info])
-//   useEffect(() => {
-//     if (!localStorage.getItem('afri_selected_operator')) {
-//       navigate('/signup')
-//     }
-
-//     setMobileNumber(localStorage.getItem('afri_mobile_number') || '')
-//   }, [navigate])
-
-//   //renamed func from _initVerifyMSISDN to _initVerifyUserData
-//   const _initVerifyUserData = () => {
-//     verifyUserData(true, mobileNumber, email, password, rePassword, navigate) //renamed func from verifyMSISDN to verifyUserData
-//   }
-
-//   const handleMobileNumberInput = e => {
-//     const text = e.target.value
-//     const limit = 10
-//     if (isNaN(Number(text))) return
-//     setMobileNumber(text.slice(0, limit))
-//   }
-
-//   // functions to set password when user makes input
-//   const handlePasswordInput = e => {
-//     setPassword(e.target.value);
-//   }
-
-//   const handleRePasswordInput = e => {
-//     setRePassword(e.target.value);
-//   };
-
-//   // I am setting cookies that ll later check for user browser when user logs in
-//   // this will help in setting the device info for login post API
-//   // I will do this for the landing and signup - signin
-//   // and it ll load when the user visits page or refreshes page with useEffect beneath this
-//   useEffect(() => {
-//     setDeviceInCookies()
-//     checkUserAllowed()
-//     window.scrollTo(0, 0)
-//   }, [])
-
-//   return (
-//     <>
-//       <Header links={1} signup={5} />
-//       <main>
-//         <wc-toast></wc-toast>
-//         {isLoading && <Spinner />}
-//         <div className="auth">
-//           <div className="auth-wrapper">
-//             <div className="auth-container">
-//               <div className="form-container">
-//                 <h2>Sign Up</h2>
-//                 <div>
-//                   {/* <label>Phone number</label> */}
-//                   <input
-//                     placeholder="eg. 0541234567"
-//                     value={mobileNumber}
-//                     onChange={handleMobileNumberInput}
-//                   />
-//                 </div>
-//                 <div>
-//                   {/* <label>Password</label> */}
-//                   <input
-//                     placeholder="Password"
-//                     type='password'
-//                     value={password}
-//                     onChange={handlePasswordInput}
-//                     minLength='7'
-//                     required
-//                   />
-//                 </div>
-//                 <div>
-//                   {/* <label>Confirm Password</label> */}
-//                   <input
-//                     placeholder="Confirm Password"
-//                     type='password'
-//                     value={rePassword}
-//                     onChange={handleRePasswordInput}
-//                     minLength='7'
-//                     required
-//                   />
-//                 </div>
-//                 <div className="margin-bottom">
-//                   <small >
-//                     Already have an account? {" "}
-//                     <Link className="sign-up-link" to='/signin'>Sign in</Link>
-//                   </small>
-//                 </div>
-//                 <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', cursor: 'pointer', userSelect: 'none' }}>
-//                   <Button action={_initVerifyUserData} isDisabled={isLoading} label='Continue' />
-//                 </div>
-//               </div>
-//             </div>
-//           </div>
-//         </div>
-//       </main>
-//       <Footer />
-//     </>
-//   )
-// }
-
-// export default SignUpPage
-import React, { use, useEffect, useState } from "react";
+import React, { use, useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import "../components/styles/SignUp.scss";
 import Button from "../components/buttons/Button";
@@ -246,8 +115,8 @@ const SignUpPage = () => {
 const Step1 = ({ setNextButtonAction }) => {
   const dispatch = useDispatch();
   const { formData, handleInputChange, handleSubmit } = useSignupForm(1);
-  const [showDatePicker, setShowDatePicker] = useState(false) 
-
+  const [showDatePicker, setShowDatePicker] = useState(false)
+  const datePickerRef = useRef(null);
 
   const handleDatePicker = () => {
     setShowDatePicker(prev => !prev)
@@ -259,8 +128,32 @@ const Step1 = ({ setNextButtonAction }) => {
   };
 
   useEffect(() => {
-    setNextButtonAction(() => () => handleSubmit(() => dispatch(nextStep())));
+    console.log('[Step1] formData:', formData);
+    setNextButtonAction(() => () => {
+      // Create a new object for submission
+      let submitData = { ...formData };
+      if (submitData.dob && typeof submitData.dob !== 'string') {
+        submitData = { ...submitData, dob: submitData.dob.toISOString() };
+        console.log('[Step1] Converted dob to string:', submitData.dob);
+      }
+      console.log('[Step1] Submitting with data:', submitData);
+      handleSubmit(() => dispatch(nextStep()));
+    });
   }, [formData]);
+
+  useEffect(() => {
+    if (!showDatePicker) return;
+    function handleClickOutside(event) {
+      if (datePickerRef.current && !datePickerRef.current.contains(event.target)) {
+        setShowDatePicker(false);
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showDatePicker]);
+
   return (
     <div className="step1-date-picker">
      <div className="form-fields step-1">
@@ -272,7 +165,7 @@ const Step1 = ({ setNextButtonAction }) => {
           onChange={(e) => handleInputChange('mobileNumber', e.target.value)}
         />
       </div>
-      <div className="form-row">
+      <div className="form-row date-picker-wrapper" ref={datePickerRef}>
         <TextInput
         icon={<SignUpDateOfBirthImg className="dateofbirth-icon "/>}
           className="signup-textinput"
@@ -281,6 +174,12 @@ const Step1 = ({ setNextButtonAction }) => {
           readOnly
           action={() => handleDatePicker() }
         />
+        {showDatePicker && (
+          <SingleDatePicker 
+            className="date-picker-dropdown"
+            onDateSelect={handleDateSelect}
+          />
+        )}
       </div>
       <div className="form-row">
         <PasswordInput name="password"  value={formData.password} onChange={(e) => handleInputChange('password', e.target.value)} placeholder="Password" width="100%" />
@@ -295,12 +194,6 @@ const Step1 = ({ setNextButtonAction }) => {
         />
       </div>
     </div>
-    {showDatePicker && (
-        <SingleDatePicker 
-          className="date-picker-position"
-          onDateSelect={handleDateSelect}
-        />
-      )}
     </div>
    
   );
@@ -311,9 +204,12 @@ const Step2 = ({ setNextButtonAction, variant }) => {
   const { formData, handleInputChange, handleSubmit } = useSignupForm(2);
   const mobileNumber = useSignupForm(1).mobileNumber; // Get from form state instead of localStorage 
 
-  
   useEffect(() => {
-    setNextButtonAction(() => () => handleSubmit(() => dispatch(nextStep())));
+    console.log('[Step2] formData:', formData);
+    setNextButtonAction(() => () => {
+      console.log('[Step2] Submitting with data:', formData);
+      handleSubmit(() => dispatch(nextStep()));
+    });
   }, [formData]);
 
   return (
@@ -330,13 +226,19 @@ const Step2 = ({ setNextButtonAction, variant }) => {
 };
 export const Step3 = ({ className }) => {
   const dispatch = useDispatch();
-  const genres = useSelector(state => state.genres || []);
+  // Try both selectors for robustness
+  const genres = useSelector(state => state.genres || state.fetchMovies?.genres || []);
   const [selectedCategories, setSelectedCategories] = useState([]);
   // Fetch genres on component mount
   useEffect(() => {
     fetchGenres(dispatch);
   }, [dispatch]);
-console.log(genres)
+
+  // Log genres every time they update
+  useEffect(() => {
+    console.log("Updated genres in Step3:", genres);
+  }, [genres]);
+
   // Update to use genre names and IDs
   const toggleCategory = (genreId, genreName) => {
     setSelectedCategories(prevSelected => {
@@ -371,9 +273,9 @@ console.log(genres)
                   selectedCategories.some(item => item.id === genre.id) ? "selected" : ""
                 }`}
                 key={genre.id}
-                onClick={() => toggleCategory(genre.id, genre.name)}
+                onClick={() => toggleCategory(genre.id, genre)}
               >
-                {genre.name}
+                {genre}
               </div>
             ))}
           </div>
@@ -475,7 +377,7 @@ const Step6 = () => {
         </div>
         <Checkbox
           className="credit-form-checkbox"
-          label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you’re over 18."
+          label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
         />
       </div>
       <Button
@@ -529,7 +431,7 @@ const Step7 = () => {
         </div>
         <Checkbox
           className="credit-form-checkbox"
-          label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you’re over 18."
+          label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
         />
       </div>
       <Button

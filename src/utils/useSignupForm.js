@@ -24,8 +24,11 @@ export const useSignupForm = (stepNumber) => {
 
   const handleInputChange = (field, rawValue) => {
     const transformer = config.transform?.[field];
-    const value = transformer ? transformer(rawValue) : rawValue;
-    
+    let value = transformer ? transformer(rawValue) : rawValue;
+    // Ensure dob is always a string
+    if (field === 'dob' && value instanceof Date) {
+      value = value.toISOString();
+    }
     // Update local state
     const newData = { ...localData, [field]: value };
     setLocalData(newData);
