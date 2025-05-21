@@ -123,7 +123,16 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
           console.log('Debug: Fetching series data');
           const _allSeries = await fetchAllSeries();
           const randomSeriesIndexes = getRandomIndexes(_allSeries);
-          const _allSlides = randomSeriesIndexes.map(index => _allSeries[index]);
+          // Add imageUrl to each series
+          const _allSlides = randomSeriesIndexes.map(index => {
+            const item = _allSeries[index];
+            return {
+              ...item,
+              imageUrl: item.image_id
+                ? `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${item.image_id}?accessKey=WkVjNWNscFhORDBLCg==`
+                : null,
+            };
+          });
           console.log('Debug: Series slides loaded:', _allSlides);
           
           if (_allSlides && _allSlides.length > 0) {
@@ -132,13 +141,19 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
             setMovieData(_allSlides[0]);
           } else {
             console.log('Debug: No series data, using dummy data');
-            setAllSlides(DUMMY_SLIDES);
-            setSelectedMovie(DUMMY_SLIDES[0]);
-            setMovieData(DUMMY_SLIDES[0]);
+            // setAllSlides(DUMMY_SLIDES);
+            // setSelectedMovie(DUMMY_SLIDES[0]);
+            // setMovieData(DUMMY_SLIDES[0]);
           }
         } else {
           console.log('Debug: Using inspiring data');
-          const slides = fetchDataForBannerSlider(inspiring);
+          // Add imageUrl to each inspiring movie
+          const slides = fetchDataForBannerSlider(inspiring).map(movie => ({
+            ...movie,
+            imageUrl: movie.image_id
+              ? `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movie.image_id}?accessKey=WkVjNWNscFhORDBLCg==`
+              : null,
+          }));
           console.log('Debug: Inspiring slides:', slides);
           
           if (slides && slides.length > 0) {
@@ -147,17 +162,17 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
             setMovieData(slides[0]);
           } else {
             console.log('Debug: No inspiring data, using dummy data');
-            setAllSlides(DUMMY_SLIDES);
-            setSelectedMovie(DUMMY_SLIDES[0]);
-            setMovieData(DUMMY_SLIDES[0]);
+            // setAllSlides(DUMMY_SLIDES);
+            // setSelectedMovie(DUMMY_SLIDES[0]);
+            // setMovieData(DUMMY_SLIDES[0]);
           }
         }
       } catch (error) {
         console.error('Error loading slides:', error);
         console.log('Debug: Error occurred, using dummy data');
-        setAllSlides(DUMMY_SLIDES);
-        setSelectedMovie(DUMMY_SLIDES[0]);
-        setMovieData(DUMMY_SLIDES[0]);
+        // setAllSlides(DUMMY_SLIDES);
+        // setSelectedMovie(DUMMY_SLIDES[0]);
+        // setMovieData(DUMMY_SLIDES[0]);
       }
     };
 
@@ -214,24 +229,26 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
         try {
           const bannerContent = await fetchBannerContent();
           console.log('Debug: Fetched banner content:', bannerContent);
-          
-          if (bannerContent) {
+          // Instead of image_store_id, use image_id from inspiring slides if available
+          // If inspiring slides are available, use the first one
+          if (inspiring && inspiring.length > 0) {
+            const firstInspiring = inspiring[0];
             setMovieData({
-              title: bannerContent.title,
-              description: bannerContent.description,
-              imageUrl: bannerContent.image_store_id ? 
-                `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${bannerContent.image_store_id}?accessKey=WkVjNWNscFhORDBLCg==` : 
+              uid: firstInspiring.uid,
+              title: firstInspiring.title,
+              description: firstInspiring.description,
+              imageUrl: firstInspiring.image_id ?
+                `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${firstInspiring.image_id}?accessKey=WkVjNWNscFhORDBLCg==` :
                 null,
-              genre: bannerContent.genre,
-              movieId: bannerContent.content_id,
-              type: bannerContent.vod_type?.toLowerCase()
+              genre: firstInspiring.genre,
+              movieId: firstInspiring.id,
+              type: firstInspiring.type?.toLowerCase()
             });
           } 
         } catch (error) {
           console.error('Error loading banner content:', error);
-          console.log('Debug: Error in banner content, using dummy data');
-          setAllSlides(DUMMY_SLIDES);
-          setMovieData(DUMMY_SLIDES[0]);
+          // setAllSlides(DUMMY_SLIDES);
+          // setMovieData(DUMMY_SLIDES[0]);
         }
       } else if (allSlides.length) {
         setMovieData(allSlides[currentIndex]);
@@ -241,7 +258,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
     };
 
     loadBannerContent();
-  }, [propMovieData, allSlides, currentIndex]);
+  }, [propMovieData, allSlides, currentIndex, inspiring]);
 
   // Fetch trailer URL when movieData changes
   useEffect(() => {
@@ -418,7 +435,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
           <img
             src={movieData.imageUrl}
             alt={movieData.title}
-            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', objectFit: 'fill', objectPosition: 'center', }}
           />
         )
       )}

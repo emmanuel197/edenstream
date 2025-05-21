@@ -87,7 +87,7 @@ export const verifyUserData = async (isPhoneNumber, mobileNumber, email, dob, pa
   window.localStorage.setItem("afri_email", email)
   window.localStorage.setItem("afri_mobile_number", mobileNumber)
   window.localStorage.setItem("afri_username", prefixedMobileNumber(mobileNumber))
-
+  window.localStorage.setItem("afri_dob", dob)
 
   console.log(!_verifyMSISDN(mobileNumber))
   if (!user_info || !_verifyMSISDN(mobileNumber)) {
@@ -155,6 +155,7 @@ export const verifyOTP = async (isPhoneNumber, OTPCode, password) => {
 
     // console.warn('signing up...', mobileNumber, username)
     store.dispatch(isLoadingReducer(true))
+    console.log('[signUpAPI] Posting date_of_birth:', dob);
     const signupResponse = await axios.post(signUpAPI(), {
       first_name: "Eden",
       last_name: "Stream",

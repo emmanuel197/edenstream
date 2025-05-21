@@ -7,7 +7,9 @@
     border: 1px solid $black-15;
     position: relative;
     aspect-ratio: 16/9;
-
+    background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
     .card-image-wrapper {
 
         // height: 15.75rem;

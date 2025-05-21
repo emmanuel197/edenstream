@@ -27,6 +27,8 @@ const AccountInformation = ({ active }) => {
   const dispatch = useDispatch();
   const { profile } = useSelector((state) => state.account);
   console.log('Redux profile object:', profile);
+  console.log('Date of Birth from profile:', profile?.date_of_birth);
+  console.log('Full profile data:', JSON.stringify(profile, null, 2));
   // 1. Always call hooks at the top level
   const [userData, setUserData] = useState({
     firstName: "",
@@ -67,6 +69,7 @@ const AccountInformation = ({ active }) => {
   useEffect(() => {
     if (active === "Account Information" && profile && profile.first_name) {
       console.log('Profile in useEffect:', profile);
+      console.log('Date of Birth in useEffect:', profile.date_of_birth);
       setUserData({
         firstName: profile.first_name || "",
         lastName: profile.last_name || "",
@@ -113,6 +116,7 @@ const AccountInformation = ({ active }) => {
   // 4. Handle saving changes
   const handleProfileChange = async () => {
     try {
+      console.log('[AccountInformation] Saving:', userData);
       await updateProfile(userData.firstName, userData.lastName, userData.gender, userData.dob);
       // Fetch the latest profile and update Redux
       const updatedProfile = await getProfile();

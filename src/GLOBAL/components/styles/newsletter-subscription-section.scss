@@ -1,5 +1,5 @@
 @import "../../../_global.scss";
-
+@import '../../../styles/variables';
 .newsletter-subscription-section {
     border-radius: 1.25rem;
     background-image: url("../../../../public/assets/newsletter-subscription-section-background-image.png");
@@ -91,7 +91,11 @@
                     padding: clamp(13px, 0.938vw, 18.01px) 1.25vw;
                     margin-left: -0.5rem;
                     border-radius: 0.625rem;
-                    background-image: $newsletter-subscription-btn-color !important;
+                    background-image: linear-gradient(
+                        to right,
+                        $gold-gradient-hover,
+                        $gold-gradient-hover-secondary
+                    );
 
                     @media (max-width: 965px) {
                         padding: clamp(5px, 0.938vw, 18.01px) 1.25vw;

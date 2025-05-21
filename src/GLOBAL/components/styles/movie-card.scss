@@ -9,12 +9,8 @@
     border-radius: 10px;
     border: 0.0625rem solid $black-15;
     row-gap: .8333vw;
-
-    @media (max-width: 650px) {
-        aspect-ratio: 178.39999389648438 / 259;
-
-
-    }
+    aspect-ratio: 178.39999389648438 / 259;
+  
 
     &.moviecard-profile {
         background: $black-10;
@@ -30,10 +26,8 @@
             border-radius: 10px;
             aspect-ratio: 339.75 / 268;
             object-fit: fill;
-
-            @media (max-width: 650px) {
-                aspect-ratio: 154.39999389648438 / 193;
-            }
+            aspect-ratio: 178.39999389648438 / 259;
+           
 
             @media (max-width: 500px) {
                 object-fit: cover;

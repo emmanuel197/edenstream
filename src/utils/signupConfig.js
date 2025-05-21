@@ -3,6 +3,8 @@ import { verifyUserData, verifyOTP, verifyResetOTP } from '../GLOBAL/redux/auth'
 import { store } from '../GLOBAL/redux/store';
 import { setStep, updateFormData} from '../GLOBAL/redux/slice/formSlice';
 import {  isLoadingReducer  } from "../GLOBAL/redux/slice/authSlice"
+import { format } from 'date-fns';
+
 export const signupSteps = {
   1: {
     initial: {
@@ -21,10 +23,11 @@ export const signupSteps = {
     submit: async ({ mobileNumber, dob, password, rePassword }, dispatch) => {
       try {
         store.dispatch(isLoadingReducer(true))
-        // Ensure dob is a string
+        // Ensure dob is formatted as YYYY-MM-DD
         let dobString = dob;
-        if (dob && typeof dob !== 'string') {
-          dobString = dob.toISOString();
+        if (dob) {
+          const dateObj = typeof dob === 'string' ? new Date(dob) : dob;
+          dobString = format(dateObj, 'yyyy-MM-dd');
         }
         console.log('[signupConfig][Step1] Submitting:', { mobileNumber, dob: dobString, password, rePassword });
         const signupResponse = await verifyUserData(

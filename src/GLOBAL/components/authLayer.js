@@ -14,7 +14,8 @@ const AuthLayout = ({
   showCloseButton = true,
   closePage = "/",
   wrapperClassName = "",
-  marginTop
+  marginTop,
+  totalSteps
 }) => {
 
   const { step, inputStarted } = useSelector((state) => state.form);
@@ -42,7 +43,7 @@ const AuthLayout = ({
       <div className="auth-form">
         <div className={`auth-form-wrapper ${wrapperClassName}`}>
          {location.pathname === "/signup" && <div className="sign-up-pagination">
-          {[...Array(4)].map((_, index) => (
+          {[...Array(totalSteps)].map((_, index) => (
     <div key={index} className={`pagination-rectangle ${(step===index+1) && "active-rectangle"}`}></div>
   ))}
           </div>}

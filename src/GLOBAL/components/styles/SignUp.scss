@@ -1,4 +1,5 @@
 @import "../../../_global.scss";
+@import '../../../styles/variables';
 @import "./step2.scss";
 @import "./step3.scss";
 @import "./step4.scss";
@@ -114,7 +115,11 @@
         border-radius: 2px;
 
         &.active-rectangle {
-          background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+          background: linear-gradient(
+            to right,
+            $gold-gradient-hover,
+            $gold-gradient-hover-secondary
+        );
         }
       }
     }
@@ -235,7 +240,7 @@
         width: 100%;
         border-radius: 8px;
         padding: 0.938vw 1.25vw;
-        background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+        // background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
 
 
         margin-top: clamp(30px, 4.01vw, 76.992px);

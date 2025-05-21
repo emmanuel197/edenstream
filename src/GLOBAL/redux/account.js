@@ -3,6 +3,7 @@ import Cookies from "universal-cookie";
 import { COOKIES, LOG_MESSAGES } from "../../utils/constants";
 import { logAPI } from "../constants/apis";
 import { getFAQs, getMessages, getPurchases } from "./slice/accountSlice";
+import { format } from 'date-fns';
 
 const cookies = new Cookies();
 const user_info = cookies.get("user_info");
@@ -176,7 +177,15 @@ export const initGetFAQs = (dispatch) => {
         });
 }
 
-export const updateProfile = (firstName, lastName) => {
+export const updateProfile = (firstName, lastName, gender, dob) => {
+    console.log('[updateProfile] gender:', gender);
+    console.log('[updateProfile] dob before format:', dob);
+    let formattedDob = dob;
+    if (dob) {
+        const dateObj = typeof dob === 'string' ? new Date(dob) : dob;
+        formattedDob = format(dateObj, 'yyyy-MM-dd');
+    }
+    console.log('[updateProfile] dob after format:', formattedDob);
     let username = window.localStorage.getItem('afri_username')
     let { operator_uid, access_token } = user_info.data.data
 
@@ -186,6 +195,8 @@ export const updateProfile = (firstName, lastName) => {
         data: {
             "first_name": firstName,
             "last_name": lastName,
+            "gender": gender,
+            "date_of_birth": formattedDob,
         },
         headers: {
             Authorization: `Bearer ${access_token}`

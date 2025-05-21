@@ -1,10 +1,13 @@
 @import "../../../_global.scss";
-
+@import '../../../styles/variables';
 .plan-card {
     display: flex;
     border-radius: 12px;
     flex-direction: column;
-    background-color: $black-10;
+    background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    border: 1px solid #262626;
     row-gap: clamp(20px, 2.604vw, 49.997px);
     padding: clamp(20px, 2.604vw, 49.997px);
     max-width: 100%; // Keeps consistency

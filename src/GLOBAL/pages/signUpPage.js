@@ -26,6 +26,10 @@ const SignUpPage = () => {
   const { isLoading } = useSelector((state) => state.auth);
   const { step, inputStarted } = useSelector((state) => state.form);
   const [nextAction, setNextAction] = useState(() => () => {});
+  
+  // Define total steps constant
+  const TOTAL_SIGNUP_STEPS = 5;
+
   const renderStep = () => {
     switch (step) {
       case 1:
@@ -82,7 +86,11 @@ const SignUpPage = () => {
     //       <Button className="signup-close-btn" icon={closeBtn} page="/" />
     //       <div className="signup-form-container">
     //         <h2 className="signup-form-header">Sign Up</h2>
-    <AuthLayout headerText="Sign Up" wrapperClassName={signUpFormWrapperClassName}>
+    <AuthLayout 
+      headerText="Sign Up" 
+      wrapperClassName={signUpFormWrapperClassName}
+      totalSteps={TOTAL_SIGNUP_STEPS}
+    >
       <wc-toast></wc-toast>
       {renderStep()}
  
@@ -133,6 +141,7 @@ const Step1 = ({ setNextButtonAction }) => {
   const handleDateSelect = (date) => {
     handleInputChange('dob', date);
     setShowDatePicker(false);
+    console.log('[Step1] dob after select:', date);
   };
 
   useEffect(() => {

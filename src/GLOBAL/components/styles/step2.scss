@@ -59,7 +59,11 @@
                 letter-spacing: 0%;
 
                 &.selected {
-                    background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+                    background: linear-gradient(
+                        to right,
+                        $gold-gradient-hover,
+                        $gold-gradient-hover-secondary
+                    );
 
                 }
             }

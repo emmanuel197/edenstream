@@ -48,7 +48,7 @@ export const useSignupForm = (stepNumber) => {
       alert(error);
       return;
     }
-
+    console.log('[useSignupForm] Submitting data:', localData);
     try {
       const success = await config.submit(localData, dispatch, navigate);
       if (success) {

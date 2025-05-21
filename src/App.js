@@ -37,14 +37,14 @@ function App() {
       <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route index element={<Landing />} />
         <Route path="/otp-verification" element={<OTPVerification />} />
-        <Route path="/contact" element={<ContactUsPage />} />
-        <Route path="/subscription" element={<SubscriptionPage />} />
-        <Route path="/movies" element={<MoviesPage/>}/>
-        <Route path="/movie/:id" element={<MovieDetailsPage />} />
-        <Route path="/livetv" element={<LiveTvPage/>}/>
-        <Route path="/series" element={<SeriesPage/>}/>
-        <Route path="/word" element={<DevotionalPage/>}/>
-        <Route path="/music" element={<MusicPage/>}/>
+        <Route path="/contact" element={<ProtectedRoute><ContactUsPage /></ProtectedRoute>} />
+        <Route path="/subscription" element={<ProtectedRoute><SubscriptionPage /></ProtectedRoute>} />
+        <Route path="/movies" element={<ProtectedRoute><MoviesPage/></ProtectedRoute>}/>
+        <Route path="/movie/:id" element={<ProtectedRoute><MovieDetailsPage /></ProtectedRoute>} />
+        <Route path="/livetv" element={<ProtectedRoute><LiveTvPage/></ProtectedRoute>}/>
+        <Route path="/series" element={<ProtectedRoute><SeriesPage/></ProtectedRoute>}/>
+        <Route path="/word" element={<ProtectedRoute><DevotionalPage/></ProtectedRoute>}/>
+        <Route path="/music" element={<ProtectedRoute><MusicPage/></ProtectedRoute>}/>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
@@ -53,12 +53,12 @@ function App() {
         <Route path="/watch/:type/:id" element={<ProtectedRoute><Watch /></ProtectedRoute>}/>
 
         
-        <Route path="/profile" element={<Profile />} />
+        <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
         {/* <Route path="/series" element={<ProtectedRoute><Series /></ProtectedRoute>} /> */}
 
    
-        <Route path="/search" element={<Search />} />
+        <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
 
         <Route path="/out-of-region" element={<ErrorPage text='Service is only available in Ghana and Nigeria' />} />
         
