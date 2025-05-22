@@ -1,5 +1,19 @@
 @import '../../../global.scss';
 
+.plan-description-scroll-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  scrollbar-width: thin;
+  scrollbar-color: $secondary-60 $black-06;
+  &::-webkit-scrollbar {
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: $secondary-60;
+    border-radius: 4px;
+  }
+}
+
 .plan-description-section {
     display: grid;
     grid-template-columns: repeat(4, 1fr); // 4 equal columns (Features + 3 Plans)
@@ -44,6 +58,18 @@
         // display: flex;
         // gap: 0.625rem;
 
+    }
+
+    @media (max-width: 900px) {
+      min-width: 890px;
+      grid-template-columns: 140px repeat(3, 250px);
+      .pds-feature-wrapper, .pds-feature {
+        position: sticky;
+        left: 0;
+        background: $black-06;
+        z-index: 2;
+        box-shadow: 2px 0 5px rgba(0,0,0,0.05);
+      }
     }
 }
 
