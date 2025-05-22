@@ -71,7 +71,7 @@ export const RwContentContainer = ({ movies, marginTop, isChannelsSection = fals
             type: movie.type,
             newEpisode: false
           };
-          console.log('Movie card props:', movieCardProps);
+          // console.log('Movie card props:', movieCardProps);
           return <MovieCard key={movie.id} movie={movieCardProps} />;
         })}
       </div>

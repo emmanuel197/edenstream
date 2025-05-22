@@ -267,7 +267,8 @@ const Step1 = ({ setNextButtonAction }) => {
 const Step2 = ({ setNextButtonAction, variant }) => {
   const dispatch = useDispatch();
   const { formData, handleInputChange, handleSubmit } = useSignupForm(2);
-  const mobileNumber = useSignupForm(1).mobileNumber; // Get from form state instead of localStorage 
+  const { formData: formDataStep1 } = useSignupForm(1); // Get step 1 form data
+  const mobileNumber = formDataStep1.mobileNumber; // Get mobile number from step 1 form data
 
   useEffect(() => {
     console.log('[Step2] formData:', formData);
@@ -278,15 +279,11 @@ const Step2 = ({ setNextButtonAction, variant }) => {
   }, [formData]);
 
   return (
-    
-      <OTPVerification
+    <OTPVerification
       mobileNumber={mobileNumber}
       value={formData.otp}
       onChange={(otp) => handleInputChange('otp', otp)}
-       // Your signup OTP verification action    
     />
-     
-   
   );
 };
 export const Step3 = ({ setNextButtonAction, className }) => {

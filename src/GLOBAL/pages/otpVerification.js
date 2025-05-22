@@ -9,10 +9,13 @@ const OTPVerification = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Get mobile number from localStorage
+  const mobileNumber = window.localStorage.getItem("afri_mobile_number") || "";
+
   return (
     <>
       <Header links={1} signup={5} />
-      <OTPVerificationComponent />
+      <OTPVerificationComponent mobileNumber={mobileNumber} />
       <Footer />
     </>
   );

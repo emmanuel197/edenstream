@@ -14,7 +14,7 @@ const OTPVerification = ({
   descriptionText = "Enter the code sent to"
 }) => {
   
- 
+  console.log('[OTPVerification] mobileNumber prop:', mobileNumber);
   
 
   return (

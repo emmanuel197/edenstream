@@ -62,7 +62,7 @@ const Header = ({ variantClassName }) => {
   const navigate = useNavigate();
   // Get search results from Redux
   const { searchResponse } = useSelector((state) => state.input);
-  console.log('Header searchResponse:', searchResponse);
+  // console.log('Header searchResponse:', searchResponse);
 
   const profileItems = [
     {

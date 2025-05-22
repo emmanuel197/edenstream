@@ -90,7 +90,7 @@ const Drawer = ({user_info}) => {
   const dispatch = useDispatch();
   const location = useLocation();
 
-  console.log(user_info)
+  // console.log(user_info)
   const { showDrawer } = useSelector((state) => state.drawer);
   const _hideDrawer = (state) => dispatch(toggleDrawer(state));
   // const user_info = COOKIES.get("user_info");
@@ -108,7 +108,7 @@ const Drawer = ({user_info}) => {
     // console.warn('location changed!');
     _hideDrawer();
   }, [location]);
-  console.log(location.pathname)
+  // console.log(location.pathname)
   if (showDrawer)
     return (
       <>

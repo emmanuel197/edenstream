@@ -83,7 +83,7 @@ export const verifyUserData = async (isPhoneNumber, mobileNumber, email, dob, pa
     return; // Exit function if validation fails
   }
 
-
+  console.log('Setting afri_mobile_number', mobileNumber);
   window.localStorage.setItem("afri_email", email)
   window.localStorage.setItem("afri_mobile_number", mobileNumber)
   window.localStorage.setItem("afri_username", prefixedMobileNumber(mobileNumber))

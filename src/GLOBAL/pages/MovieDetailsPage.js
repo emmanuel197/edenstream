@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Header from "../components/Header";
-import DynamicBanner from "../components/banners/DynamicBanner";
+import MovieDetailsBanner from "../components/banners/movieDetailsBanner";
 import ContentDescriptionSecton from "../components/ContentDescription";
 import ReviewSection from "../components/reviewSection";
 import Footer from "../components/Footer";
@@ -45,10 +45,7 @@ const MovieDetailsPage = () => {
             <main>
                 <Header />
                 <div className="inner-sections-wrapper">
-                    <DynamicBanner 
-                        movieData={bannerData}
-                        showSlides={false}
-                    />
+                    <MovieDetailsBanner />
                     <ContentDescriptionSecton 
                         marginTop="3.021vw" 
                         movieDetails={movieDetails}
