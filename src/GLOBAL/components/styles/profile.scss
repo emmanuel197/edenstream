@@ -112,26 +112,25 @@ body {
             }
 
             &.active-tab {
-                background: linear-gradient(0deg, #5B7F60, #5B7F60),
-                    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+               background: $gold-200;
                 -webkit-background-clip: text;
                 -webkit-text-fill-color: transparent;
-                border-bottom: clamp(1.8px, .1563vw, 3px) solid #5B7F60;
+                border-bottom: clamp(1.8px, .1563vw, 3px) solid $gold-200;
                 border-bottom-left-radius: 5px;
                 border-bottom-right-radius: 5px;
 
                 .tab-icon {
                     path {
-                        fill: #5B7F60;
+                        fill: $gold-200;
                     }
 
                     path {
-                        stroke: #5B7F60;
+                        stroke: $gold-200;
                     }
 
                     &.tab-setting-icon {
                         path {
-                            stroke: #5B7F60 !important; // Change stroke color
+                            stroke: $gold-200 !important; // Change stroke color
                             fill: none !important; // Ensure it doesn't fill the whole icon
                         }
                     }

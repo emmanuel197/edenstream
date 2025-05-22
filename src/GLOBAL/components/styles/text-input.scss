@@ -57,7 +57,11 @@ aspect-ratio: 1 / 1;
            
         }
 
-        &.error {}
+        &.error {
+          outline: 2px solid $red-60 !important;
+          outline-offset: 1px;
+          border-color: transparent !important;
+        }
 
         &.entry-background {}
 }
@@ -71,4 +75,20 @@ input[type="number"]::-webkit-outer-spin-button {
 
 input[type="number"] {
   -moz-appearance: textfield;
+}
+
+.error-message {
+
+  font-weight: 500;
+  font-size: clamp(12px, 0.938vw, 18.01px);
+  line-height: 150%;
+  letter-spacing: 0%;
+  vertical-align: middle;
+  color: $red-60;
+ 
+  
+ 
+  margin-left: 0.5em;
+  display: flex;
+  align-items: center;
 }

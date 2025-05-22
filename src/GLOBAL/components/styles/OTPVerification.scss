@@ -1,5 +1,5 @@
 @import "../../../_global.scss";
-
+@import '../../../styles/variables';
 .signup {
   // height: 80vh;
   // background: linear-gradient(rgba(26, 5, 43, 0.58), rgba(26, 5, 43, 0.58)),
@@ -91,7 +91,7 @@
     border-radius: 5px;
     outline: none;
     padding: clamp(3px, .4167vw, 8px);
-    border: 1px solid $linear;
+    border: 1px solid $gold-200;
     font-size: clamp(16px, 1.6667vw, 28px);
     padding: 8px;
 
@@ -99,7 +99,7 @@
       width: clamp(20px, 8.8542vw, 170px) !important;
     }
     &:focus {
-      border: 2px solid $primary-2;
+      border: 2px solid $gold-300;
     }
   }
 }

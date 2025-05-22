@@ -7,7 +7,10 @@
     padding: clamp(20px, 2.604vw, 49.997px);
     gap: 2.083vw;
     margin: auto;
-    background-color: $black-10;
+    background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+
     border: 0.052vw solid $black-15;
     flex-direction: column;
 
@@ -70,7 +73,10 @@
         .review-wrapper {
             display: flex;
             flex-direction: column;
-            background-color: $black-06;
+            background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+            linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+            linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+            
             width: 100%;
             gap: 1.042vw;
             border-radius: 0.625vw;

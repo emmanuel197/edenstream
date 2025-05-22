@@ -86,6 +86,13 @@
     border-radius: 0.625vw;
     background-color: #26262699;
     position: relative;
+    
+    &.error {
+      outline: 2px solid $red-60 !important;
+      outline-offset: 1px;
+      border-color: transparent !important;
+    }
+
     @media (max-width:790px) {
       margin-left: auto;
       width: 90%;
@@ -280,7 +287,7 @@
           align-items: center;
 
           .already-have-an-account {
-            color: $linear ;
+            color: $white;
             font-weight: 500;
             font-size: clamp(12px, 0.938vw, 18.01px);
             line-height: clamp(17px, 1.406vw, 26px);
@@ -294,7 +301,7 @@
             font-size: clamp(10px, 0.938vw, 18.01px);
             line-height: clamp(20px, 1.406vw, 26px);
             letter-spacing: 0%;
-            color: $secondary-40;
+            color: $gold-200;
 
           }
         }
@@ -321,6 +328,12 @@
   }
 
   .signup-page-bg {}
+}
+
+.date-picker-wrapper.error {
+  // outline: 2px solid $red-60 !important;
+  // outline-offset: 1px;
+  // border-color: transparent !important;
 }
 
 

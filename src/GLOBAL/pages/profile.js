@@ -1,194 +1,3 @@
-// import { useEffect, useState } from "react";
-// import Header from "../components/Header";
-// import Footer from "../components/Footer";
-// // import Watchlist from "../components/profileTabs/Watchlist";
-// import { fetchUserDevices, getProfile, updateProfile } from "../redux/account";
-// import "../components/styles/profile.scss";
-// import Devices from "../components/profileTabs/Devices";
-// import FAQs from "../components/profileTabs/Faqs";
-// const Profile = () => {
-//   // const [activeTab, setActiveTab] = useState("watchlist");
-//   // const setActiveTabName = (str) => setActiveTab(str);
-//   // Add logging to check if the activeTab updates correctly
-//   // console.log("Active Tab:", activeTab);
-
-//   return (
-//     <>
-//       <div className="body">
-//         <Header links={5} />
-//         <main className="account-main">
-//           <div className="left-nav">eerwqwa  87
-//             <h3>My Account</h3\                                     x>
-//             <br />
-//             <br />
-
-//           </div>
-
-//           <div className="tab-content">
-//             {/* <Watchlist active={activeTab} /> */}
-//             {/* <Settings active={activeTab} /> */}
-//             {/* <Devices active={activeTab} /> */}
-//             {/* <Payment active={activeTab} /> */}
-//             {/* <ProfileCard active={activeTab} /> */}
-//             {/* <Support active={activeTab} /> */}
-//             {/* <FAQs active={activeTab} /> */}
-//           </div>
-//         </main>
-//         <Footer />
-//       </div>
-//     </>
-//   );
-// };
-
-// const Settings = ({ active }) => {
-//   if (active === "settings") return <>Settings</>;
-//   return <></>;
-// };
-
-// // const Devices = ({ active }) => {
-// //     if (active === 'devices') return (
-// //         <>Devices</>
-// //     )
-// //     return <></>
-// // }
-
-// const Payment = ({ active }) => {
-//   useEffect(() => {
-//     const initFetchUserDevices = async () => {
-//       const response = await fetchUserDevices();
-//       // console.warn('devices', response)
-//     };
-//     initFetchUserDevices();
-//   }, []);
-
-//   if (active === "payment") return <>Payment</>;
-//   return <></>;
-// };
-
-// const ProfileCard = ({ active }) => {
-//   const [firstName, setFirstName] = useState("");
-//   const [lastName, setLastName] = useState("");
-//   const [profileInfo, setProfileInfo] = useState({
-//     first_name: "",
-//     last_name: ""
-//   });
-
-//   useEffect(() => {
-//     const initGetProfileInfo = async () => {
-//       let _profileInfo = await getProfile();
-//       setProfileInfo(await getProfile());
-//       setFirstName(_profileInfo.first_name);
-//       setLastName(_profileInfo.last_name);
-//     };
-//     initGetProfileInfo();
-//   }, []);
-
-//   if (active === "profiles")
-//     return (
-//       <div className="profile">
-//         <div className="profile-image" />
-//         <div className="flex">
-//           <b>My profile</b>
-//           {/* <small>
-//             Last Login 01, Oct 2022. 04:00AM
-//             <br />
-//             Mac OS, Lagos, NG
-//           </small> */}
-//         </div>
-//         <br />
-//         <div className="flex">
-//           <input
-//             value={firstName}
-//             onChange={(e) => setFirstName(e.target.value)}
-//             placeholder="First name"
-//           />
-//           <input
-//             value={lastName}
-//             onChange={(e) => setLastName(e.target.value)}
-//             placeholder="Last name"
-//           />
-//         </div>
-//         <br />
-//         <button
-//           onClick={() => updateProfile(firstName, lastName)}
-//           className="save-btn"
-//         >
-//           Save
-//         </button>
-//       </div>
-//     );
-//   return <></>;
-// };
-
-// const Support = ({ active }) => {
-//   if (active === "support")
-//     return (
-//       <>
-//         <h2 className="support-header">Support</h2>
-//         {/* <a href="mailto:support@afriplay.tv">support@afriplay.tv</a> */}
-//         <div className="support-body">
-//         <div className="support-row">
-//           <div className="support-row-text">
-//             <h3>Call Us (Toll Free)</h3>
-//             <p>100</p>
-//           </div>
-//         </div>
-//         <div className="support-row">
-//           <div className="support-row-text">
-//             <h3>From any other phone</h3>
-//             <p>0244 300 000</p>
-//           </div>
-//         </div>
-//         <div className="support-row">
-//           <div className="support-row-text">
-//             <h3>Whatsapp</h3>
-//             <p>0554 300 000</p>
-//           </div>
-//         </div>
-//         <div className="support-row">
-//           <div className="support-row-text">
-//             <h3>Ayoba</h3>
-//             <p>0554 300 000</p>
-//           </div>
-//         </div>
-//         <div className="support-row">
-//           <div className="support-row-text">
-//             <h3>Email Us</h3>
-//             <p>
-//               mymtn.gh@mtn.com
-//             </p>
-//             {/* <p>
-//               <a href="mailto:mymtn.gh@mtn.com">mymtn.gh@mtn.com</a>
-//             </p> */}
-//           </div>
-//         </div>
-//         <div className="support-row">
-//           <div className="support-row-text">
-//             <h3>Facebook</h3>
-//             <p>@MTNGhana</p>
-//           </div>
-//         </div>
-//         <div className="support-row">
-//           <div className="support-row-text">
-//             <h3>Twitter</h3>
-//             <p>@MTNghana</p>
-//           </div>
-//         </div>
-//         </div>
-
-//       </>
-//     );
-//   return <></>;
-// };
-
-// // const FAQs = ({ active }) => {
-// //     if (active === 'faqs') return (
-// //         <>FAQs</>
-// //     )
-// //     return <></>
-// // }
-
-// export default Profile;
 import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
@@ -204,11 +13,13 @@ import NotificationReminders from "../components/profileTabs/notificationsRemind
 import { useLocation, useNavigate } from "react-router-dom";
 import CustomScrollbar from "../components/customScrollbar";
 import { useCustomScrollbar } from "../../utils/scrollbarLogic";
+import { useSelector } from "react-redux";
 
 const Profile = () => {
   const [activeTab, setActiveTab] = useState("Account Information");
   const location = useLocation();
   const navigate = useNavigate();
+  const { profile } = useSelector((state) => state.account);
   const tabs = [
     {
       key: "Account Information",
@@ -269,7 +80,7 @@ const Profile = () => {
 
           <img loading="lazy" className="profile-section-bg-img" src={profileSectionBgImgPlaceholder} />
           <img loading="lazy" className="psbi-overlay" src={profileSectionBgImgPlaceholderOverlay} />
-          <h3 className="profile-section-header">Hi,Veeda</h3>
+          <h3 className="profile-section-header">Hi{profile?.first_name ? `, ${profile.first_name}` : ''}</h3>
           <div className="tabs-wrapper" ref={containerRef}>
             {tabs.map((tab) => (
               <div

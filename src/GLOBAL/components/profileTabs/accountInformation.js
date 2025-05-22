@@ -190,7 +190,7 @@ const AccountInformation = ({ active }) => {
               value={userData.gender}
               onChange={handleGenderChange}
               className="account-info-textinput"
-              label="Gender"
+              // label="Gender"
               options={[
                 { value: "Male", label: "Male" },
                 { value: "Female", label: "Female" },
@@ -241,14 +241,14 @@ const AccountInformation = ({ active }) => {
               iconPosition="left"
               placeholder="Contact"
             />
-            <div className="account-not-verified-wrapper">
+            {/* <div className="account-not-verified-wrapper">
               <img loading="lazy" className="anv-img" src={anvImg} alt="Verification Icon" />
               <p className="anv-text">
                 Your account has not been verified.
                 <span className="anv-link"> Click here </span>
                 to resend verification Code to your phone number
               </p>
-            </div>
+            </div> */}
             {/* <PasswordInput
               name="password"
               value={userData.password}

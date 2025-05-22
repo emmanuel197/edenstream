@@ -4,7 +4,7 @@
   width: 100%;
   margin: clamp(13px, 1.0417vw, 20px) auto;
   font-family: 'Arial', sans-serif;
-  border: 1px solid #619267;
+  border: 1px solid $gold-200;
   border-radius: 8px;
   padding: .8333vw;
   background: $black-06;
@@ -28,7 +28,7 @@
       transition: all 0.2s;
 
       &:hover {
-        background: rgba(97, 146, 103, 0.2);
+        background: $gold-300;
       }
 
       .date-picker-caret {
@@ -42,7 +42,7 @@
         top: 100%;
         left: 0;
         background: $black-06;
-        border: 1px solid #619267;
+        border: 1px solid $gold-200;
         border-radius: 0.8333vw;
         box-shadow: 0 0.4167vw 2.0833vw rgba(0, 0, 0, 0.15);
         padding: 1.6667vw;
@@ -53,7 +53,7 @@
 
         .dropdown-section {
           &:not(:last-child) {
-            border-right: 1px solid #619267;
+            border-right: 1px solid $gold-200;
             padding-right: 2.0833vw;
           }
         }
@@ -75,7 +75,11 @@
             transition: all 0.2s;
 
             &:hover {
-              background: linear-gradient(136.62deg, #619267 6.32%, #04271C 88.82%);
+              background: linear-gradient(
+                to right,
+                $gold-gradient-hover,
+                $gold-gradient-hover-secondary
+              );
               color: white;
             }
           }
@@ -99,7 +103,7 @@
         transition: all 0.2s;
 
         &:hover {
-          background: rgba(97, 146, 103, 0.3);
+          background: $gold-gradient-disabled-opacity;
         }
       }
     }
@@ -159,7 +163,7 @@
     }
     &.other-month {
       color: #666666;
-      background: rgba(10, 72, 52, 0.3);
+      background: $gold-100;
     }
 
     &.selected {
@@ -181,7 +185,7 @@
     }
 
     &:hover:not(.other-month) {
-      background: rgba(97, 146, 103, 0.15);
+      background: $gold-gradient-default;
     }
   }
 
@@ -201,4 +205,11 @@
       padding: 0.1em 0;
     }
   }
+}
+
+.date-picker-wrapper.error,
+.single-date-picker.error {
+  // outline: 2px solid $red-60 !important;
+  // outline-offset: 1px;
+  border-color: transparent !important;
 }

@@ -1,5 +1,5 @@
 @import "../../../global";
-
+@import '../../../styles/variables';
 .drawer {
     height: 100vh;
     background: $black-08;
@@ -56,7 +56,11 @@
                 position: relative;
 
                 &.active-link {
-                    background: #619267;
+                    background: linear-gradient(
+                        to right,
+                        $gold-gradient-hover,
+                        $gold-gradient-hover-secondary
+                    );
                     -webkit-background-clip: text;
                     -webkit-text-fill-color: transparent;
 
@@ -68,7 +72,11 @@
                         bottom: -.3125vw; // adjust as needed
                         width: 15.001px; // how long the underline should be
                         height: 3.001px; // thickness of the underline
-                        background: #619267;
+                        background: linear-gradient(
+                            to right,
+                            $gold-gradient-hover,
+                            $gold-gradient-hover-secondary
+                        );
                         border-radius: 23px;
                     }
                 }
@@ -128,7 +136,11 @@
         }
 
         .signup-btn {
-            background: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
+            background: linear-gradient(
+                to right,
+                $gold-gradient-hover,
+                $gold-gradient-hover-secondary
+            );
         }
 
         .login-btn {

@@ -8,6 +8,7 @@ const PasswordInput = ({
   onChange,
   placeholder,
   error,
+  errorMessage,
   inputStarted,
   width,
   maxWidth,
@@ -23,7 +24,7 @@ const PasswordInput = ({
   return (
     <div className={`form-group ${className}`} style={{width: width, maxWidth: maxWidth}}>
       <label className="field-label">{label}</label>
-      <div className="password-wrapper form-control-wrapper">
+      <div className={`password-wrapper form-control-wrapper ${error && "error"}`}>
       {icon && (
           <span className="input-icon">{icon}</span>
         )}
@@ -43,6 +44,7 @@ const PasswordInput = ({
           onClick={togglePasswordVisibility}
         ></div>
       </div>
+      {error && errorMessage && <div className="error-message">{errorMessage}</div>}
 
       {/* {location === "/signup" && (
         <div className="strength-bar-wrapper">

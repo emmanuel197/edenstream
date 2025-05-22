@@ -19,6 +19,7 @@ import {useSignupForm} from "../../utils/useSignupForm";
 import OTPVerification from "../components/otpVerificationPage/otpVerification";
 import { fetchGenres } from "../redux/fetchMoviesApi";
 import Cookies from "universal-cookie";
+import { ERROR_MESSAGES } from '../../utils/constants';
 
 const SignUpPage = () => {
   const dispatch = useDispatch();
@@ -133,6 +134,14 @@ const Step1 = ({ setNextButtonAction }) => {
   const { formData, handleInputChange, handleSubmit } = useSignupForm(1);
   const [showDatePicker, setShowDatePicker] = useState(false)
   const datePickerRef = useRef(null);
+  const [errors, setErrors] = useState({ mobileNumber: '', password: '', rePassword: '', dob: '' });
+
+  const validateMobileNumber = (value) => {
+    return /^\d{10}$/.test(value);
+  };
+  const validatePassword = (value) => (value || '').length >= 7;
+  const validateRePassword = (value, password) => (value || '').length >= 7 && value === (password || '');
+  const validateDOB = (value) => !!value;
 
   const handleDatePicker = () => {
     setShowDatePicker(prev => !prev)
@@ -147,6 +156,39 @@ const Step1 = ({ setNextButtonAction }) => {
   useEffect(() => {
     console.log('[Step1] formData:', formData);
     setNextButtonAction(() => () => {
+      let hasError = false;
+      const newErrors = { ...errors };
+
+      if (!validateMobileNumber(formData.mobileNumber)) {
+        newErrors.mobileNumber = ERROR_MESSAGES.AUTH.invalidMobileNumber;
+        hasError = true;
+      } else {
+        newErrors.mobileNumber = '';
+      }
+
+      if (!validateDOB(formData.dob)) {
+        newErrors.dob = 'Please enter your date of birth';
+        hasError = true;
+      } else {
+        newErrors.dob = '';
+      }
+
+      if (!validatePassword(formData.password)) {
+        newErrors.password = ERROR_MESSAGES.AUTH.invalidPassword;
+        hasError = true;
+      } else {
+        newErrors.password = '';
+      }
+
+      if (!validateRePassword(formData.rePassword, formData.password)) {
+        newErrors.rePassword = ERROR_MESSAGES.AUTH.passwordMismatch;
+        hasError = true;
+      } else {
+        newErrors.rePassword = '';
+      }
+
+      setErrors(newErrors);
+      if (hasError) return;
       // Create a new object for submission
       let submitData = { ...formData };
       if (submitData.dob && typeof submitData.dob !== 'string') {
@@ -174,15 +216,17 @@ const Step1 = ({ setNextButtonAction }) => {
   return (
     <div className="step1-date-picker">
      <div className="form-fields step-1">
-      <div className="form-row">
+      <div className="form-row form-col">
         <TextInput
           className="signup-textinput"
           placeholder="Phone Number"
           value={formData.mobileNumber}
           onChange={(e) => handleInputChange('mobileNumber', e.target.value)}
+          error={!!errors.mobileNumber}
+          errorMessage={errors.mobileNumber}
         />
       </div>
-      <div className="form-row date-picker-wrapper" ref={datePickerRef}>
+      <div className={`form-row form-col date-picker-wrapper${errors.dob ? ' error' : ''}`} ref={datePickerRef}>
         <TextInput
         icon={<SignUpDateOfBirthImg className="dateofbirth-icon "/>}
           className="signup-textinput"
@@ -190,6 +234,8 @@ const Step1 = ({ setNextButtonAction }) => {
           value={formData.dob ? format(formData.dob, 'MM/dd/yyyy') : ''}
           readOnly
           action={() => handleDatePicker() }
+          error={!!errors.dob}
+          errorMessage={errors.dob}
         />
         {showDatePicker && (
           <SingleDatePicker 
@@ -198,16 +244,18 @@ const Step1 = ({ setNextButtonAction }) => {
           />
         )}
       </div>
-      <div className="form-row">
-        <PasswordInput name="password"  value={formData.password} onChange={(e) => handleInputChange('password', e.target.value)} placeholder="Password" width="100%" />
+      <div className="form-row form-col">
+        <PasswordInput name="password"  value={formData.password} onChange={(e) => handleInputChange('password', e.target.value)} placeholder="Password" width="100%" error={!!errors.password} errorMessage={errors.password} />
       </div>
-      <div className="form-row">
+      <div className="form-row form-col">
         <PasswordInput
           name="rePassword"
           placeholder="Enter your password again"
           width="100%"
           value={formData.rePassword}
           onChange={(e) => handleInputChange('rePassword', e.target.value)}
+          error={!!errors.rePassword}
+          errorMessage={errors.rePassword}
         />
       </div>
     </div>
@@ -245,6 +293,7 @@ export const Step3 = ({ setNextButtonAction, className }) => {
   const dispatch = useDispatch();
   const genres = useSelector(state => state.genres || state.fetchMovies?.genres || []);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [error, setError] = useState('');
   const cookies = new Cookies();
 
   useEffect(() => {
@@ -267,6 +316,11 @@ export const Step3 = ({ setNextButtonAction, className }) => {
   useEffect(() => {
     if (!setNextButtonAction) return;
     setNextButtonAction(() => () => {
+      if (selectedCategories.length < 5) {
+        setError('Please select at least 5 categories to proceed.');
+        return;
+      }
+      setError('');
       cookies.set('edenstream_genre_preferences', selectedCategories, { path: '/' });
       dispatch(setStep(4));
     });
@@ -286,6 +340,12 @@ export const Step3 = ({ setNextButtonAction, className }) => {
           </span> {"selected"}
         </div>
       </div>
+      {error && (
+        <div className="error-message" style={{marginBottom: '1em'}}>
+          <span style={{fontSize: '1.2em', marginRight: '0.5em'}}>✖</span>
+          {error}
+        </div>
+      )}
       <div className="categories-container">
         {columns.map((column, colIndex) => (
           <div className="categories-col" key={colIndex}>

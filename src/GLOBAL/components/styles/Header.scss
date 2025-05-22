@@ -488,11 +488,15 @@
       }
 
       .sign-up {
-        background: $sign-up-link-bg-color;
+        background: linear-gradient(
+          to right,
+          $gold-gradient-hover,
+          $gold-gradient-hover-secondary
+      );
         border-width: .0313rem;
 
         gap: .208vw;
-        border: .0313rem solid rgba(5, 84, 60, 0.63);
+        border: .0313rem solid $gold-gradient-hover;
       }
 
       .log-in {
@@ -975,12 +979,12 @@
 
             .profile-item-icon {
               path {
-                fill: #619267;
+                fill: $gold-200;
               }
 
               &.profile-setting-item-icon {
                 path {
-                  stroke: #5B7F60 !important; // Change stroke color
+                  stroke: $gold-200 !important; // Change stroke color
                   fill: none !important; // Ensure it doesn't fill the whole icon
               }
               }

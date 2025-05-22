@@ -3,7 +3,10 @@
 .reel-wrapper-section {
     display: flex;
     flex-direction: column;
-    background-color: $black-10;
+    background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    
     border-radius: 0.75rem;
     padding: clamp(20px, 1.979vw, 37.9968px) clamp(20px, 2.083vw, 39.9936px) clamp(39px, 2.083vw, 39.9936px) clamp(20px, 1.146vw, 22.0032px);
     gap: clamp(20px, 1.3021vw, 25px);

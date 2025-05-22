@@ -4,7 +4,10 @@
     width: 100%;
     padding: clamp(24px, 2.604vw, 49.997px);
     border-radius: 0.625vw;
-    background-color: $black-10;
+    background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+    
     display: flex;
     flex-direction: column;
     gap: 14px;
@@ -117,7 +120,7 @@
                     color: $secondary-60;
                     padding: clamp(3px, 0.417vw, 8.006px) clamp(10px, 0.729vw, 13.997px);
                     border: 1px solid $black-15;
-                    background-color: $black-08;
+                    // background-color: $black-08;
 
                     @media (max-width: 700px) {
                         font-size: clamp(11px, 0.729vw, 14px);;
@@ -244,7 +247,10 @@
                 align-items: center;
                 gap: 0.729vw;
                 width: 100%;
-                background: #0A483433;
+                background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+                linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+                linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+                
                 border: 0.052vw solid;
                 border-image-source: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
                 border-radius: 0.417vw;

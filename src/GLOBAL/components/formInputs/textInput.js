@@ -10,6 +10,7 @@ const TextInput = ({
   placeholder,
   type = "text",
   error,
+  errorMessage,
   inputStarted,
   className,
   customeDateWidth,
@@ -44,7 +45,7 @@ const TextInput = ({
           <span className="input-icon right">{icon}</span>
         )} */}
     </div>
-   
+    {error && errorMessage && <div className="error-message">{errorMessage}</div>}
   </div>
 );
 

@@ -14,7 +14,6 @@ import { COOKIES } from "../../utils/constants";
 import { search } from "../redux/fetchMoviesApi";
 import { useHandleNavigation } from "../components/navigationHelpers";
 import { getImageSrc } from "./cards/MovieCard";
-const user_info = COOKIES.get("user_info");
 
 const Header = ({ variantClassName }) => {
   const { profile } = useSelector((state) => state.account);
@@ -111,6 +110,7 @@ const Header = ({ variantClassName }) => {
   const [showProfileDropdown, setShowProfileDropdown] = useState(false)
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [userInfo, setUserInfo] = useState(COOKIES.get("user_info"));
   
   const showNotificationHandler = () => {
     setShowNotificationDropdown((prev) => !prev
@@ -156,6 +156,12 @@ const Header = ({ variantClassName }) => {
     else setShowSearch(false);
   }, [location]);
 
+  useEffect(() => {
+    const checkAuth = () => setUserInfo(COOKIES.get("user_info"));
+    window.addEventListener('storage', checkAuth);
+    return () => window.removeEventListener('storage', checkAuth);
+  }, []);
+
   // Handle input change and dispatch search
   const handleSearchInput = (e) => {
     const text = e.target.value;
@@ -171,9 +177,9 @@ const Header = ({ variantClassName }) => {
 
         <div className="header-left-content">
           <Logo />
-          <Drawer user_info={user_info}/>
+          <Drawer user_info={userInfo}/>
         </div>
-        <nav className={`nav-links ${!user_info && "invisible"}`}>
+        <nav className={`nav-links ${!userInfo && "invisible"}`}>
           {navLinks.map(({ path, label }) => (
             <Link className={`nav-link ${location.pathname === path ? "active-link" : ""}`} key={path} to={path}>
               <p className="nav-link-text">
@@ -183,7 +189,7 @@ const Header = ({ variantClassName }) => {
           ))}
         </nav>
         <div className="right-content">
-        {!user_info ? (<div className="sign-in-up-btns">
+        {!userInfo ? (<div className="sign-in-up-btns">
             <Link to="/login" className="log-in">
               <div>
                 <p className="log-in-text">Log in</p>

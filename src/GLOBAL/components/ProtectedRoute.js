@@ -42,12 +42,11 @@ const ProtectedRoute = ({ children}) => {
 
     if (!user_info) {
         errorLog('Navigating to home without user_info')
-        // localStorage.setItem('afri_selected_operator', JSON.stringify(OPERATORS.afriplayghana))
+        localStorage.setItem('afri_selected_operator', JSON.stringify(OPERATORS.edenstream))
         // console.warn("%%%%%%", user_info)
         return <Navigate replace to='/signup' />
     } 
     
-    return <Navigate replace to='/select-network' />
     return children
 }
 
