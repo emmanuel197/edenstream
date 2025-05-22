@@ -52,7 +52,11 @@
             leading-trim: Cap height;
             line-height: clamp(16px, 1.094vw, 21.005px);
             letter-spacing: 0%;
-            background: linear-gradient(136.62deg, #0C573F 6.32%, #05543C 44.93%, #04271C 88.82%);
+            background: linear-gradient(
+              to right,
+              $gold-gradient-hover,
+              $gold-gradient-hover-secondary
+          );
         }
     }
 

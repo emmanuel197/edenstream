@@ -23,7 +23,7 @@ const TextInput = ({
     {label && <label className="field-label">{label}</label>}
     <div
         className={`form-control-wrapper ${error ? "error" : ""} ${
-          inputStarted ? "entry-background" : ""
+          true ? "entry-background" : ""
         } ${customeDateWidth}`}
         style={styles}
       >

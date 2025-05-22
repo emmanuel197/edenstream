@@ -27,10 +27,15 @@
     .form-control-wrapper {
         display: flex;
   align-items: center;  // Vertically centers icon & text
-  background-color: $black-08;
+  background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+
   border: .0521vw solid $secondary-40;
   border-radius: 8.0064px;
-
+      &:active, &:focus {
+        background: none !important;
+      }
   .form-control {
     flex: 1;                  // Input takes remaining space
     border: none;
@@ -38,7 +43,8 @@
     padding: clamp(9.9994px, 1.042vw, 20.0006px);
     font-size: clamp(13.0003px, .938vw, 18.0096px);
     color: $secondary-60;
-
+    border-radius: 8.0064px;
+    
     &:focus, &:active {
         border: none;
         outline: none;
