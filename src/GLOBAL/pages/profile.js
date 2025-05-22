@@ -74,6 +74,7 @@ const Profile = () => {
   
   return (
     <>
+    <wc-toast></wc-toast>
       <Header />
       <div className="inner-sections-wrapper tab-wrapper-variant">
         <section className="profile-section-tab-wrapper">

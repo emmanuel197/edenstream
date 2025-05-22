@@ -33,9 +33,7 @@ linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 
   border: .0521vw solid $secondary-40;
   border-radius: 8.0064px;
-      &:active, &:focus {
-        background: none !important;
-      }
+    
   .form-control {
     flex: 1;                  // Input takes remaining space
     border: none;

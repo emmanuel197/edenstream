@@ -114,9 +114,9 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
         return;
       }
 
-      console.log('Debug: Loading slides');
-      console.log('Current path:', location.pathname);
-      console.log('Inspiring data:', inspiring);
+      // console.log('Debug: Loading slides');
+      // console.log('Current path:', location.pathname);
+      // console.log('Inspiring data:', inspiring);
       
       try {
         if (location.pathname === "/series") {

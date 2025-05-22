@@ -286,16 +286,22 @@ const Step2 = ({ setNextButtonAction, variant }) => {
     />
   );
 };
-export const Step3 = ({ setNextButtonAction, className }) => {
+export const Step3 = ({ setNextButtonAction, className, initialSelectedCategories = [], onSave }) => {
   const dispatch = useDispatch();
   const genres = useSelector(state => state.genres || state.fetchMovies?.genres || []);
-  const [selectedCategories, setSelectedCategories] = useState([]);
+  const [selectedCategories, setSelectedCategories] = useState(initialSelectedCategories);
   const [error, setError] = useState('');
   const cookies = new Cookies();
 
   useEffect(() => {
     fetchGenres(dispatch);
   }, [dispatch]);
+
+  useEffect(() => {
+    if (initialSelectedCategories && initialSelectedCategories.length) {
+      setSelectedCategories(initialSelectedCategories);
+    }
+  }, [initialSelectedCategories]);
 
   useEffect(() => {
     console.log("Updated genres in Step3:", genres);
@@ -309,7 +315,7 @@ export const Step3 = ({ setNextButtonAction, className }) => {
     );
   };
 
-  // Set the Next button action for Step3
+  // Set the Next button action for Step3 (signup flow only)
   useEffect(() => {
     if (!setNextButtonAction) return;
     setNextButtonAction(() => () => {
@@ -324,6 +330,18 @@ export const Step3 = ({ setNextButtonAction, className }) => {
   }, [selectedCategories, setNextButtonAction, dispatch]);
 
   const columns = chunkArray(genres, 4);
+
+  // Handler for Save Changes in edit mode
+  const handleSave = () => {
+    if (selectedCategories.length < 5) {
+      setError('Please select at least 5 categories to proceed.');
+      return;
+    }
+    setError('');
+    if (onSave) {
+      onSave(selectedCategories);
+    }
+  };
 
   return (
     <div className={`step2 ${className}`}>
@@ -360,6 +378,10 @@ export const Step3 = ({ setNextButtonAction, className }) => {
           </div>
         ))}
       </div>
+      {/* Render Save Changes button in edit mode */}
+      {onSave && (
+        <Button className="save-prefchanges-btn" label="Save Changes" action={handleSave} />
+      )}
     </div>
   );
 };
