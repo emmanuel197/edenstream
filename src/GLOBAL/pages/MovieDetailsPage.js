@@ -48,12 +48,13 @@ const MovieDetailsPage = () => {
                     <MovieDetailsBanner />
                     <ContentDescriptionSecton 
                         marginTop="3.021vw" 
+                        marginBottom="5.021vw"
                         movieDetails={movieDetails}
                     />
-                    <ReviewSection 
+                    {/* <ReviewSection 
                         marginTop="5.26vw"
                         movieId={id}
-                    />
+                    /> */}
                 </div>
                 <Footer />
             </main>

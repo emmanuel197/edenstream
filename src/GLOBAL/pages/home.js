@@ -66,6 +66,7 @@ const Home = () => {
                                     title={reelTitle} 
                                     movies={movies} 
                                     marginTop="2.6042vw"
+                                    marginBottom="5.021vw"
                                 />
                             );
                         })

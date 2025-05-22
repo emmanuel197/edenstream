@@ -1812,3 +1812,24 @@ export const fetchTrendingAndRecentlyAddedMovies = async (dispatch) => {
     // console.error(error);
   }
 };
+
+export const fetchLikedMovies = async () => {
+  try {
+    const cookies = new Cookies();
+    const user_info = cookies.get("user_info");
+    const user_id = user_info?.data?.data?.user_id;
+    if (!user_id) {
+      console.error("[fetchLikedMovies] No user_id found in cookies");
+      return;
+    }
+    const response = await axios.get(
+      `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/users/${user_id}/favorites/movies`
+    );
+    console.log('[fetchLikedMovies] response:', response);
+    console.log('[fetchLikedMovies] response.data:', response.data);
+    return response.data;
+  } catch (error) {
+    console.error('[fetchLikedMovies] Error:', error);
+    return null;
+  }
+};
