@@ -5,6 +5,7 @@
   overflow-x: auto;
   scrollbar-width: thin;
   scrollbar-color: $secondary-60 $black-06;
+  -webkit-overflow-scrolling: touch;
   &::-webkit-scrollbar {
     height: 8px;
   }
@@ -12,12 +13,16 @@
     background: $secondary-60;
     border-radius: 4px;
   }
+  &::-webkit-scrollbar-track {
+    background: $black-06;
+  }
 }
 
 .plan-description-section {
     display: grid;
     grid-template-columns: repeat(4, 1fr); // 4 equal columns (Features + 3 Plans)
     border: 1px solid $black-10;
+    min-width: 100%;
 
     .pds-header-wrapper {
         padding: clamp(20px, 1.563vw, 30.01px);
@@ -62,6 +67,7 @@
 
     @media (max-width: 900px) {
       min-width: 890px;
+      width: max-content;
       grid-template-columns: 140px repeat(3, 250px);
       .pds-feature-wrapper, .pds-feature {
         position: sticky;

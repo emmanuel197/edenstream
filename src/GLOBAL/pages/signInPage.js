@@ -60,10 +60,10 @@ const SignInPage = () => {
   // console.log(location.state.redirectTo)
 
   const handleMobileNumberInput = e => {
-    const text = e.target.value
-    const limit = 10
-    if (isNaN(Number(text))) return
-    setMobileNumber(text.slice(0, limit))
+    let text = e.target.value.replace(/\s+/g, ''); // Remove all spaces
+    const limit = 10;
+    if (isNaN(Number(text))) return;
+    setMobileNumber(text.slice(0, limit));
   }
 
   // functions to set password when user makes input

@@ -221,7 +221,7 @@ const Step1 = ({ setNextButtonAction }) => {
           className="signup-textinput"
           placeholder="Phone Number"
           value={formData.mobileNumber}
-          onChange={(e) => handleInputChange('mobileNumber', e.target.value)}
+          onChange={(e) => handleInputChange('mobileNumber', e.target.value.replace(/\s+/g, ''))}
           error={!!errors.mobileNumber}
           errorMessage={errors.mobileNumber}
         />

@@ -68,28 +68,30 @@ const PlanDescriptionSection = ({ marginTop, marginBottom }) => {
   
   return (
     <>
-      <section
-        className="plan-description-section"
-        style={{ marginTop: marginTop, marginBottom: marginBottom }}
-      >
-       {headers.map((header, index) => (
-        <div key={index} className="pds-header-wrapper">
-          <h3 className="pds-header">{header.name}</h3>
-          {header.popular && <span className="popular-badge">Popular</span>}
-        </div>
-      ))}
-
-      {subscriptionPlans.map((plan, index) => (
-        <>
-          <div key={index} className="pds-feature-wrapper">
-            <p className="pds-feature">{plan.feature}</p>
+      <div className="plan-description-scroll-wrapper">
+        <section
+          className="plan-description-section"
+          style={{ marginTop: marginTop, marginBottom: marginBottom }}
+        >
+         {headers.map((header, index) => (
+          <div key={index} className="pds-header-wrapper">
+            <h3 className="pds-header">{header.name}</h3>
+            {header.popular && <span className="popular-badge">Popular</span>}
           </div>
-          <div className="pds-detail">{plan.daily}</div>
-          <div className="pds-detail">{plan.weekly}</div>
-          <div className="pds-detail">{plan.monthly}</div>
-        </>
-      ))}
-      </section>
+        ))}
+
+        {subscriptionPlans.map((plan, index) => (
+          <React.Fragment key={index}>
+            <div className="pds-feature-wrapper">
+              <p className="pds-feature">{plan.feature}</p>
+            </div>
+            <div className="pds-detail">{plan.daily}</div>
+            <div className="pds-detail">{plan.weekly}</div>
+            <div className="pds-detail">{plan.monthly}</div>
+          </React.Fragment>
+        ))}
+        </section>
+      </div>
     </>
   );
 };
