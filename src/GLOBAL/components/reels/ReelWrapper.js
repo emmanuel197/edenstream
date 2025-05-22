@@ -53,6 +53,8 @@ const NoResults = () => {
 export const RwContentContainer = ({ movies, marginTop, isChannelsSection = false }) => {
   const { containerRef, scrollThumbRef } = useCustomScrollbar("74");
 
+  console.log("WatchHistory - movie data:", movies);
+
   return (
     <div className="rw-content-container-wrapper">
       <div
@@ -61,13 +63,16 @@ export const RwContentContainer = ({ movies, marginTop, isChannelsSection = fals
         ref={containerRef}
       >
         {movies?.map((movie) => {
+          console.log("Rendering movie card for:", movie);
           // Transform the movie data to match MovieCard expected props
           const movieCardProps = {
             id: movie.id,
             name: movie.title,
-            poster: movie.image_id ? 
-                `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movie.image_id}?accessKey=WkVjNWNscFhORDBLCg==` : 
-                null,
+            poster: movie.image_id
+              ? `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movie.image_id}?accessKey=WkVjNWNscFhORDBLCg==`
+              : movie.image_store_id
+              ? `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movie.image_store_id}?accessKey=WkVjNWNscFhORDBLCg==`
+              : null,
             type: movie.type,
             newEpisode: false
           };

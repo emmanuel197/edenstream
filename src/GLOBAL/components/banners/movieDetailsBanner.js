@@ -3,11 +3,13 @@ import "../../components/styles/banners/dynamicBanner.scss";
 import Button from "../buttons/Button";
 import ReactPlayer from "react-player";
 import { useParams } from "react-router-dom";
-import { returnMovieDetails, fetchTrailer } from "../../redux/fetchMoviesApi";
+import { returnMovieDetails, fetchTrailer, updateWatchlist, removeWatchlist, fetchWatchlist } from "../../redux/fetchMoviesApi";
 import { playIcon, pauseIcon, unmuteIcon, muteIcon, likeIcon, plusIcon } from "../../../utils/assets";
+import { useDispatch, useSelector } from "react-redux";
 
 const MovieDetailsBanner = () => {
   const { id } = useParams();
+  const dispatch = useDispatch();
   const [movieData, setMovieData] = useState(null);
   const [trailerUrl, setTrailerUrl] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -17,6 +19,8 @@ const MovieDetailsBanner = () => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const playerRef = useRef(null);
   const [loading, setLoading] = useState(false);
+  const [watchlisted, setWatchlisted] = useState(false);
+  const watchlist = useSelector(state => state.fetchMovies.watchlist || []);
 
   useEffect(() => {
     setMovieData(null);
@@ -44,6 +48,18 @@ const MovieDetailsBanner = () => {
     loadMovie();
     return () => { isCurrent = false; };
   }, [id]);
+
+  // Fetch watchlist on mount and when id changes
+  useEffect(() => {
+    fetchWatchlist(dispatch);
+  }, [dispatch, id]);
+
+  // Update watchlisted state when watchlist or movieData changes
+  useEffect(() => {
+    if (!movieData) return;
+    const _ids = watchlist.map(item => item.movie_id);
+    setWatchlisted(_ids.includes(movieData.id));
+  }, [movieData, watchlist]);
 
   // Fetch trailer URL when movieData changes
   useEffect(() => {
@@ -77,6 +93,16 @@ const MovieDetailsBanner = () => {
   const handlePlayerReady = () => setIsPlayerReady(true);
   const handlePlayerStart = () => {};
   const handlePlayerError = () => setIsUrlValid(false);
+
+  const handleToggleWatchlist = () => {
+    if (!movieData) return;
+    if (watchlisted) {
+      removeWatchlist(movieData.id, 'movie');
+    } else {
+      updateWatchlist(movieData.id, 'movie', 0);
+    }
+    setWatchlisted(!watchlisted);
+  };
 
   if (loading) return <div style={{minHeight: 300}}>Loading banner...</div>;
   if (!movieData) return <div style={{minHeight: 300}}>Movie not found.</div>;
@@ -140,9 +166,10 @@ const MovieDetailsBanner = () => {
             />
             <div className="bdc-icon-btns">
               <Button 
-                className={`bdc-plus-btn ${movieData?.isInWatchlist ? 'active' : ''}`} 
+                className={`bdc-plus-btn ${watchlisted ? 'active' : ''}`} 
                 page="/" 
                 icon={plusIcon} 
+                action={handleToggleWatchlist}
               />
               <Button className="bdc-like-btn" page="/" icon={likeIcon} />
               <Button 

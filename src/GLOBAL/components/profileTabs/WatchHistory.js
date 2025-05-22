@@ -1,16 +1,50 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { DeleteNotificationIcon, NoStream, PaginationNextIcon, ThreeDots, WatchHistoryIcon } from "../../../utils/assets";
 import "../../components/styles/profileTabs/watch-history.scss";
 import Button from "../buttons/Button";
 import GenericModal from "../genericModal";
 import { RwContentContainer } from "../reels/ReelWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWatchlist, returnMovieDetails } from "../../redux/fetchMoviesApi";
 const WatchHistory = ({ active }) => {
     const [showClearWatchModal, setShowClearWatchModal] = useState(true)
+    const [fullMovies, setFullMovies] = useState([]);
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch()
+    const { watchlist } = useSelector(state => state.fetchMovies)
+    // const isAuthenticated = JSON.parse(window.localStorage.getItem("isAuthenticated"));
+    console.log(watchlist)
+    // const user_info = COOKIES.get("user_info");
+    useEffect(() => {
+        // isAuthenticated && 
+       fetchWatchlist(dispatch)
+        // console.log(isAuthenticated)
+    }, [dispatch])
+
+    useEffect(() => {
+      // Fetch full details for each movie in watchlist
+      const fetchAllDetails = async () => {
+        if (!watchlist || watchlist.length === 0) {
+          setFullMovies([]);
+          return;
+        }
+        setLoading(true);
+        const details = await Promise.all(
+          watchlist.map(async (item) => {
+            // item.movie.id is the movie id
+            if (!item.movie || !item.movie.id) return null;
+            const movie = await returnMovieDetails(item.movie.id);
+            if (!movie) return null;
+            return { ...movie, lastWatched: item.created_at };
+          })
+        );
+        setFullMovies(details.filter(Boolean));
+        setLoading(false);
+      };
+      fetchAllDetails();
+    }, [watchlist]);
+
     if (active === 'Watch History') {
-        const history = [{ id: 1,   name: "Angels Friends", poster: "/assets/adipurush.png"
-    }, {id: 2, name:"Faith", poster: "/assets/jackie.png"},
-     {id: 3, name:"Faith", poster: "/assets/sincity.png", newEpisode: true},
-    {id:4, name:"Faith Tv", poster: "/assets/faith.png"},]
         return (
             <section className="watch-history-section">
               
@@ -19,9 +53,10 @@ const WatchHistory = ({ active }) => {
                     <h2 className="watch-history-section-header">Watch History</h2>
                 </div>
                 <div className="yes-no-watch-history">
-                <ThreeDots className="watch-history-three-dots" />
-                    {(history.length > 0) ? <YesWatchHistory showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={history}/> :
-                     <NoWatchHistory/>}
+                {/* <ThreeDots className="watch-history-three-dots" /> */}
+                    {loading ? <div>Loading watch history...</div> :
+                      (fullMovies.length > 0 ? <YesWatchHistory showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={fullMovies}/> :
+                     <NoWatchHistory/>) }
                      <div className="pagination-wrapper">
                         <div className="page-number">1</div>
                         <div className="page-number">2</div>
@@ -58,13 +93,13 @@ const YesWatchHistory = ({history, showClearWatchModal, setShowClearWatchModal})
     }
     return (
         <div className="yes-watch-history-detail">
-            {showClearWatchModal && <GenericModal
+            {/* {showClearWatchModal && <GenericModal
             headerText={"Clear All History"}
             paragraphText={"Are you sure you want to clear all History? This action cannot be undone."}
             svg={<DeleteNotificationIcon className="delete-watch-history"/>}
             sectionClassName="watch-history-section-modal"
             ContentWrapper="watch-history-modal-content-wrapper"
-            buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="clearall-btn" label="Clear All" action={handleClearAll} />] } />}
+            buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="clearall-btn" label="Clear All" action={handleClearAll} />] } />} */}
             <RwContentContainer movies={history} isChannelsSection={true}/>
         </div>
     )
