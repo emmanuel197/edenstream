@@ -14,9 +14,10 @@ import { COOKIES } from "../../utils/constants";
 import { search } from "../redux/fetchMoviesApi";
 import { useHandleNavigation } from "../components/navigationHelpers";
 import { getImageSrc } from "./cards/MovieCard";
-
+import Cookies from "universal-cookie";
 const Header = ({ variantClassName }) => {
   const { profile } = useSelector((state) => state.account);
+  const cookies = new Cookies();
   const location = useLocation();
   const dispatch = useDispatch();
   const { showDrawer } = useSelector(state => state.drawer);
@@ -27,7 +28,7 @@ const Header = ({ variantClassName }) => {
     { path: "/word", label: "Word" },
     { path: "/music", label: "Music" },
     { path: "/livetv", label: "Live Tv" },
-    { path: "liveradio", label: "Live Radio" },
+    { path: "/mylist", label: "My List" },
     { path: "/subscription", label: "Subscriptions" }
     // { path: "/series", label: "Series" },
     // { path: "/sermons", label: "Sermons" },
@@ -271,12 +272,12 @@ const Header = ({ variantClassName }) => {
                 </div>}
               </div>}
               <div className="profile-wrapper" onClick={showProfileHandler}>
-                  <img className="profile-img" src={profile?.profile_image || headerProfilePlaceholder}/>
-                  {/* <img className="profile-chevron"/> */}
-                  <ProfileChevron/>
-              </div>
+                  <img className="profile-img" src={cookies.get('edenstream_avatar') || headerProfilePlaceholder} alt="Profile Avatar" />
+              {/* <img className="profile-chevron"/> */}
+              <ProfileChevron/>
+          </div>
               {showProfileDropdown && <div className="profile-dropdown">
-                <div className="profile-img-text-wrapper"><img className="profile-img" src={profile?.profile_image || headerProfilePlaceholder}/>
+                <div className="profile-img-text-wrapper"><img className="profile-img" src={cookies.get('edenstream_avatar') || headerProfilePlaceholder}/>
                   <h4 className="profile-text">{profile?.first_name || 'Veeda'}</h4>
                   </div>
                   <div className="profile-items-wrapper">

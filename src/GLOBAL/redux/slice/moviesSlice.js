@@ -63,6 +63,9 @@ const fetchMovieSlice = createSlice({
   },
 
   reducers: {
+    fetchLikedMoviesReducer: (state, action) => {
+      state.likedMovies = action.payload;
+    },
     fetchAllSeriesReducer: (state, action) => {
       state.allSeries = action.payload;
     },
@@ -263,5 +266,6 @@ export const {
   fetchAllSeriesReducer,
   selectedMovieReducer,
   fetchMovies_fromCache,
+  fetchLikedMoviesReducer,
   clearVideoReducer
 } = fetchMovieSlice.actions;

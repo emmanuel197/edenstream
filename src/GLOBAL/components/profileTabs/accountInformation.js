@@ -22,6 +22,7 @@ import SingleDatePicker from "../singleDatePicker";
 import { setProfile } from "../../redux/slice/accountSlice";
 import { TOAST } from "../../../utils/constants";
 import { format } from "date-fns";
+import Cookies from "universal-cookie";
 
 const AccountInformation = ({ active }) => {
   const dispatch = useDispatch();
@@ -39,17 +40,21 @@ const AccountInformation = ({ active }) => {
     contact: "",
     password: ""
   });
+  const cookies = new Cookies();
+  const avatarFromCookie = cookies.get('edenstream_avatar');
+  const placeHolderPhoto = "/assets/profile-placeholder.jpeg";
+  const avatarToShow = avatarFromCookie || placeHolderPhoto;
   const [showAvatarModal, setShowAvatarModal] = useState(false);
-  const [mainPreview, setMainPreview] = useState("/assets/profile-placeholder.jpeg");
+  const [mainPreview, setMainPreview] = useState(avatarToShow);
   const [avatarOptions] = useState([
     { id: 1, src: "/assets/avatar1.png" },
     { id: 2, src: "/assets/avatar2.png" },
     { id: 3, src: "/assets/avatar3.png" },
     { id: 4, src: "/assets/avatar4.png" },
-  
   ]);
   const [showDatePicker, setShowDatePicker] = useState(false);
   const datePickerRef = useRef(null);
+  const isFirstLoad = useRef(true);
 
   useEffect(() => {
     if (active === "Account Information" && (!profile || !profile.first_name)) {
@@ -67,7 +72,7 @@ const AccountInformation = ({ active }) => {
 
   // Update form state when profile loads
   useEffect(() => {
-    if (active === "Account Information" && profile && profile.first_name) {
+    if (active === "Account Information" && profile && profile.first_name && isFirstLoad.current) {
       console.log('Profile in useEffect:', profile);
       console.log('Date of Birth in useEffect:', profile.date_of_birth);
       setUserData({
@@ -78,6 +83,11 @@ const AccountInformation = ({ active }) => {
         contact: profile.phone_number || "",
         password: "",
       });
+      isFirstLoad.current = false;
+    }
+    // Reset the flag if user navigates away from the tab
+    if (active !== "Account Information") {
+      isFirstLoad.current = true;
     }
   }, [active, profile]);
 
@@ -118,9 +128,23 @@ const AccountInformation = ({ active }) => {
     try {
       console.log('[AccountInformation] Saving:', userData);
       await updateProfile(userData.firstName, userData.lastName, userData.gender, userData.dob);
-      // Fetch the latest profile and update Redux
-      const updatedProfile = await getProfile();
-      dispatch(setProfile(updatedProfile));
+
+      // Optimistically update Redux state for instant UI feedback
+      dispatch(setProfile({
+        ...profile,
+        first_name: userData.firstName,
+        last_name: userData.lastName,
+        gender: userData.gender,
+        date_of_birth: userData.dob,
+        phone_number: userData.contact,
+        // add other fields as needed
+      }));
+
+      // Optionally, fetch the latest profile from backend to ensure consistency
+      getProfile().then((updatedProfile) => {
+        dispatch(setProfile(updatedProfile));
+      });
+
       TOAST.success("You have updated your profile successfully");
       console.log("Profile updated successfully");
     } catch (error) {
@@ -144,11 +168,19 @@ const AccountInformation = ({ active }) => {
   }
 
   const handleSaveChanges = () => {
-    console.log('save changes')
+    cookies.set('edenstream_avatar', mainPreview, { path: '/' });
+    setShowAvatarModal(false);
   }
   const handleAvatarClick = (src) => {
     setMainPreview(src);
   };
+
+  // Always call hooks at the top level
+  useEffect(() => {
+    if (showAvatarModal) {
+      setMainPreview(avatarFromCookie || placeHolderPhoto);
+    }
+  }, [showAvatarModal, avatarFromCookie, placeHolderPhoto]);
 
   // 5. If this tab isn't active, return nothing
   if (active !== "Account Information") {
@@ -156,8 +188,6 @@ const AccountInformation = ({ active }) => {
   }
 
   // 6. Otherwise, render the Account Information UI
-  const placeHolderPhoto = "/assets/profile-placeholder.jpeg";
-
   return (
     <section className="account-information-section">
        <wc-toast></wc-toast>
@@ -189,7 +219,7 @@ const AccountInformation = ({ active }) => {
               name="gender"
               value={userData.gender}
               onChange={handleGenderChange}
-              className="account-info-textinput"
+              className="account-info-selectinput"
               // label="Gender"
               options={[
                 { value: "Male", label: "Male" },
@@ -232,7 +262,7 @@ const AccountInformation = ({ active }) => {
                 to resend verification email.
               </p>
             </div> */}
-            <TextInput
+            {/* <TextInput
               name="contact"
               value={userData.contact}
               onChange={handleInputChange}
@@ -240,7 +270,7 @@ const AccountInformation = ({ active }) => {
               icon={<ContactInputIcon />}
               iconPosition="left"
               placeholder="Contact"
-            />
+            /> */}
             {/* <div className="account-not-verified-wrapper">
               <img loading="lazy" className="anv-img" src={anvImg} alt="Verification Icon" />
               <p className="anv-text">
@@ -269,8 +299,8 @@ const AccountInformation = ({ active }) => {
           <div className="profile-img-wrapper" onClick={handleProfileImgClick}>
             <img
               className="profile-img"
-              src={placeHolderPhoto}
-              alt="Profile Placeholder"
+              src={avatarToShow}
+              alt="Profile Avatar"
             />
             <EditProfileImg className="profile-img-edit-vector" />
           </div>

@@ -30,6 +30,7 @@ import {
   fetchGenresReducer,
   fetchAgeRatingsReducer,
   fetchAllSeriesReducer,
+  fetchLikedMoviesReducer,
   fetchMovies_fromCache
 } from "./slice/moviesSlice";
 import { storeDataInIndexedDB, getDataFromIndexedDB } from '../../utils/indexedDB'
@@ -1813,20 +1814,26 @@ export const fetchTrendingAndRecentlyAddedMovies = async (dispatch) => {
   }
 };
 
-export const fetchLikedMovies = async () => {
+export const fetchLikedMovies = async (dispatch) => {
   try {
     const cookies = new Cookies();
     const user_info = cookies.get("user_info");
-    const user_id = user_info?.data?.data?.user_id;
+    const { user_id, access_token } = user_info?.data?.data;
     if (!user_id) {
       console.error("[fetchLikedMovies] No user_id found in cookies");
       return;
     }
     const response = await axios.get(
-      `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/users/${user_id}/favorites/movies`
+      `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/users/${user_id}/favorites/movies`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      }
     );
     console.log('[fetchLikedMovies] response:', response);
-    console.log('[fetchLikedMovies] response.data:', response.data);
+    console.log('[fetchLikedMovies] response.data.data:', response.data.data);
+    dispatch(fetchLikedMoviesReducer(response.data.data));
     return response.data;
   } catch (error) {
     console.error('[fetchLikedMovies] Error:', error);

@@ -99,7 +99,7 @@ const Drawer = ({user_info}) => {
         {label: "Word", link: "word"}, 
         {label:"Music", link: "music"}, 
         {label: "Live Tv", link: "linktv"}, 
-        {label: "Live Radio", link: "liveradio"}, 
+        {label: "My List", link: "mylist"}, 
         {label:"Subscriptions", link: "subscription"} ]
   const [showDropdown, setShowDropdown] = useState(false);
   const toggleDropdown = () => setShowDropdown(!showDropdown);

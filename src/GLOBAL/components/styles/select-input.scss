@@ -83,4 +83,29 @@
       border: none;
     }
   }
+
+  &.account-info-selectinput {
+    .select-wrapper {
+      background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+      border: 2px solid #333333;
+      border-radius: 8.0064px;
+     
+    }
+    select {
+      padding: clamp(9.9994px, 1.042vw, 20.0006px);
+      font-size: clamp(10.000px, .938vw, 18.0096px);
+      color: $secondary-60;
+      background-color: transparent;
+      border-radius: 8.0064px;
+      border: none;
+      height: 100%;
+      &:focus, &:active {
+        border: none;
+        outline: none;
+        background-color: transparent;
+      }
+    }
+  }
 }

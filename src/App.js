@@ -26,6 +26,7 @@ import MusicPage from "./GLOBAL/pages/musicPage";
 import SeriesPage from "./GLOBAL/pages/seriesPage";
 import Watch from "./GLOBAL/pages/watch"
 import LiveTvPage from "./GLOBAL/components/liveTvPage";
+import MyListPage from "./GLOBAL/pages/myListPage";
 // import RedirectAuthenticated from "./GLOBAL/components/RedirectAuthenticated";
 
 function App() {
@@ -45,6 +46,7 @@ function App() {
         <Route path="/series" element={<ProtectedRoute><SeriesPage/></ProtectedRoute>}/>
         <Route path="/word" element={<ProtectedRoute><DevotionalPage/></ProtectedRoute>}/>
         <Route path="/music" element={<ProtectedRoute><MusicPage/></ProtectedRoute>}/>
+        <Route path="/mylist" element={<ProtectedRoute><MyListPage/></ProtectedRoute>}/>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
         <Route path="/reset-password" element={<ResetPasswordPage />} />
