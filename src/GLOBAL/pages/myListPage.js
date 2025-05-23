@@ -24,28 +24,28 @@ const MyListPage = ({ active }) => {
         // console.log(isAuthenticated)
     }, [dispatch])
 
-    useEffect(() => {
-      // Fetch full details for each movie in watchlist
-      const fetchAllDetails = async () => {
-        if (!likedMovies || likedMovies.length === 0) {
-          setFullMovies([]);
-          return;
-        }
-        setLoading(true);
-        const details = await Promise.all(
-          likedMovies.map(async (item) => {
-            // item.movie.id is the movie id
-            if (!item.movie || !item.movie.id) return null;
-            const movie = await returnMovieDetails(item.movie.id);
-            if (!movie) return null;
-            return { ...movie, lastWatched: item.created_at };
-          })
-        );
-        setFullMovies(details.filter(Boolean));
-        setLoading(false);
-      };
-      fetchAllDetails();
-    }, [likedMovies]);
+    // useEffect(() => {
+    //   // Fetch full details for each movie in watchlist
+    //   const fetchAllDetails = async () => {
+    //     if (!likedMovies || likedMovies.length === 0) {
+    //       setFullMovies([]);
+    //       return;
+    //     }
+    //     setLoading(true);
+    //     const details = await Promise.all(
+    //       likedMovies.map(async (item) => {
+    //         // item.movie.id is the movie id
+    //         if (!item.movie || !item.movie.id) return null;
+    //         const movie = await returnMovieDetails(item.movie.id);
+    //         if (!movie) return null;
+    //         return { ...movie, lastWatched: item.created_at };
+    //       })
+    //     );
+    //     setFullMovies(details.filter(Boolean));
+    //     setLoading(false);
+    //   };
+    //   fetchAllDetails();
+    // }, [likedMovies]);
 
    
         return (
@@ -57,7 +57,7 @@ const MyListPage = ({ active }) => {
               <div className="yes-no-watch-history">
               {/* <ThreeDots className="watch-history-three-dots" /> */}
                   {loading ? <div>Loading watch history...</div> :
-                    (fullMovies.length > 0 ? <YesMyList showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={fullMovies}/> :
+                    (likedMovies?.length > 0 ? <YesMyList showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={likedMovies}/> :
                    <NoMyList/>) }
                    <div className="pagination-wrapper">
                       <div className="page-number">1</div>
@@ -69,7 +69,7 @@ const MyListPage = ({ active }) => {
                    </div>
               </div>
           </section>
-          <Footer/>
+          <Footer/> 
             </>
             
         )
