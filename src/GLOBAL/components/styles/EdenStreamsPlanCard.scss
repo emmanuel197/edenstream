@@ -10,7 +10,7 @@
     border: 1px solid #262626;
     row-gap: clamp(20px, 2.604vw, 49.997px);
     padding: clamp(20px, 2.604vw, 49.997px);
-    max-width: 100%; // Keeps consistency
+    min-width: 100%; // Keeps consistency
     flex: 1; // Allows responsiveness
 
     @media (max-width: 650px) {
