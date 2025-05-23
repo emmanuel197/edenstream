@@ -26,8 +26,13 @@ export const purchasePackage = async (product_id, subscriber_uid, email) => {
             medium: 'web'
         };
 
+        // Debug: Log the request body
+        console.log('Purchase request body:', body);
+
         // Making POST request using Axios with async/await
         const response = await axios.post(url, body, { headers });
+        // Debug: Log the response
+        console.log('Purchase response:', response);
         if (response.data.status === "ok") {
             store.dispatch(paymentInitiatedReducer(response.data.payment_status));
             window.location.href = '/home'
@@ -37,7 +42,8 @@ export const purchasePackage = async (product_id, subscriber_uid, email) => {
     } catch (error) {
         store.dispatch(fetchPackageReducer(false))
         TOAST.error(ERROR_MESSAGES.SUBSCRIPTION.subscriptionFailed)
-        // console.error('An error occurred:', error.message);
+        // Debug: Log the error
+        console.error('Purchase error:', error);
     }
 }
 

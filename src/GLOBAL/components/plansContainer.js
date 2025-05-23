@@ -38,7 +38,7 @@ const PlansContainer = ({ variant, planData }) => {
     const plan = SubscriptionsData.find(p => p.uid === uid);
     dispatch(subscriptionModalReducer({
       isOpen: true,
-      productId: plan?.uid,
+      productId: plan?.id,
       productName: plan?.name,
       productPrice: plan?.price,
       currency: 'GHS'
