@@ -14,7 +14,7 @@
             color: $white;
             position: relative; // So the pseudo-element is positioned correctly
             &.selected {
-                color: #619267;
+                color: $gold-200;
                 &::after {
                     content: "";
                     position: absolute;
@@ -23,7 +23,7 @@
                     bottom: -.3125vw; // adjust as needed
                     width: clamp(10px, .7813vw, 15.001px);     // how long the underline should be
                     height: clamp(2px, .1563vw, 3.001px);  // thickness of the underline
-                    background: #619267;
+                    background: $gold-200;
                     border-radius: 23px;
                   }
             }
