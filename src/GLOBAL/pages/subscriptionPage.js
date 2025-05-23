@@ -4,10 +4,13 @@ import Footer from "../components/Footer";
 import ChooseThePlanSection from "../components/ChooseThePlanSection";
 import NewsletterSubscriptionSection from "../components/NewsletterSubscriptionSection";
 import PlanDescriptionSection from "../components/planDescriptionSection";
+
 const SubscriptionPage = () => {
   return (
     <>
+    
       <main>
+      <wc-toast></wc-toast>
         <Header/>
         <div className="inner-sections-wrapper">
         <ChooseThePlanSection marginTop="7.875rem"/>

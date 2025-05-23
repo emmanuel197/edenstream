@@ -3,12 +3,12 @@ import { fetchPackageReducer, paymentInitiatedReducer, purchaseHistoryReducer, p
 import { store } from "../redux/store";
 import { ERROR_MESSAGES, TOAST } from '../../utils/constants'
 import { checkActiveSubscription } from "../../utils/activeSubs";
-export const purchasePackage = async (product_id, subscriber_uid) => {
+export const purchasePackage = async (product_id, subscriber_uid, email) => {
 
     try {
         store.dispatch(fetchPackageReducer(true))
         // API URL
-        const url = "https://tvanywhereonline.com/cm/api/purchase/?operator_uid=afriplaymtnghana";
+        const url = "https://tvanywhereonline.com/cm/api/purchase/?operator_uid=edenstream";
 
         // Request headers
         const headers = {
@@ -19,6 +19,7 @@ export const purchasePackage = async (product_id, subscriber_uid) => {
         // Request body
         const body = {
             subscriber_uid: subscriber_uid,
+            email: email,
             subscription_type: 'one-off',
             bill: false,
             product_id: product_id,
