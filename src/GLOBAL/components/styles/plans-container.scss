@@ -5,7 +5,31 @@
     grid-template-columns: repeat(auto-fit, minmax(7.813vw, 1fr));
     column-gap: 1.563vw;
     justify-content: center;
+    position: relative;
 
+    .generic-modal-section {
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+        width: 53.8542vw;
+        padding: 3.0729vw 2.5vw;
+        @media (max-width: 450px) {
+            top: 30% !important;
+            
+            
+        }
+        .modal-content-wrapper {
+            gap: 2.0833vw;
+            .modal-content-paragraph {
+                .subscription-price {
+               
+                    color: $gold-200;
+                  
+                }
+            }
+        }
+    }
     @media (max-width: 690px) {
         grid-template-columns: repeat(auto-fit, minmax(clamp(120px, 7.613vw, 146.17px), 1fr));
         align-items: center;

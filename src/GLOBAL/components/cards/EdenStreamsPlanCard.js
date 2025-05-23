@@ -1,18 +1,35 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import Button from "../buttons/Button";
 import "../../components/styles/EdenStreamsPlanCard.scss";
 import { selectedPlanIcon } from "../../../utils/assets";
+import { useDispatch } from "react-redux";
+import { subscriptionModalReducer } from '../../redux/slice/subscriptionSlice';
 
 const EdenStreamsPlanCard = ({
   variant,
   planTitle,
   planDescription,
   planPrice,
-  planDuration
+  planPer,
+  uid,
+  onChoose
 }) => {
-  const [selectedPlan, setSelectedPlan] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState(false);
+  const dispatch = useDispatch();
+  const cardRef = useRef();
+  const _initPurchasePackage = () => {
+    if (onChoose) onChoose(uid, cardRef);
+    // setSelectedPlan(true);
+    // dispatch(subscriptionModalReducer({
+    //   isOpen: true,
+    //   productId: uid,
+    //   productName: planTitle,
+    //   productPrice: planPrice,
+    //   currency: 'GHS'
+    // }));
+  };
   return (
-    <div className={`plan-card ${variant==="selected" && "plan-card-selected"}`}>
+    <div ref={cardRef} className={`plan-card ${variant==="selected" && "plan-card-selected"}`}>
       <div className="plan-card-text">
         <div className="plan-card-header-wrapper">
         <h3 className="plan-card-header">{planTitle}</h3>
@@ -24,10 +41,10 @@ const EdenStreamsPlanCard = ({
 
       <p className="plan-card-price">
         {" "}
-        {planPrice}
-       {!variant && <span className="plan-duration">/{planDuration}</span>}
+        gh{planPrice}
+       {!variant && uid !=='freetowatch' && <span className="plan-duration">/{planPer}</span>}
       </p>
-     { !(variant==="selected") && <Button icon={selectedPlan && selectedPlanIcon} className={`choose-plan-btn ${selectedPlan && "selected-plan"}`} label="Choose Plan" page="/home" />}
+     { !(variant==="selected") && <Button icon={selectedPlan && selectedPlanIcon} className={`choose-plan-btn ${selectedPlan && "selected-plan"}`} label="Choose Plan" action={_initPurchasePackage} />}
     </div>
   );
 };

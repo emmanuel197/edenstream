@@ -1,52 +1,94 @@
-import React from "react";
+import React, { useState } from "react";
 import "../components/styles/plans-container.scss"
 import EdenStreamsPlanCard from "../components/cards/EdenStreamsPlanCard"
-const PlansContainer = ({variant, planData}) => {
-    const plansData = planData || [
-      {
-        planTitle: "Daily Plan",
-        planDescription:
-          "Enjoy an extensive library of movies and shows, featuring a range of content, including recently released titles.",
-        planPrice: "gh10.00",
-        planDuration: "daily"
-      },
-      {
-        planTitle: "Weekly Plan",
-        planDescription:
-          "Access to a wider selection of movies and shows, including most new releases and exclusive content.",
-        planPrice: "gh70.00",
-        planDuration: "weekly"
-      },
-      {
-        planTitle: "Monthly Plan",
-        planDescription:
-          "Access to a widest selection of movies and shows, including all new releases and Offline Viewing.",
-        planPrice: "gh300.99",
-        planDuration: "weekly"
-      }
-    ];
+import SubscriptionsData from "../../utils/subscrptionPlansData"
+import GenericModal from "./genericModal";
+import { useSelector, useDispatch } from "react-redux";
+import Button from "./buttons/Button";
+import { subscriptionModalReducer } from '../redux/slice/subscriptionSlice';
 
-      // If `variant` is provided, we append a BEM-like modifier class
-  const containerClassName = `plans-container${
-    variant ? ` plans-container--${variant}` : ""
-  }`;
-    return (
-      <div className={containerClassName}>
-            {plansData.map((planDetails) => {
-              return (
-                <>
-                  <EdenStreamsPlanCard
-                    variant={variant}                  
-                    planTitle={planDetails.planTitle}
-                    planDescription={planDetails.planDescription}
-                    planPrice={planDetails.planPrice}
-                    planDuration={planDetails.planDuration}
-                  />
-                </>
-              );
-            })}
-          </div>
-    )
+const PlansContainer = ({variant, planData}) => {
+  const dispatch = useDispatch();
+  const {modalOpen, productName, productPrice} = useSelector((state) => state.fetchPackages);
+  const [chosenPlanRef, setChosenPlanRef] = useState(null);
+  const [chosenPlanRect, setChosenPlanRect] = useState(null);
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  React.useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const handleChoosePlan = (uid, ref) => {
+    setChosenPlanRef(ref);
+    // Get bounding rect for absolute positioning
+    if (ref && ref.current) {
+      const rect = ref.current.getBoundingClientRect();
+      setChosenPlanRect(rect);
+      // Scroll into view
+      ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+    // Dispatch modal open as before
+    const plan = SubscriptionsData.find(p => p.uid === uid);
+    dispatch(subscriptionModalReducer({
+      isOpen: true,
+      productId: plan?.uid,
+      productName: plan?.name,
+      productPrice: plan?.price,
+      currency: 'GHS'
+    }));
+  };
+
+  const handleCancel = () => {
+    dispatch(subscriptionModalReducer({
+      isOpen: false,
+      productId: null,
+      productName: null,
+      productPrice: null,
+      currency: null
+    }));
+    setChosenPlanRef(null);
+    setChosenPlanRect(null);
   }
 
-  export default PlansContainer
+  const containerClassName = `plans-container${variant ? ` plans-container--${variant}` : ""}`;
+
+  return (
+    <div className={containerClassName} style={{position: 'relative'}}>
+      {modalOpen && windowWidth <= 370 && chosenPlanRef && chosenPlanRect && (
+        <div
+          style={{
+            position: "absolute",
+            left: chosenPlanRef.current.offsetLeft,
+            top: chosenPlanRef.current.offsetTop,
+            width: chosenPlanRef.current.offsetWidth,
+            zIndex: 1000
+          }}
+        >
+          <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Click on continue to be redirected to the payment page</>} buttons={[<Button label="Cancel" action={handleCancel}/>, <Button label="Continue" action={()=>{}}/>]}/>
+        </div>
+      )}
+      {modalOpen && windowWidth > 450 && (
+        <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Click on continue to be redirected to the payment page</>} buttons={[<Button label="Cancel" action={handleCancel}/>, <Button label="Continue" action={()=>{}}/>]}/>
+      )}
+      {SubscriptionsData.map((planDetails) => {
+        return (
+          <EdenStreamsPlanCard
+            key={planDetails.uid}
+            variant={variant}
+            planTitle={planDetails.name}
+            planDescription={planDetails.planDescription}
+            planPrice={planDetails.price}
+            planPer={planDetails.per}
+            planDuration={planDetails.planDuration}
+            uid={planDetails.uid}
+            onChoose={handleChoosePlan}
+          />
+        );
+      })}
+    </div>
+  )
+}
+
+export default PlansContainer

@@ -9,7 +9,7 @@
 //   const location = useLocation();
 //   const navigate = useNavigate();
 //   const
-//   const redirect = () => {
+//   const  = () => {
 //     redirect(location.pathname);
 //   };
 //   return (
