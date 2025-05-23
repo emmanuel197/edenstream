@@ -211,6 +211,16 @@ const VideoPlayer = forwardRef(
       setCurrentTime(newTime);
     };
 
+    // Picture-in-Picture handler
+    const handlePictureInPicture = () => {
+      if (videoRef.current) {
+        const videoEl = videoRef.current;
+        if (videoEl.requestPictureInPicture) {
+          videoEl.requestPictureInPicture();
+        }
+      }
+    };
+
     const videoPlayerOverlayClassName = `video-player-overlay ${
       videoEnded ? "fade-out" : ""
     }`;
@@ -292,7 +302,7 @@ const VideoPlayer = forwardRef(
                     <Button
                       className="pictureinpicture"
                       icon={pictureInPicture}
-                      action={handlePlayPause}
+                      action={handlePictureInPicture}
                     />
                     <Button
                       className="video-settings-icon"
