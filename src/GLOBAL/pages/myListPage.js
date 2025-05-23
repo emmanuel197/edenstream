@@ -54,7 +54,7 @@ const MyListPage = ({ active }) => {
             <section className="watch-history-section">
               
               
-              <div className="yes-no-watch-history">
+              <div className="yes-no-watch-history yes-no-mylist">
               {/* <ThreeDots className="watch-history-three-dots" /> */}
                   {loading ? <div>Loading watch history...</div> :
                     (likedMovies?.length > 0 ? <YesMyList showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={likedMovies}/> :
@@ -97,7 +97,7 @@ const YesMyList = ({history, showClearWatchModal, setShowClearWatchModal}) => {
         console.log("clear all")
     }
     return (
-        <div className="yes-watch-history-detail">
+        <div className="yes-watch-history-detail my-list-container">
             {/* {showClearWatchModal && <GenericModal
             headerText={"Clear All History"}
             paragraphText={"Are you sure you want to clear all History? This action cannot be undone."}
@@ -105,6 +105,7 @@ const YesMyList = ({history, showClearWatchModal, setShowClearWatchModal}) => {
             sectionClassName="watch-history-section-modal"
             ContentWrapper="watch-history-modal-content-wrapper"
             buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="clearall-btn" label="Clear All" action={handleClearAll} />] } />} */}
+            <h2 className="my-list-header">My List</h2>
             <RwContentContainer movies={history} isChannelsSection={true}/>
         </div>
     )

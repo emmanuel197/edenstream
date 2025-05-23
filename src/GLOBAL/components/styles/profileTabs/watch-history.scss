@@ -26,12 +26,15 @@
 
     .yes-no-watch-history {
         width: 100%;
-        background-color: $black-15;
+     
         border: .0521vw solid $black-15;
         padding: 2.049vw 2.3vw;
         display: flex;
         flex-direction: column;
-
+        background: rgba(38, 38, 38, 0.6);
+        &.yes-no-mylist {
+            background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+        }
         .watch-history-three-dots {
             align-self: end;
             width: clamp(20px, 1.3021vw, 25px);
@@ -83,6 +86,24 @@
         .yes-watch-history-detail {
             margin-bottom: 4.8438vw;
             position: relative;
+
+            &.my-list-container {
+                width: 90%;
+                margin: auto;
+                padding: clamp(15px, 2.509vw, 40px);
+                border-radius: 12px;
+                background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+                .my-list-header {
+                    font-weight: 600;
+                    font-size: clamp(14px, 1.506vw, 24px);
+                    line-height: 150%;
+                    letter-spacing: 0%;
+                    color: $white;
+                    margin-bottom: 2.509vw;
+                }
+                // margin-top: 1.25rem;
+
+            }
         }
 
         .pagination-wrapper {

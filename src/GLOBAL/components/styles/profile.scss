@@ -143,7 +143,7 @@ body {
 .tab-content {
     padding-top: clamp(40px, 3.75vw, 72px);
     padding-bottom: clamp(40px, 3.75vw, 72px);
-    background: $black-10;
+    background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 
 }
 
