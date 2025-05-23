@@ -13,9 +13,10 @@
         transform: translate(-50%, -50%);
         z-index: 100;
         width: 53.8542vw;
-        padding: 3.0729vw 2.5vw;
+        padding: clamp(10px, 3.0729vw, 30px) clamp(15px, 2.5vw, 25px);
+        background: $black-06;
         @media (max-width: 420px) {
-            width: 300px
+            width: 310px
             
             
         }
@@ -27,6 +28,15 @@
                     color: $gold-200;
                   
                 }
+            }
+            .modal-buttons-container {
+                .modal-button-wrapper {
+                    .cancel-button {
+                        background: $red-40 !important;
+                        color: $white;
+                    }
+                }
+                
             }
         }
     }

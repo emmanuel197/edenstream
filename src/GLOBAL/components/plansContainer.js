@@ -6,10 +6,10 @@ import GenericModal from "./genericModal";
 import { useSelector, useDispatch } from "react-redux";
 import Button from "./buttons/Button";
 import { subscriptionModalReducer } from '../redux/slice/subscriptionSlice';
-
-const PlansContainer = ({variant, planData}) => {
+import TextInput from "./formInputs/textInput";
+const PlansContainer = ({ variant, planData }) => {
   const dispatch = useDispatch();
-  const {modalOpen, productName, productPrice} = useSelector((state) => state.fetchPackages);
+  const { modalOpen, productName, productPrice } = useSelector((state) => state.fetchPackages);
   const [chosenPlanRef, setChosenPlanRef] = useState(null);
   const [chosenPlanRect, setChosenPlanRect] = useState(null);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -55,7 +55,7 @@ const PlansContainer = ({variant, planData}) => {
   const containerClassName = `plans-container${variant ? ` plans-container--${variant}` : ""}`;
 
   return (
-    <div className={containerClassName} style={{position: 'relative'}}>
+    <div className={containerClassName} style={{ position: 'relative' }}>
       {modalOpen && windowWidth <= 420 && chosenPlanRef && chosenPlanRect && (
         <div
           style={{
@@ -66,11 +66,11 @@ const PlansContainer = ({variant, planData}) => {
             zIndex: 1000
           }}
         >
-          <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Click on continue to be redirected to the payment page</>} buttons={[<Button label="Cancel" action={handleCancel}/>, <Button label="Continue" action={()=>{}}/>]}/>
+          <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Enter your email and click on continue to be redirected to the payment page</>} children={<TextInput placeholder="Email" type="email" />} buttons={[<Button label="Cancel" className="cancel-button" action={handleCancel} />, <Button label="Continue" action={() => { }} />]} />
         </div>
       )}
       {modalOpen && windowWidth > 420 && (
-        <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Click on continue to be redirected to the payment page</>} buttons={[<Button label="Cancel" action={handleCancel}/>, <Button label="Continue" action={()=>{}}/>]}/>
+        <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Enter your email and click on continue to be redirected to the payment page</>} children={<TextInput placeholder="Email" type="email" />} buttons={[<Button label="Cancel" className="cancel-button" action={handleCancel} />, <Button label="Continue" action={() => { }} />]} />
       )}
       {SubscriptionsData.map((planDetails) => {
         return (
