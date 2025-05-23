@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import "../../components/styles/banners/dynamicBanner.scss";
 import Button from "../buttons/Button";
 import ReactPlayer from "react-player";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { returnMovieDetails, fetchTrailer, updateWatchlist, removeWatchlist, fetchWatchlist } from "../../redux/fetchMoviesApi";
 import { playIcon, pauseIcon, unmuteIcon, muteIcon, likeIcon, plusIcon } from "../../../utils/assets";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,9 @@ const MovieDetailsBanner = () => {
   const [loading, setLoading] = useState(false);
   const [watchlisted, setWatchlisted] = useState(false);
   const watchlist = useSelector(state => state.fetchMovies.watchlist || []);
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  
   useEffect(() => {
     setMovieData(null);
     setLoading(true);
@@ -161,8 +163,8 @@ const MovieDetailsBanner = () => {
             <Button
               className="bdc-play-now-btn"
               label="Play Now"
-              page={`/watch/movie/${movieData?.uid || movieData?.id}`}
               icon={playIcon}
+              action={() => navigate(`/watch/movie/${movieData?.uid}`, { state: { title: movieData?.title } })}
             />
             <div className="bdc-icon-btns">
               <Button 

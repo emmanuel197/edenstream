@@ -16,7 +16,8 @@ import { useState } from "react";
 // import { sendPlayLogs } from "../../redux/account";
 import { createRef } from "react";
 import { clearVideoReducer } from "../redux/slice/moviesSlice";
-
+import Spinner from "../components/Spinner";
+import { watchBackArrow } from "../../utils/assets";
 const testVideo = "https://www.w3schools.com/html/mov_bbb.mp4"; // For debugging
 
 const Watch = forwardRef(({ wcClassName, showControls = true, videoUrl }, ref) => {
@@ -40,6 +41,7 @@ const Watch = forwardRef(({ wcClassName, showControls = true, videoUrl }, ref) =
   const [loading, setLoading] = useState(true); // State to track loading
   const [retryTime, setRetryTime] = useState(0); // State to track retry time
   const [useTestVideo, setUseTestVideo] = useState(false); // For debugging
+  const movieTitle = location.state?.title;
 
   console.log("Watch page video src:", video);
 
@@ -76,6 +78,15 @@ const Watch = forwardRef(({ wcClassName, showControls = true, videoUrl }, ref) =
   // Only render VideoPlayer if video is a valid URL
   const isValidVideo = video && video !== "/" && video !== "undefined" && video !== undefined && video !== null;
 
+  // Hide spinner as soon as video is valid
+  useEffect(() => {
+    if (isValidVideo || useTestVideo) {
+      setLoading(false);
+    } else {
+      setLoading(true);
+    }
+  }, [isValidVideo, useTestVideo]);
+
   return (
     <div className={`watch-container ${wcClassName}`}>
       <div className="inner-sections-wrapper">
@@ -83,17 +94,34 @@ const Watch = forwardRef(({ wcClassName, showControls = true, videoUrl }, ref) =
         {/* <button onClick={() => setUseTestVideo((v) => !v)}>
           {useTestVideo ? "Use Real Video" : "Use Test Video"}
         </button> */}
-        {isValidVideo || useTestVideo ? (
+        {/*  */}
+        {loading ? (
+          <div className="loading-video">
+            <div
+              className="loading-video-top-left"
+              style={{
+                position: "absolute",
+                top: "2.813vw",
+                left: "2.76vw",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                zIndex: 101
+              }}
+            >
+              <img className="watch-back-arrow-img" src={watchBackArrow} onClick={() => navigate(-1)} alt="Back" />
+              <p className="loading-video-id">{movieTitle}</p>
+            </div>
+            <Spinner className="watch-spinner"/>
+          </div>
+        ) : (
           <VideoPlayer
             ref={ref}
             src={useTestVideo ? testVideo : video}
             poster={posterImg}
             showControls={showControls}
+            movieTitle={movieTitle}
           />
-        ) : (
-          <div style={{ color: 'white', textAlign: 'center', padding: '2em' }}>
-            Loading video or no video available...
-          </div>
         )}
       </div>
     </div>

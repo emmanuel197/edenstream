@@ -21,6 +21,8 @@ import {
   watchBackArrow,
   watchReplay
 } from "../../utils/assets";
+import { useNavigate } from "react-router-dom";
+import Spinner from "./Spinner";
 
 const VideoPlayer = forwardRef(
   (
@@ -33,6 +35,8 @@ const VideoPlayer = forwardRef(
       onVolumeChange,
       onPlay,
       onPause,
+      movieTitle,
+      loading,
       ...props
     },
     ref
@@ -46,7 +50,7 @@ const VideoPlayer = forwardRef(
     const [isPlaying, setIsPlaying] = useState(false);
     const [muted, setMuted] = useState(false);
     const [videoEnded, setVideoEnded] = useState(false);
-
+    const navigate = useNavigate();
     useEffect(() => {
       if (typeof window !== "undefined" && videoRef.current && !playerRef.current) {
         const player = videojs(videoRef.current, {
@@ -218,9 +222,12 @@ const VideoPlayer = forwardRef(
         {/* Conditionally render the overlay controls based on `showControls` */}
         {showControls && (
           <div className={videoPlayerOverlayClassName}>
-            <Button className="watch-back-arrow" page="/" icon={watchBackArrow} />
-            {videoEnded && (
-              <Button className="watch-replay" icon={watchReplay} action={replay} />
+            <div className="watch-back-arrow-wrapper">
+              <Button className="watch-back-arrow" action={() => navigate(-1)} icon={watchBackArrow} />
+              <p className="watch-back-arrow-title">{movieTitle}</p>
+              </div>
+              {videoEnded && (
+                <Button className="watch-replay" icon={watchReplay} action={replay} />
             )}
 
             {!videoEnded && (
@@ -267,7 +274,7 @@ const VideoPlayer = forwardRef(
                       onChange={handleVolumeChange}
                       className="volume-slider"
                       style={{
-                        background: `linear-gradient(to right, #40AF8B ${
+                        background: `linear-gradient(to right, #F2CD70 ${
                           volume * 100
                         }%, #fff ${volume * 100}%)`
                       }}
@@ -303,6 +310,7 @@ const VideoPlayer = forwardRef(
             )}
           </div>
         )}
+        {loading && <Spinner className="watch-spinner" />}
       </div>
     );
   }
