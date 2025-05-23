@@ -56,7 +56,7 @@ const PlansContainer = ({variant, planData}) => {
 
   return (
     <div className={containerClassName} style={{position: 'relative'}}>
-      {modalOpen && windowWidth <= 370 && chosenPlanRef && chosenPlanRect && (
+      {modalOpen && windowWidth <= 420 && chosenPlanRef && chosenPlanRect && (
         <div
           style={{
             position: "absolute",
@@ -69,7 +69,7 @@ const PlansContainer = ({variant, planData}) => {
           <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Click on continue to be redirected to the payment page</>} buttons={[<Button label="Cancel" action={handleCancel}/>, <Button label="Continue" action={()=>{}}/>]}/>
         </div>
       )}
-      {modalOpen && windowWidth > 450 && (
+      {modalOpen && windowWidth > 420 && (
         <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Click on continue to be redirected to the payment page</>} buttons={[<Button label="Cancel" action={handleCancel}/>, <Button label="Continue" action={()=>{}}/>]}/>
       )}
       {SubscriptionsData.map((planDetails) => {
