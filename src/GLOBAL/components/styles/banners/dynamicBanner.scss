@@ -337,6 +337,12 @@ linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)),
 linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 
+                        .liked {
+                            path {
+                                fill: $white;
+                            }
+                            
+                        }
 
                         @media(max-width: 750px) {
                             padding: clamp(4px, 0.729vw, 13.997px);
@@ -363,8 +369,12 @@ linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
 
                     .bdc-plus-btn {
                         &.active {
-                            background: rgba(91, 127, 96, 0.3);
-                            border-color: rgba(91, 127, 96, 0.8);
+                            background: linear-gradient(91.84deg, rgba(139, 106, 29, 0.5) 7.71%, rgba(0, 0, 0, 0.5) 115.5%);
+                        }
+                    }
+                    .bdc-like-btn {
+                        &.liked {
+                            background: linear-gradient(91.84deg, rgba(139, 106, 29, 0.5) 7.71%, rgba(0, 0, 0, 0.5) 115.5%);
                         }
                     }
                 }

@@ -10,7 +10,7 @@ import {
   arrowLeft,
   arrowRight,
   informationCircle,
-  likeIcon,
+  LikeIcon,
   muteIcon,
   unmuteIcon,
   pauseIcon,
@@ -242,6 +242,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
                 null,
               genre: firstInspiring.genre,
               movieId: firstInspiring.id,
+              favorited: firstInspiring.favorited,
               type: firstInspiring.type?.toLowerCase()
             });
           } 
@@ -509,7 +510,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
                 page="/" 
                 icon={plusIcon} 
               />
-              <Button className="bdc-like-btn" page="/" icon={likeIcon} />
+              <Button className="bdc-like-btn" page="/" svg={<LikeIcon />} />
               <Button 
                 className="bdc-mute-btn" 
                 action={handleMuteDynamic} 

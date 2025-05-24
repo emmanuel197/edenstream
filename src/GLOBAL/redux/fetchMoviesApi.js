@@ -31,7 +31,8 @@ import {
   fetchAgeRatingsReducer,
   fetchAllSeriesReducer,
   fetchLikedMoviesReducer,
-  fetchMovies_fromCache
+  fetchMovies_fromCache,
+  setFavoritedStatus
 } from "./slice/moviesSlice";
 import { storeDataInIndexedDB, getDataFromIndexedDB } from '../../utils/indexedDB'
 // get user info from cookies
@@ -1523,7 +1524,7 @@ export const fetchWatchlist = async (dispatch) => {
       }
     };
     const response = await axios(config);
-    // console.log(response)
+    console.log('fetchWatchlist response:', response);
     if (response.data.status === "ok") {
         // console.log(response.data.data)
         dispatch(fetchWatchlistReducer(response.data.data.movie_bookmarks));
@@ -1814,7 +1815,7 @@ export const fetchTrendingAndRecentlyAddedMovies = async (dispatch) => {
   }
 };
 
-export const fetchLikedMovies = async (dispatch) => {
+export const favoritedMovies = async (dispatch) => {
   try {
     const cookies = new Cookies();
     const user_info = cookies.get("user_info");
@@ -1840,3 +1841,58 @@ export const fetchLikedMovies = async (dispatch) => {
     return null;
   }
 };
+
+export const checkFavoritedStatus = async (dispatch, movie_id) => {
+  try {
+    const cookies = new Cookies();
+    const user_info = cookies.get("user_info");
+    const { user_id, access_token } = user_info?.data?.data;
+    if (!user_id) {
+      console.error("[checkFavoritedStatus] No user_id found in cookies");
+      return false;
+    }
+    const response = await axios.get(
+      `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/users/${user_id}/favorites/movies/${movie_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      }
+    );
+    // If the movie is favorited, the API should return status ok and data true/exists
+    const isFavorited = response.data.status === "ok" && !!response.data.data;
+    
+    return isFavorited;
+  } catch (error) {
+    console.error('[checkFavoritedStatus] Error:', error);
+    dispatch(setFavoritedStatus(false));
+    return false;
+  }
+};
+
+export const addToFavorites = async (dispatch, movie_id) => {
+  try {
+    const cookies = new Cookies();
+    const user_info = cookies.get("user_info");
+    const { user_id, access_token } = user_info?.data?.data;
+    const url = `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/users/${user_id}/favorites/movies/${movie_id}`;
+    const response = await axios.post(
+      url,
+      {}, // No body needed for this POST
+      {
+        headers: {
+          Authorization: `Bearer ${access_token}`
+        }
+      }
+    );
+    if (response.data.status === "ok") {
+      dispatch(setFavoritedStatus(true));
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.error('[addToFavorites] Error:', error);
+    return false;
+  }
+};
+

@@ -3,8 +3,8 @@ import "../../components/styles/banners/dynamicBanner.scss";
 import Button from "../buttons/Button";
 import ReactPlayer from "react-player";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
-import { returnMovieDetails, fetchTrailer, updateWatchlist, removeWatchlist, fetchWatchlist } from "../../redux/fetchMoviesApi";
-import { playIcon, pauseIcon, unmuteIcon, muteIcon, likeIcon, plusIcon } from "../../../utils/assets";
+import { returnMovieDetails, fetchTrailer, updateWatchlist, removeWatchlist, fetchWatchlist, favoritedMovies, checkFavoritedStatus, addToFavorites } from "../../redux/fetchMoviesApi";
+import { playIcon, pauseIcon, unmuteIcon, muteIcon, LikeIcon, plusIcon, minusIcon } from "../../../utils/assets";
 import { useDispatch, useSelector } from "react-redux";
 
 const MovieDetailsBanner = () => {
@@ -21,6 +21,7 @@ const MovieDetailsBanner = () => {
   const [loading, setLoading] = useState(false);
   const [watchlisted, setWatchlisted] = useState(false);
   const watchlist = useSelector(state => state.fetchMovies.watchlist || []);
+  const [favoritedStatus, setFavoritedStatus] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -54,6 +55,22 @@ const MovieDetailsBanner = () => {
   // Fetch watchlist on mount and when id changes
   useEffect(() => {
     fetchWatchlist(dispatch);
+  }, [dispatch, id]);
+
+  // Fetch favorited movies on mount
+  useEffect(() => {
+    favoritedMovies(dispatch).then(result => {
+      console.log('favoritedMovies result:', result);
+    });
+  }, [dispatch]);
+
+  // Check favorited status when movieData is loaded
+  useEffect(() => {
+    if (id) {
+      checkFavoritedStatus(dispatch, id).then((isFav) => {
+        setFavoritedStatus(isFav);
+      });
+    }
   }, [dispatch, id]);
 
   // Update watchlisted state when watchlist or movieData changes
@@ -106,6 +123,12 @@ const MovieDetailsBanner = () => {
     setWatchlisted(!watchlisted);
   };
 
+  const handleLikeClick = async () => {
+   
+    const result = await addToFavorites(dispatch, id);
+    if (result) setFavoritedStatus(true);
+  };
+
   if (loading) return <div style={{minHeight: 300}}>Loading banner...</div>;
   if (!movieData) return <div style={{minHeight: 300}}>Movie not found.</div>;
 
@@ -113,6 +136,8 @@ const MovieDetailsBanner = () => {
     ? `${movieData.description.substring(0, 150)}...`
     : movieData.description;
 
+  
+    console.log("favorited_movie[movieDetailsBanner]", favoritedStatus)
   return (
     <section className="dynamic-banner-section">
       {trailerUrl && isUrlValid ? (
@@ -170,10 +195,10 @@ const MovieDetailsBanner = () => {
               <Button 
                 className={`bdc-plus-btn ${watchlisted ? 'active' : ''}`} 
                 page="/" 
-                icon={plusIcon} 
+                icon={watchlisted ? minusIcon : plusIcon} 
                 action={handleToggleWatchlist}
               />
-              <Button className="bdc-like-btn" page="/" icon={likeIcon} />
+              <Button className={`bdc-like-btn ${favoritedStatus && "liked"}`} action={() => handleLikeClick()} svg={<LikeIcon className={favoritedStatus && `liked`}/>} />
               <Button 
                 className="bdc-mute-btn" 
                 action={handleMuteToggle} 

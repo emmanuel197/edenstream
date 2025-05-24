@@ -85,6 +85,12 @@
     // aspect-ratio: 708 / 898;
     border-radius: 0.625vw;
     background-color: #26262699;
+    border-image: linear-gradient(
+      to right,
+      $gold-gradient-default,
+      $gold-gradient-default-secondary
+  );
+    border: 2px solid border-image;
     position: relative;
     
     &.error {

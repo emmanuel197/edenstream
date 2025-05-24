@@ -49,6 +49,7 @@ const fetchMovieSlice = createSlice({
     dataFromCache: false, // Track if data came from cache
     error: false,
     loading: false,
+    
     loaders: {
       category: true,
       series: true,
@@ -65,6 +66,9 @@ const fetchMovieSlice = createSlice({
   reducers: {
     fetchLikedMoviesReducer: (state, action) => {
       state.likedMovies = action.payload;
+    },
+    setFavoritedStatus: (state, action) => {
+      state.favoritedStatus = action.payload;
     },
     fetchAllSeriesReducer: (state, action) => {
       state.allSeries = action.payload;
@@ -267,5 +271,6 @@ export const {
   selectedMovieReducer,
   fetchMovies_fromCache,
   fetchLikedMoviesReducer,
-  clearVideoReducer
+  clearVideoReducer,
+  setFavoritedStatus
 } = fetchMovieSlice.actions;
