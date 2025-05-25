@@ -20,47 +20,6 @@ import {
   minusIcon
 } from "../../../utils/assets";
 
-const DUMMY_SLIDES = [
-  {
-    id: 'dummy1',
-    title: 'War Room',
-    description: 'With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos\'s actions and undo the chaos to the universe, no matter what consequences may be in store.',
-    genre: 'Action',
-    image_id: 'dummy_image_1',
-    movieId: 'dummy1',
-    imageUrl: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1',
-    type: 'movie',
-    images: {
-      POSTER: 'dummy_image_1'
-    }
-  },
-  {
-    id: 'dummy2',
-    title: 'Black Panther',
-    description: 'After the death of his father, T\'Challa returns home to the African nation of Wakanda to take his rightful place as king.',
-    genre: 'Action',
-    image_id: 'dummy_image_2',
-    movieId: 'dummy2',
-    imageUrl: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26',
-    type: 'movie',
-    images: {
-      POSTER: 'dummy_image_2'
-    }
-  },
-  {
-    id: 'dummy3',
-    title: 'The Woman King',
-    description: 'A historical epic inspired by true events that took place in The Kingdom of Dahomey, one of the most powerful states of Africa in the 18th and 19th centuries.',
-    genre: 'Drama',
-    image_id: 'dummy_image_3',
-    movieId: 'dummy3',
-    imageUrl: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1',
-    type: 'movie',
-    images: {
-      POSTER: 'dummy_image_3'
-    }
-  }
-];
 
 const fetchDataForBannerSlider = (recentlyAdded) => {
   if (!recentlyAdded?.length) return [];
@@ -239,10 +198,10 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
     const loadBannerContent = async () => {
       if (!propMovieData && !allSlides.length) {
         try {
+          // Wait for watchlist to be loaded
+          if (!watchlist || watchlist.length === 0) return;
+
           const bannerContent = await fetchBannerContent();
-          console.log('Debug: Fetched banner content:', bannerContent);
-          // Instead of image_store_id, use image_id from inspiring slides if available
-          // If inspiring slides are available, use the first one
           if (inspiring && inspiring.length > 0) {
             const firstInspiring = inspiring[0];
             setMovieData({
@@ -254,14 +213,11 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
                 null,
               genre: firstInspiring.genre,
               movieId: firstInspiring.id,
-              
               type: firstInspiring.type?.toLowerCase()
             });
-          } 
+          }
         } catch (error) {
           console.error('Error loading banner content:', error);
-          // setAllSlides(DUMMY_SLIDES);
-          // setMovieData(DUMMY_SLIDES[0]);
         }
       } else if (allSlides.length) {
         setMovieData(allSlides[currentIndex]);
@@ -271,7 +227,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
     };
 
     loadBannerContent();
-  }, [propMovieData, allSlides, currentIndex, inspiring]);
+  }, [propMovieData, allSlides, currentIndex, inspiring, watchlist]);
 
   // Fetch trailer URL when movieData changes
   useEffect(() => {
@@ -402,16 +358,11 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   // Add watchlist effect
   useEffect(() => {
     if (!movieData) return;
-    console.log('movieData.id:', movieData.id, typeof movieData.id);
-    console.log('watchlist:', watchlist);
-
-    // Collect all possible movie IDs from the watchlist
+    const movieIdToCheck = movieData.id || movieData.movieId;
     const watchlistIds = watchlist.map(item =>
       item.movie_id || (item.movie && item.movie.movie_id)
     );
-    console.log('watchlistIds:', watchlistIds, watchlistIds.map(id => typeof id));
-
-    setWatchlisted(watchlistIds.map(String).includes(String(movieData.id)));
+    setWatchlisted(watchlistIds.map(String).includes(String(movieIdToCheck)));
   }, [movieData, watchlist]);
 
   // Add watchlist toggle handler
@@ -571,3 +522,47 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
 };
 
 export default DynamicBanner;
+
+
+
+// const DUMMY_SLIDES = [
+//   {
+//     id: 'dummy1',
+//     title: 'War Room',
+//     description: 'With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos\'s actions and undo the chaos to the universe, no matter what consequences may be in store.',
+//     genre: 'Action',
+//     image_id: 'dummy_image_1',
+//     movieId: 'dummy1',
+//     imageUrl: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1',
+//     type: 'movie',
+//     images: {
+//       POSTER: 'dummy_image_1'
+//     }
+//   },
+//   {
+//     id: 'dummy2',
+//     title: 'Black Panther',
+//     description: 'After the death of his father, T\'Challa returns home to the African nation of Wakanda to take his rightful place as king.',
+//     genre: 'Action',
+//     image_id: 'dummy_image_2',
+//     movieId: 'dummy2',
+//     imageUrl: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26',
+//     type: 'movie',
+//     images: {
+//       POSTER: 'dummy_image_2'
+//     }
+//   },
+//   {
+//     id: 'dummy3',
+//     title: 'The Woman King',
+//     description: 'A historical epic inspired by true events that took place in The Kingdom of Dahomey, one of the most powerful states of Africa in the 18th and 19th centuries.',
+//     genre: 'Drama',
+//     image_id: 'dummy_image_3',
+//     movieId: 'dummy3',
+//     imageUrl: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1',
+//     type: 'movie',
+//     images: {
+//       POSTER: 'dummy_image_3'
+//     }
+//   }
+// ];
