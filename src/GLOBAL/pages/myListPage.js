@@ -6,7 +6,7 @@ import Header from "../components/Header"
 import Footer from "../components/Footer"
 import { RwContentContainer } from "../components/reels/ReelWrapper";
 import { useDispatch, useSelector } from "react-redux";
-// import { fetchLikedMovies,  returnMovieDetails } from "../redux/fetchMoviesApi";
+import { favoritedMovies,  returnMovieDetails } from "../redux/fetchMoviesApi";
 import Button from "../components/buttons/Button";
 
 const MyListPage = ({ active }) => {
@@ -18,11 +18,11 @@ const MyListPage = ({ active }) => {
     // const isAuthenticated = JSON.parse(window.localStorage.getItem("isAuthenticated"));
     console.log(likedMovies)
     // const user_info = COOKIES.get("user_info");
-    // useEffect(() => {
-    //     // isAuthenticated && 
-    //    fetchLikedMovies(dispatch)
-    //     // console.log(isAuthenticated)
-    // }, [dispatch])
+    useEffect(() => {
+        // isAuthenticated && 
+       favoritedMovies(dispatch)
+        // console.log(isAuthenticated)
+    }, [dispatch])
 
     // useEffect(() => {
     //   // Fetch full details for each movie in watchlist

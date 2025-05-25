@@ -1599,7 +1599,7 @@ export const updateWatchlist = async (id, _type, lengthWatchedInMs = 0) => {
     // Check the response status similar to fetchWatchlist
     if (response.data.status === "ok") {
       // You can now return or process the returned data (if any)
-      // console.log(response)
+      console.log("updateWatchlist response", response)
       return response.data.data;
 
     } else {
@@ -1875,16 +1875,18 @@ export const addToFavorites = async (dispatch, movie_id) => {
     const cookies = new Cookies();
     const user_info = cookies.get("user_info");
     const { user_id, access_token } = user_info?.data?.data;
+    console.log("addToFavorites user_id", user_id)
+    console.log("addToFavorites movie_id", movie_id)
     const url = `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/users/${user_id}/favorites/movies/${movie_id}`;
-    const response = await axios.post(
+    const response = await axios.put(
       url,
-      {}, // No body needed for this POST
       {
         headers: {
           Authorization: `Bearer ${access_token}`
         }
       }
     );
+    console.log("addToFavorites response", response)
     if (response.data.status === "ok") {
       dispatch(setFavoritedStatus(true));
       return true;

@@ -2,10 +2,11 @@ import React, { useRef, useState, useEffect } from "react";
 import "../../components/styles/banners/dynamicBanner.scss";
 import Button from "../buttons/Button";
 import ReactPlayer from "react-player";
-import { fetchBannerContent, fetchTrailer, fetchAllSeries } from "../../redux/fetchMoviesApi";
-import { useSelector } from "react-redux";
+import { fetchBannerContent, fetchTrailer, fetchAllSeries, checkFavoritedStatus, fetchWatchlist } from "../../redux/fetchMoviesApi";
+import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import getRandomIndexes from "../../../utils/getRandomIndexes";
+import { updateWatchlist, removeWatchlist } from "../../redux/fetchMoviesApi";
 import {
   arrowLeft,
   arrowRight,
@@ -15,7 +16,8 @@ import {
   unmuteIcon,
   pauseIcon,
   playIcon,
-  plusIcon
+  plusIcon,
+  minusIcon
 } from "../../../utils/assets";
 
 const DUMMY_SLIDES = [
@@ -78,8 +80,8 @@ const fetchDataForBannerSlider = (recentlyAdded) => {
 
 const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSlides = true, bannerData }) => {
   const location = useLocation();
-  const { inspiring } = useSelector((state) => state.fetchMovies);
-  
+  const { inspiring, watchlist } = useSelector((state) => state.fetchMovies);
+  console.log("watchlist[DynamicBanner]", watchlist)
   const [isPlaying, setIsPlaying] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
@@ -91,10 +93,12 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   const [currentIndex, setCurrentIndex] = useState(0);
   const [allSlides, setAllSlides] = useState([]);
   const [selectedMovie, setSelectedMovie] = useState(null);
+  const [watchlisted, setWatchlisted] = useState(false);
+  const [favoritedStatus, setFavoritedStatus] = useState(false);
   const playerRef = useRef(null);
   const timerRef = useRef(null);
   const movieDetailsFetched = useRef(false);
-
+  const dispatch = useDispatch();
   // Update movieData when bannerData changes
   useEffect(() => {
     if (bannerData) {
@@ -216,6 +220,14 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
     });
   };
 
+  useEffect(() => {
+    if (movieData && movieData.id) {
+      checkFavoritedStatus(dispatch, movieData.id).then((isFav) => {
+        setFavoritedStatus(isFav);
+      });
+    }
+  }, [dispatch, movieData]);
+
   // Fetch banner content if no movieData is provided
   useEffect(() => {
     console.log('Debug: Checking data availability');
@@ -242,7 +254,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
                 null,
               genre: firstInspiring.genre,
               movieId: firstInspiring.id,
-              favorited: firstInspiring.favorited,
+              
               type: firstInspiring.type?.toLowerCase()
             });
           } 
@@ -387,6 +399,39 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
     );
   };
 
+  // Add watchlist effect
+  useEffect(() => {
+    if (!movieData) return;
+    console.log('movieData.id:', movieData.id, typeof movieData.id);
+    console.log('watchlist:', watchlist);
+
+    // Collect all possible movie IDs from the watchlist
+    const watchlistIds = watchlist.map(item =>
+      item.movie_id || (item.movie && item.movie.movie_id)
+    );
+    console.log('watchlistIds:', watchlistIds, watchlistIds.map(id => typeof id));
+
+    setWatchlisted(watchlistIds.map(String).includes(String(movieData.id)));
+  }, [movieData, watchlist]);
+
+  // Add watchlist toggle handler
+  const handleToggleWatchlist = () => {
+    if (!movieData) return;
+    if (watchlisted) {
+      removeWatchlist(movieData.id, 'movie');
+    } else {
+      updateWatchlist(movieData.id, 'movie', 0);
+    }
+    setWatchlisted(!watchlisted);
+  };
+
+  // Fetch watchlist on mount
+  useEffect(() => {
+    fetchWatchlist(dispatch);
+  }, [dispatch]);
+
+  // Check favorited status when movieData changes
+ 
   if (!movieData) {
     return null;
   }
@@ -496,7 +541,6 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
               label="Play Now"
               page={`/watch/movie/${movieData?.uid}`}
               icon={playIcon}
-             
             />
             <Button
               className="bdc-information-circle-btn"
@@ -506,11 +550,11 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
             />
             <div className="bdc-icon-btns">
               <Button 
-                className={`bdc-plus-btn ${movieData?.isInWatchlist ? 'active' : ''}`} 
-                page="/" 
-                icon={plusIcon} 
+                className={`bdc-plus-btn ${watchlisted ? 'active' : ''}`} 
+                action={() => handleToggleWatchlist(movieData.id)}
+                icon={watchlisted ? minusIcon : plusIcon} 
               />
-              <Button className="bdc-like-btn" page="/" svg={<LikeIcon />} />
+              <Button className={`bdc-like-btn${favoritedStatus ? ' liked' : ''}`} page="/" svg={<LikeIcon className={favoritedStatus ? 'liked' : ''} />} />
               <Button 
                 className="bdc-mute-btn" 
                 action={handleMuteDynamic} 

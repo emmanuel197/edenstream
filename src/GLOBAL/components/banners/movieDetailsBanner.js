@@ -137,7 +137,7 @@ const MovieDetailsBanner = () => {
     : movieData.description;
 
   
-    console.log("favorited_movie[movieDetailsBanner]", favoritedStatus)
+    console.log("favorited_movie[movieDetailsBanner]", movieData.favorited)
   return (
     <section className="dynamic-banner-section">
       {trailerUrl && isUrlValid ? (
@@ -198,7 +198,7 @@ const MovieDetailsBanner = () => {
                 icon={watchlisted ? minusIcon : plusIcon} 
                 action={handleToggleWatchlist}
               />
-              <Button className={`bdc-like-btn ${favoritedStatus && "liked"}`} action={() => handleLikeClick()} svg={<LikeIcon className={favoritedStatus && `liked`}/>} />
+              <Button className={`bdc-like-btn ${movieData.favorited && "liked"}`} action={() => handleLikeClick()} svg={<LikeIcon className={movieData.favorited && `liked`}/>} />
               <Button 
                 className="bdc-mute-btn" 
                 action={handleMuteToggle} 
