@@ -180,11 +180,27 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   };
 
   useEffect(() => {
-    if (movieData && movieData.id) {
-      checkFavoritedStatus(dispatch, movieData.id).then((isFav) => {
-        setFavoritedStatus(isFav);
+    let isMounted = true;
+    const movieIdToCheck = movieData && (movieData.id || movieData.movieId);
+    console.log('[FavoritedStatus Effect] movieData:', movieData);
+    console.log('[FavoritedStatus Effect] movieIdToCheck:', movieIdToCheck);
+    if (movieIdToCheck) {
+      checkFavoritedStatus(dispatch, movieIdToCheck).then((isFav) => {
+        // Only set if still mounted and movieId matches
+        const currentMovieId = (movieData && (movieData.id || movieData.movieId));
+        console.log('[FavoritedStatus Effect] checkFavoritedStatus resolved:', { movieIdToCheck, currentMovieId, isFav, isMounted });
+        if (isMounted && String(movieIdToCheck) === String(currentMovieId)) {
+          console.log('[FavoritedStatus Effect] Setting favoritedStatus:', isFav);
+          setFavoritedStatus(isFav);
+        } else {
+          console.log('[FavoritedStatus Effect] Not setting favoritedStatus due to mismatch or unmounted.');
+        }
       });
+    } else {
+      console.log('[FavoritedStatus Effect] No valid movieIdToCheck, setting favoritedStatus to false');
+      setFavoritedStatus(false);
     }
+    return () => { isMounted = false; };
   }, [dispatch, movieData]);
 
   // Fetch banner content if no movieData is provided

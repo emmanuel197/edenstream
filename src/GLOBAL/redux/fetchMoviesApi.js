@@ -1859,9 +1859,9 @@ export const checkFavoritedStatus = async (dispatch, movie_id) => {
         }
       }
     );
-    // If the movie is favorited, the API should return status ok and data true/exists
-    const isFavorited = response.data.status === "ok" && !!response.data.data;
-    
+    // Use the actual result property
+    const isFavorited = response.data.status === "ok" && response.data.data && response.data.data.result === true;
+    console.log(`[checkFavoritedStatus] isFavorited ${movie_id}:`, response.data.data);
     return isFavorited;
   } catch (error) {
     console.error('[checkFavoritedStatus] Error:', error);
