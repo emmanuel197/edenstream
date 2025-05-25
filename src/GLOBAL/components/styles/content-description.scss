@@ -38,41 +38,37 @@
             flex-direction: column;;
             gap: clamp(18px, 1.042vw, 20.006px)
         }
-        .release-year-wrapper {
+        .release-year-wrapper,
+        .duration-wrapper,
+        .country-wrapper {
             display: flex;
             flex-direction: column;
             gap: clamp(12px, 1.042vw, 20px);
             min-width: 10.99vw;
-            
-        // @media(max-width: 999px) {
-        //     width: 25%;
-        // }
-            .release-year-header-wrapper {
+            .release-year-header-wrapper,
+            .duration-header-wrapper,
+            .country-header-wrapper {
                 display: flex;
                 gap: clamp(3px, 0.208vw, 3.994px);
                 align-items: center;
-                .release-year-header-text {
+                .release-year-header-text,
+                .duration-header-text,
+                .country-header-text {
                     color: $secondary-60;
                     font-weight: 500;
                     font-size: clamp(13px, 0.938vw, 18.01px);
                     line-height: 1.406vw;
                     letter-spacing: 0%;
-
-                }
-
-                .release-year-header-icon {
-                    width: clamp(16px, 1.25vw, 24px);
-                    aspect-ratio: 24 / 24;
                 }
             }
-
-            .release-year-text {
+            .release-year-text,
+            .duration-text,
+            .country-text {
                 font-weight: 600;
                 font-size: clamp(16px, 1.042vw, 20.006px);
                 line-height: 1.563vw;
                 letter-spacing: 0%;
                 color: $secondary-60;
-
                 @media(max-width: 700px) {
                     font-size: clamp(13px, 0.833vw, 16px);
                 }
@@ -286,4 +282,45 @@
         }
     }
 
+}
+
+.ratings-flex-wrapper {
+    display: flex;
+    gap: clamp(15px, 1.255vw, 20px);
+    align-items: flex-start;
+    margin-bottom: 10px;
+    @media(max-width: 600px) {
+        flex-direction: column;
+        gap: clamp(18px, 1.042vw, 20.006px);
+    }
+    .critics-rating-wrapper,
+    .user-rating-wrapper {
+        width: fit-content;
+    }
+    .cast-wrapper {
+        flex-direction: column;
+        .cast-header {
+            color: $grey-60;
+            font-weight: 500;
+            font-size: clamp(13px, 0.938vw, 18.01px);
+            line-height: clamp(20px, 1.406vw, 26.995px);
+            letter-spacing: 0%;
+        }
+        .ratings-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            .ratings-icon {
+                width: clamp(16px, 1.25vw, 24px);
+                aspect-ratio: 24 / 24;
+            }
+            .ratings-text.rating-header-color {
+                color: $grey-60;
+                font-weight: 500;
+                font-size: clamp(13px, 0.938vw, 18.01px);
+                line-height: clamp(16px, 1.406vw, 26.995px);
+                letter-spacing: 0%;
+            }
+        }
+    }
 }

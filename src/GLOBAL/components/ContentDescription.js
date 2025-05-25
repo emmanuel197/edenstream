@@ -14,6 +14,7 @@ const ContentDescriptionSecton = ({marginTop, marginBottom, movieDetails}) => {
   // Extract genres from movieDetails
   const genres = movieDetails.movie_genres ? movieDetails.movie_genres : [];
   const castMembers = movieDetails.cast ? movieDetails.cast.split(',') : [];
+  const country = Array.isArray(movieDetails.country) ? movieDetails.country[0] : movieDetails.country;
 
   return (
     <section className="content-description-section" style={{ marginTop: marginTop, marginBottom: marginBottom }}>
@@ -34,6 +35,18 @@ const ContentDescriptionSecton = ({marginTop, marginBottom, movieDetails}) => {
           </div>
           <p className="release-year-text">{movieDetails.year || 'N/A'}</p>
         </div>
+        <div className="duration-wrapper">
+          <div className="duration-header-wrapper">
+            <h4 className="duration-header-text">Duration</h4>
+          </div>
+          <p className="duration-text">{movieDetails.duration || 'N/A'} mins</p>
+        </div>
+        <div className="country-wrapper">
+          <div className="country-header-wrapper">
+            <h4 className="country-header-text">Country</h4>
+          </div>
+          <p className="country-text">{country || 'N/A'}</p>
+        </div>
         <div className="genres-wrapper">
           <div className="genres-header-wrapper">
             <img loading="lazy" src={genresIcon} className="genres-header-icon" alt="genres-icon" />
@@ -44,10 +57,6 @@ const ContentDescriptionSecton = ({marginTop, marginBottom, movieDetails}) => {
               <div key={index} className="genre-badge">{genre}</div>
             ))}
           </div>
-        </div>
-        <div className="ratings-wrapper">
-          <img className="ratings-icon" src={ratingsIcon} alt="ratings-icon" />
-          <h4 className="ratings-text">{movieDetails.user_rating}</h4>
         </div>
       </div>
 
@@ -72,6 +81,22 @@ const ContentDescriptionSecton = ({marginTop, marginBottom, movieDetails}) => {
             </div>
           </div>
         </div> */}
+      </div>
+      <div className="ratings-flex-wrapper">
+        <div className="cast-wrapper critics-rating-wrapper">
+          <h4 className="cast-header">Critics Rating</h4>
+          <div className="ratings-wrapper">
+            <img className="ratings-icon" src={ratingsIcon} alt="ratings-icon" />
+            <h4 className="ratings-text rating-header-color">{movieDetails.critics_rating}</h4>
+          </div>
+        </div>
+        <div className="cast-wrapper user-rating-wrapper">
+          <h4 className="cast-header">User Rating</h4>
+          <div className="ratings-wrapper">
+            <img className="ratings-icon" src={ratingsIcon} alt="ratings-icon" />
+            <h4 className="ratings-text rating-header-color">{movieDetails.user_rating}</h4>
+          </div>
+        </div>
       </div>
       <div className="cast-wrapper">
         <h4 className="cast-header">Cast</h4>
