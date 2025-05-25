@@ -112,7 +112,7 @@ const PlansContainer = ({ variant, planData }) => {
             key={planDetails.uid}
             variant={variant}
             planTitle={planDetails.name}
-            planDescription={planDetails.planDescription}
+            planDescription={planDetails.description}
             planPrice={planDetails.price}
             planPer={planDetails.per}
             planDuration={planDetails.planDuration}
