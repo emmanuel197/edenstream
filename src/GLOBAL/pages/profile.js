@@ -33,7 +33,7 @@ const Profile = () => {
     },
     {
       key: "Watch History",
-      label: "Watch History",
+      label: "Watchlist",
       icon: <WatchHistoryIcon className="tab-icon" />,
     },
     {

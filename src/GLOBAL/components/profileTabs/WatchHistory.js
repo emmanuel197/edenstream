@@ -50,7 +50,7 @@ const WatchHistory = ({ active }) => {
               
                 <div className="watch-history-section-header-wrapper">
                 <WatchHistoryIcon className="watch-history-section-icon"/>
-                    <h2 className="watch-history-section-header">Watch History</h2>
+                    <h2 className="watch-history-section-header">Watchlist</h2>
                 </div>
                 <div className="yes-no-watch-history">
                 {/* <ThreeDots className="watch-history-three-dots" /> */}
