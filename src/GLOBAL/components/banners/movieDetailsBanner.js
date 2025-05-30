@@ -121,6 +121,7 @@ const MovieDetailsBanner = () => {
       updateWatchlist(movieData.id, 'movie', 0);
     }
     setWatchlisted(!watchlisted);
+    // await fetchWatchlist(dispatch);
   };
 
   const handleLikeClick = async () => {

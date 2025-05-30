@@ -78,7 +78,7 @@ const Header = ({ variantClassName }) => {
     },
     {
       key: "Watch History",
-      label: "Watch History",
+      label: "Watchlist",
       icon: <WatchHistoryIcon className="profile-item-icon" />,
     },
     {

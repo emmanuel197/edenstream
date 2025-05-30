@@ -28,7 +28,8 @@
     .setting-main-wrapper {
         width: 35.9896vw;
     //    aspect-ratio: 691 / 674;
-        background: #26262699;
+        background: #14141480;
+        
         border: 1.0003px solid #262626;
         border-radius: 12px;
         padding: clamp(20px, 1.8229vw, 34.9997px) 2.2917vw  8.0729vw  2.2917vw;
@@ -71,8 +72,8 @@
                 width: 100%;
                 aspect-ratio: 605 / 60;
                 padding: clamp(8px, .8333vw, 16px);
-                background: $black-08;
-                border: 2.0006px solid $black-20;
+                background: transparent;
+                border: 2px solid #999999;
                 border-radius: 6px;
                 align-items: center;
                 
@@ -226,7 +227,7 @@
         display: flex;
         justify-content: space-between;
         border: 2px solid $black-20;
-        background: $black-08;
+        background: transparent;
         box-shadow: 0px 1px 0px 0px #363B4740 inset;
         border-radius: 6px;
         padding: clamp(12px, .8333vw, 16px);

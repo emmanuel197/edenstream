@@ -50,7 +50,7 @@ const NoResults = () => {
     )
 }
 
-export const RwContentContainer = ({ movies, marginTop, isChannelsSection = false }) => {
+export const RwContentContainer = ({ movies, marginTop, isChannelsSection = false, active }) => {
   const { containerRef, scrollThumbRef } = useCustomScrollbar("74");
 
   console.log("WatchHistory - movie data:", movies);
@@ -77,7 +77,7 @@ export const RwContentContainer = ({ movies, marginTop, isChannelsSection = fals
             newEpisode: false
           };
           // console.log('Movie card props:', movieCardProps);
-          return <MovieCard key={movie.id} movie={movieCardProps} />;
+          return <MovieCard key={movie.id} movie={movieCardProps} active={active} />;
         })}
       </div>
       {!isChannelsSection && <CustomScrollbar thumbRef={scrollThumbRef} />}

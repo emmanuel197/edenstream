@@ -45,6 +45,7 @@ const WatchHistory = ({ active }) => {
     }, [watchlist]);
 
     if (active === 'Watch History') {
+        
         return (
             <section className="watch-history-section">
               
@@ -55,7 +56,7 @@ const WatchHistory = ({ active }) => {
                 <div className="yes-no-watch-history">
                 {/* <ThreeDots className="watch-history-three-dots" /> */}
                     {loading ? <div>Loading watch history...</div> :
-                      (fullMovies.length > 0 ? <YesWatchHistory showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={fullMovies}/> :
+                      (fullMovies.length > 0 ? <YesWatchHistory active={active} showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={fullMovies}/> :
                      <NoWatchHistory/>) }
                      <div className="pagination-wrapper">
                         <div className="page-number">1</div>
@@ -83,7 +84,7 @@ const NoWatchHistory = () => {
     )
 }
 
-const YesWatchHistory = ({history, showClearWatchModal, setShowClearWatchModal}) => {
+const YesWatchHistory = ({history, showClearWatchModal, setShowClearWatchModal, active}) => {
     const handleCancel = () => {
         console.log("cancel")
         setShowClearWatchModal(false)
@@ -100,7 +101,7 @@ const YesWatchHistory = ({history, showClearWatchModal, setShowClearWatchModal})
             sectionClassName="watch-history-section-modal"
             ContentWrapper="watch-history-modal-content-wrapper"
             buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="clearall-btn" label="Clear All" action={handleClearAll} />] } />} */}
-            <RwContentContainer movies={history} isChannelsSection={true}/>
+            <RwContentContainer movies={history} isChannelsSection={true} active={active}/>
         </div>
     )
 }

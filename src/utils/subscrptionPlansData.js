@@ -1,15 +1,5 @@
 const SubscriptionsData = [
-    {
-        id: 1100,
-        uid: 'freetowatch',
-        name: 'Free to Watch',
-        priceOptions: 'free',
-        validity: '10 years',
-        rateCode: 1100,
-        planId: 1100,
-        price: 0.01,
-        description: 'Free to Watch'
-      },
+   
       {
         id: 1133,
         uid: 'daily',

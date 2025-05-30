@@ -79,11 +79,13 @@ const ContentPreferences = ({ active }) => {
         <ContentPreferencesIcon className="content-preference-section-icon" />
         <h2 className="content-preference-section-header">Content Preferences</h2>
       </div>
-      <div className="ncp-detail-wrapper">
-        <NoStream className="no-content-preferences-img" />
-        <p className="no-content-preferences-text">You haven't set any content preferences yet. Click 'Edit Preferences' to select your favorite categories and personalize your experience!</p>
+      <div className="no-content-preferences-wrapper card-style-wrapper">
+        <div className="ncp-detail-wrapper compact-ncp-detail-wrapper">
+          <NoStream className="no-content-preferences-img compact-ncp-img" />
+          <p className="no-content-preferences-text compact-ncp-text">You haven't set any content preferences yet. Click 'Edit Preferences' to select your favorite categories and personalize your experience!</p>
+        </div>
+        <Button className="edit-preferences-btn compact-edit-preferences-btn" label="Edit Preferences" action={() => dispatch(setContentPrefStep(3))} />
       </div>
-      <Button className="edit-preferences-btn" label="Edit Preferences" action={() => dispatch(setContentPrefStep(3))} />
     </section>
   );
 }

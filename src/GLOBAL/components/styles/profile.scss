@@ -14,7 +14,6 @@ body {
     aspect-ratio: 1596 / 300;
     
     @media (max-width:800px) {
-
         aspect-ratio:unset;
         min-height: clamp(200px, 15.625vw, 300px);
     }
@@ -24,11 +23,10 @@ body {
         left: 0;
         width: 100%;
         height: 100%;
-        backdrop-filter: blur(100px);
-        -webkit-backdrop-filter: blur(100px); // For Safari
-        background: rgba(0, 0, 0, 0.3);
+        object-fit: cover;
         z-index: -2;
-
+        filter: blur(0px); // fallback for browsers without backdrop-filter
+        // The blur is handled by the overlay below
     }
 
     .psbi-overlay {
@@ -38,6 +36,9 @@ body {
         width: 100%;
         height: 100%;
         z-index: -1;
+        background: rgba(20, 20, 20, 0.6); // dark overlay
+        backdrop-filter: blur(100px);
+        -webkit-backdrop-filter: blur(100px); // For Safari
     }
 
     .profile-section-header {

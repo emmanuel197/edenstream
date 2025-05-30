@@ -1,3 +1,4 @@
+
 .toggle-switch {
     position: relative;
     display: inline-block;
@@ -27,7 +28,11 @@
         right: 0;
         bottom: 0;
         border-radius: 2rem;
-        background: linear-gradient(136.62deg, #5B7F60 6.32%, #3E6042 44.93%, #04271C 88.82%);
+        background: linear-gradient(
+            to right,
+            #8B6A1D,
+            #000000
+        );
 
         transition: background 0.4s, transform 0.4s;
 

@@ -31,7 +31,8 @@
         padding: 2.049vw 2.3vw;
         display: flex;
         flex-direction: column;
-        background: rgba(38, 38, 38, 0.6);
+        background: #14141480;
+
         &.yes-no-mylist {
             background: linear-gradient(0deg, rgba(91, 127, 96, 0.1), rgba(91, 127, 96, 0.1)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
         }

@@ -30,8 +30,7 @@ const MovieDetailsPage = () => {
         imageUrl: movieDetails.image_store_id ? 
             `https://ott.tvanywhereafrica.com:28182/api/client/v1/global/images/${movieDetails.image_store_id}?accessKey=WkVjNWNscFhORDBLCg==` : 
             null,
-        critic_rating: movieDetails.critic_rating,
-        user_rating: movieDetails.user_rating,
+        
         duration: movieDetails.duration,
         year: movieDetails.year,
         genre: movieDetails.genre,

@@ -41,6 +41,7 @@
             display: flex;
             flex-direction: column;
             height: 100%;
+            background: transparent !important;
 
             .delete-watch-history {
                 position: absolute;
@@ -51,7 +52,7 @@
 
                 &:hover {
                     path {
-                        fill: #619267;
+                        fill: $gold-200;
                     }
                 }
             }

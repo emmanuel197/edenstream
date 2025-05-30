@@ -29,7 +29,8 @@
         width: fit-content;
         border-radius: .625vw;
         border: .0521vw solid $black-15;
-        background: #26262699;
+        background: #14141480;
+
         display: flex;
         margin-left: auto;
         margin-right: auto;
@@ -76,8 +77,8 @@
                 border-radius: 6px;
                 gap: 5.2083vw;
                 padding: clamp(10px, .8333vw, 16px);
-                background: $black-08;
-                border: 2.0006px solid $black-20;
+                background: transparent;
+                border: 2px solid #999999;
                 box-shadow: 0vw .0521vw 0vw 0vw #363B4740 inset;
                 justify-content: space-between;
                 width: 31.3542vw;
@@ -267,7 +268,7 @@
         border-width: .1042vw;
         gap: .4688vw;
         padding: clamp(12px, .8333vw, 16px);
-        background: $black-08;
+        background: transparent;
         border: .1042vw solid $black-20;
         box-shadow: 0vw .0521vw 0vw 0vw #363B4740 inset;
 
@@ -352,7 +353,7 @@
             justify-content: space-between;
             padding: clamp(10px, .8333vw, 16px);
             border: .1042vw solid $black-20;
-            background: $black-08;
+            background: transparent;
             border-radius: 6px;
 
             .auto-renew-toggle-label {
@@ -410,7 +411,7 @@
                     justify-content: space-between;
                     border-radius: 6px;
                     padding: clamp(12px, .8333vw, 16px);
-                    background: $black-08;
+                    background: transparent;
                     border: 2px solid $black-20;
 
                     .checkbox-label {
