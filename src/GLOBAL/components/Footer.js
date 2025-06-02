@@ -40,6 +40,14 @@ const Footer = ({marginTop, marginBottom}) => {
   const handleSelect = (platform) => {
     setSelectedPlatform(platform === selectedPlatform ? null : platform); // Deselect if clicked again
   };
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Smooth scrolling
+    });
+  };
+
   return (
     <footer className="footer" style={{marginTop: marginTop, marginBottom: marginBottom}}>
       <div className="footer-wrapper">
@@ -138,7 +146,8 @@ const Footer = ({marginTop, marginBottom}) => {
             </div>
           </div>
         </div>
-        <button className="back-to-top">
+        {/* Add onClick handler to the button */}
+        <button className="back-to-top" onClick={scrollToTop}>
           <img loading="lazy" className='back-to-top-arrow-vector' src={backToTop} />
           {/* <ArrowUp className="arrow-icon" /> */}
         </button>

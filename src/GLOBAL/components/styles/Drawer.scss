@@ -2,7 +2,9 @@
 @import '../../../styles/variables';
 .drawer {
     height: 100vh;
-    background: $black-08;
+    background: url("../../../../public/assets/svg/drawer-background.svg");
+    background-repeat: no-repeat;
+    background-size: cover;
     position: fixed; // Change from relative to fixed
     top: 0; // Position at the top of the viewport
     right: 0; // Position at the right of the viewport

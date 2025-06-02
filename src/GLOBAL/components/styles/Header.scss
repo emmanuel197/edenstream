@@ -1011,12 +1011,12 @@
     display: none !important;
     width: clamp(35px, 2.5vw, 48px);
     aspect-ratio: 48 / 48;
-    border-radius: .313vw;
+    border-radius: clamp(5px, .313vw, 6.01px);
     // border-width: 3px;
     padding: .625vw;
     // gap: 10px;
-    background: $black-10;
-    border: 3px solid $black-15;
+    background: transparent;
+    border: 1px solid $white;
     margin-right: .833vw;
 
     .align-content {

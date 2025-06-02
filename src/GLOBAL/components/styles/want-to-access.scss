@@ -15,7 +15,8 @@
         height: 100%;
         position: absolute;
         top: 0vw;
-        background: linear-gradient(180deg, #141414, rgba(20, 20, 20, 0));
+
+        background: linear-gradient(180deg, rgba(68, 26, 118, 0.5) 0%, #141414 100%);
     }
 
     .wta-content-container {
@@ -90,7 +91,8 @@
         width: 100%;
         position: absolute;
         bottom: 0;
-        background: linear-gradient(180deg, rgba(20, 20, 20, 0.5), #141414);
+        background: linear-gradient(180deg, rgba(68, 26, 118, 0.5) 0%, #141414 100%);
+
     }
 
 }
