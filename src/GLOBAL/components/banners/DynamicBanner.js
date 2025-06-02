@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import "../../components/styles/banners/dynamicBanner.scss";
 import Button from "../buttons/Button";
 import ReactPlayer from "react-player";
-import { fetchBannerContent, fetchTrailer, fetchAllSeries, checkFavoritedStatus, fetchWatchlist } from "../../redux/fetchMoviesApi";
+import { fetchBannerContent, fetchTrailer, fetchAllSeries, checkFavoritedStatus, fetchWatchlist, addToFavorites } from "../../redux/fetchMoviesApi";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import getRandomIndexes from "../../../utils/getRandomIndexes";
@@ -397,8 +397,19 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
     fetchWatchlist(dispatch);
   }, [dispatch]);
 
-  // Check favorited status when movieData changes
- 
+  // Add handleLikeClick function
+  const handleLikeClick = async () => {
+    if (!movieData) return;
+    const movieId = movieData.id || movieData.movieId;
+    if (movieId) {
+      const result = await addToFavorites(dispatch, movieId);
+      // Update the favoritedStatus state based on the result of the API call
+      if (result !== undefined) { // Check if the result is not undefined (operation completed)
+        setFavoritedStatus(result); // result is true if added, false if removed
+      }
+    }
+  };
+
   if (!movieData) {
     return null;
   }
@@ -521,7 +532,11 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
                 action={() => handleToggleWatchlist(movieData.id)}
                 icon={watchlisted ? minusIcon : plusIcon} 
               />
-              <Button className={`bdc-like-btn${favoritedStatus ? ' liked' : ''}`} page="/" svg={<LikeIcon className={favoritedStatus ? 'liked' : ''} />} />
+              <Button
+                className={`bdc-like-btn${favoritedStatus ? ' liked' : ''}`}
+                action={handleLikeClick}
+                svg={<LikeIcon className={favoritedStatus ? 'liked' : ''} />}
+              />
               <Button 
                 className="bdc-mute-btn" 
                 action={handleMuteDynamic} 
