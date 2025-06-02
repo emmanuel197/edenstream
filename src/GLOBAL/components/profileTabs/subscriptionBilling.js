@@ -57,7 +57,7 @@ const SubscriptionMainDetail = ({ onSelectOption }) => {
         { id: 1, icon: <AccountInformationIcon className="subscription-icon subscription-plan-img" />, text: "Subscription Plan" },
         { id: 2, icon: <ContentPreferencesIcon className="subscription-icon payment-methods-img" />, text: "Payment Methods" },
         { id: 3, icon: <WatchHistoryIcon className="subscription-icon billing-history-img" />, text: "Billing History" },
-        { id: 4, icon: <NotificationsAndRemindersIcon className="subscription-icon subscription-settings-img" />, text: "Subscription Settings" },
+        // { id: 4, icon: <NotificationsAndRemindersIcon className="subscription-icon subscription-settings-img" />, text: "Subscription Settings" },
         { id: 5, icon: <SubscriptionsAndBillingIcon className="subscription-icon manage-subscriptions-img" />, text: "Manage Subscription" }
     ];
 

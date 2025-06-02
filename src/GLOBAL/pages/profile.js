@@ -36,11 +36,11 @@ const Profile = () => {
       label: "Watchlist",
       icon: <WatchHistoryIcon className="tab-icon" />,
     },
-    {
-      key: "Notifications & Reminders",
-      label: "Notifications & Reminders",
-      icon: <NotificationsAndRemindersIcon className="tab-icon" />,
-    },
+    // {
+    //   key: "Notifications & Reminders",
+    //   label: "Notifications & Reminders",
+    //   icon: <NotificationsAndRemindersIcon className="tab-icon" />,
+    // },
     {
       key: "Subscription & Billing",
       label: " Subscription & Billing",

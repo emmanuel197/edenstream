@@ -1874,26 +1874,56 @@ export const addToFavorites = async (dispatch, movie_id) => {
   try {
     const cookies = new Cookies();
     const user_info = cookies.get("user_info");
-    const { user_id, access_token } = user_info?.data?.data;
+    const { user_id, access_token, operator_uid } = user_info?.data?.data; // Destructure operator_uid
     console.log("addToFavorites user_id", user_id)
     console.log("addToFavorites movie_id", movie_id)
-    const url = `https://ott.tvanywhereafrica.com:28182/api/client/v1/edenstream/users/${user_id}/favorites/movies/${movie_id}`;
-    const response = await axios.put(
-      url,
-      {
+    // Use the dynamic operator_uid in the URL
+    const url = `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/users/${user_id}/favorites/movies/${movie_id}`;
+    const postUrl = `https://ott.tvanywhereafrica.com:28182/api/client/v1/${operator_uid}/users/${user_id}/favorites/movies`;
+    // Check if the movie is already favorited
+    const isFavorited = await checkFavoritedStatus(dispatch, movie_id);
+    console.log("addToFavorites isFavorited check:", isFavorited);
+
+    let response;
+    if (isFavorited) {
+      // If already favorited, send a DELETE request to remove it
+      response = await axios.delete(url, {
         headers: {
           Authorization: `Bearer ${access_token}`
         }
+      });
+      console.log("removeFromFavorites response", response);
+      if (response.data.status === "ok") {
+        dispatch(setFavoritedStatus(false));
+        return false; // Indicate that it was removed
       }
-    );
-    console.log("addToFavorites response", response)
-    if (response.data.status === "ok") {
-      dispatch(setFavoritedStatus(true));
-      return true;
+    } else {
+      // If not favorited, send a POST request to add it
+      // The API documentation and your working example show movie_id is needed in the request body for POST
+      const postData = {
+        movie_id: movie_id
+      };
+      response = await axios.post(
+        postUrl,
+        JSON.stringify(postData), // Stringify the postData object
+        {
+          headers: {
+            Authorization: `Bearer ${access_token}`,
+            'Content-Type': 'application/json' // Ensure Content-Type is set
+          }
+        }
+      );
+      console.log("addToFavorites response", response);
+      if (response.data.status === "ok") {
+        dispatch(setFavoritedStatus(true));
+        return true; // Indicate that it was added
+      }
     }
-    return false;
+
+    return false; // Return false if the operation was not successful
   } catch (error) {
     console.error('[addToFavorites] Error:', error);
+    // Optionally dispatch setFavoritedStatus(false) on error if needed
     return false;
   }
 };

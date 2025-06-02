@@ -125,9 +125,11 @@ const MovieDetailsBanner = () => {
   };
 
   const handleLikeClick = async () => {
-   
     const result = await addToFavorites(dispatch, id);
-    if (result) setFavoritedStatus(true);
+    // Update the favoritedStatus state based on the result of the API call
+    if (result !== undefined) { // Check if the result is not undefined (operation completed)
+      setFavoritedStatus(result); // result is true if added, false if removed
+    }
   };
 
   if (loading) return <div style={{minHeight: 300}}>Loading banner...</div>;
@@ -199,7 +201,7 @@ const MovieDetailsBanner = () => {
                 icon={watchlisted ? minusIcon : plusIcon} 
                 action={handleToggleWatchlist}
               />
-              <Button className={`bdc-like-btn ${movieData.favorited && "liked"}`} action={() => handleLikeClick()} svg={<LikeIcon className={movieData.favorited && `liked`}/>} />
+              <Button className={`bdc-like-btn ${favoritedStatus && "liked"}`} action={() => handleLikeClick()} svg={<LikeIcon className={favoritedStatus && `liked`}/>} />
               <Button 
                 className="bdc-mute-btn" 
                 action={handleMuteToggle} 
@@ -213,4 +215,4 @@ const MovieDetailsBanner = () => {
   );
 };
 
-export default MovieDetailsBanner; 
+export default MovieDetailsBanner;
