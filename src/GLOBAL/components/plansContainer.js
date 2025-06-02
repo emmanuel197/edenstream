@@ -18,7 +18,7 @@ const PlansContainer = ({ variant, planData }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
-
+ // Debugging line to check profile state
   React.useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
