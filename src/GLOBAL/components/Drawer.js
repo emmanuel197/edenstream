@@ -28,7 +28,7 @@ const Drawer = ({user_info}) => {
 
   useEffect(() => {
     if (prevLocation.current !== location.pathname && showDrawer) {
-      _hideDrawer();
+      _hideDrawer(false); // Ensure drawer closes on route change
     }
     prevLocation.current = location.pathname;
   }, [location, showDrawer]);
@@ -48,14 +48,15 @@ const Drawer = ({user_info}) => {
                <Link
                className={`nav-link ${location.pathname === `/${navlink.link}` ? "active-link" : ""}`}
                 to={`/${navlink.link}`}
+                onClick={() => _hideDrawer(false)} // Close drawer on link click
                >
                  {navlink.label}
                </Link>
              </li>
           )})}
           {!user_info && <div className="signup-login-wrapper">
-          <Link className="login-btn" to="/login">Log in</Link>
-          <Link className="signup-btn" to="/signup">Sign Up</Link>
+          <Link className="login-btn" to="/login" onClick={() => _hideDrawer(false)}>Log in</Link> {/* Close drawer on login link click */}
+          <Link className="signup-btn" to="/signup" onClick={() => _hideDrawer(false)}>Sign Up</Link> {/* Close drawer on signup link click */}
           </div>}
           <li>
             {" "}
