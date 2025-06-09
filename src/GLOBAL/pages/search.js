@@ -127,7 +127,7 @@ const FilterComponent = ({ genres, activeGenreTab, setActiveGenreTab, onFilter }
   return (
     <section className="filter-section">
       <h2 className="filter-section-header">Filter</h2>
-      <div className="release-country-sort-language">
+      {/* <div className="release-country-sort-language">
         <SelectInput
           name="releaseYear"
           value={releaseYear}
@@ -168,8 +168,8 @@ const FilterComponent = ({ genres, activeGenreTab, setActiveGenreTab, onFilter }
           iconPosition="left"
           className="language-wrapper"
         />
-      </div>
-      <div className="category-wrapper">
+      </div> */}
+      {/* <div className="category-wrapper">
         <h3 className="category-header">Category</h3>
         <div className="categories">
           {categories.map((category) => (
@@ -178,7 +178,7 @@ const FilterComponent = ({ genres, activeGenreTab, setActiveGenreTab, onFilter }
             </button>
           ))}
         </div>
-      </div>
+      </div> */}
       <div className="genre-wrapper">
         <h3 className="genre-header">Genre</h3>
         <div className="genres">

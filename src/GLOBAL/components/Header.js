@@ -38,26 +38,26 @@ const Header = ({ variantClassName }) => {
 
   ];
   const notifications = [
-    {
-      id: 1,
-      icon: "🔔",
-      title: "Your Live Devotional Starts Now!",
-      body: "Join today's morning devotional with Pastor Grace Thompson.",
-      linkText: "Tap to join the stream.",
-      linkUrl: "#",
-      time: "12:19AM",
-      isUnread: true,
-    },
-    {
-      id: 2,
-      icon: "🎵",
-      title: "Latest Gospel Music Drop!",
-      body: "Listen to the newest release by Maverick City Music now on Eden Stream.",
-      linkText: "Tap to join the stream.",
-      linkUrl: "#",
-      time: "02:19PM",
-      isUnread: true,
-    },
+    // {
+    //   id: 1,
+    //   icon: "🔔",
+    //   title: "Your Live Devotional Starts Now!",
+    //   body: "Join today's morning devotional with Pastor Grace Thompson.",
+    //   linkText: "Tap to join the stream.",
+    //   linkUrl: "#",
+    //   time: "12:19AM",
+    //   isUnread: true,
+    // },
+    // {
+    //   id: 2,
+    //   icon: "🎵",
+    //   title: "Latest Gospel Music Drop!",
+    //   body: "Listen to the newest release by Maverick City Music now on Eden Stream.",
+    //   linkText: "Tap to join the stream.",
+    //   linkUrl: "#",
+    //   time: "02:19PM",
+    //   isUnread: true,
+    // },
   ];
 
   const navigate = useNavigate();
