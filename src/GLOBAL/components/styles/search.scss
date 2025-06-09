@@ -219,6 +219,49 @@
 
 }
 
+.search-filter-wrapper {
+    display: flex;
+    gap: clamp(20px, 2.0833vw, 40px);
+    align-items: center;
+    height: 45px;
+    margin-top: 1.354vw;
+    .search-wrapper {
+        width: 100%;
+    }
+    .filter-wrapper {
+        //  background-color: $black-10;
+         width: fit-content ;
+         height: 45px;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         width: 43;
+height: 45;
+border: 1px solid #4D4D4D;
+border-radius: 6px;
+
+padding: 16px;
+
+        .search-filter-img {
+            width: clamp(24px, 24px, 24px);
+            aspect-ratio: 1 / 1;
+           
+           
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            path {
+                fill: $gold-200;
+                stroke: $gold-200;
+            }
+        }
+    }
+    @media (max-width: 500px) {
+        padding: 20px
+    }
+}
+
 // .search-main {
 //     max-width: 76.0417vw;
 //     margin: auto;

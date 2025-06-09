@@ -135,41 +135,7 @@
         width: 100%;
     }
 
-    .current-plan-wrapper {
-        display: flex;
-        gap: clamp(10px, 1.0417vw, 20px);
-        flex-direction: column;
-        align-items: start;
-
-        .current-plan-section-header {
-            font-weight: 600;
-            font-size: clamp(13px, 1.0417vw, 20px);
-            line-height: 150%;
-            letter-spacing: 0%;
-            color: $white;
-        }
-
-        .plan-card {
-            &.plan-card-selected {
-                border: 2px solid #619267;
-            }
-
-            .plan-card-header-wrapper {
-                .plan-card-header {}
-
-                .plan-card-paragraph {}
-            }
-
-            .plan-card-price {}
-
-
-            .choose-plan-btn {
-                // width: ;
-                background: #5B7F601A;
-
-            }
-        }
-    }
+   
 
     .upgrade-plans-wrapper {
         display: flex;
@@ -801,11 +767,10 @@
             border-radius: 6px;
             padding: clamp(10px, .8333vw, 16px);
             align-items: center;
+            cursor: pointer; // Add cursor pointer to indicate it's clickable
 
             &.date-range-selected {
                 border: 2px solid #619267;
-
-
             }
 
             .date-range-img {
@@ -820,8 +785,41 @@
                 font-size: clamp(10px, .8333vw, 16px);
                 line-height: .9375vw;
                 letter-spacing: 0%;
-
             }
+        }
+    }
+
+    .billing-history-list { // Container for the list of billing items
+        display: flex;
+        flex-direction: column;
+        gap: clamp(10px, 0.7813vw, 15px); // Gap between items
+        margin-top: clamp(15px, 1.0417vw, 20px); // Space above the list
+    }
+
+    
+
+    .no-billing-history {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 300px; // Adjust height as needed
+        gap: clamp(10px, 1.0417vw, 20px); // Gap between icon and text
+        margin-top: clamp(20px, 2.0833vw, 40px); // Space above the no history message
+
+        .no-billing-history-icon {
+            width: clamp(60px, 6.25vw, 120px); // Adjust size based on Figma
+            aspect-ratio: 1 / 1;
+            opacity: 0.5; // Adjust opacity based on Figma visual
+        }
+
+        .no-billing-history-text {
+            font-family: Manrope;
+            font-weight: 400; // Adjust font weight
+            font-size: clamp(14px, 1.25vw, 24px); // Adjust font size
+            line-height: 150%;
+            color: #ccc; // Adjust color based on Figma visual
+            margin: 0;
         }
     }
 }
@@ -835,3 +833,93 @@
 
 
 }
+
+.billing-history-item {
+        display: flex;
+        align-items: center; // Align items vertically
+        border: 1px solid #333; // Example border based on Figma visual
+        border-radius: 6px; // Adjust border-radius if needed
+        padding: clamp(10px, .8333vw, 16px); // Adjust padding if needed
+        background-color: transparent; // Example background color
+        width: 100%;
+        gap: clamp(10px, 1.0417vw, 20px); // Gap between image and details
+
+        .billing-history-item-image {
+            width: clamp(40px, 4.1667vw, 80px); // Adjust size based on Figma
+            aspect-ratio: 1 / 1;
+            border-radius: 4px; // Adjust border-radius if image has rounded corners
+            object-fit: cover; // Ensure image covers the area
+        }
+
+        .billing-history-item-details {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1; // Allow details to take available space
+            gap: clamp(2px, 0.2604vw, 5px); // Gap between text lines
+
+            .billing-history-item-title {
+                font-family: Manrope;
+                font-weight: 500; // Adjust font weight
+                font-size: clamp(12px, 1.0417vw, 20px); // Adjust font size
+                line-height: 150%;
+                color: $white; // Adjust color
+                margin: 0; // Remove default margin
+            }
+
+            .billing-history-item-order,
+            .billing-history-item-price,
+            .billing-history-item-date {
+                font-family: Manrope;
+                font-weight: 400; // Adjust font weight
+                font-size: clamp(10px, .8333vw, 16px); // Adjust font size
+                line-height: 150%;
+                color: #ccc; // Adjust color
+                margin: 0; // Remove default margin
+            }
+
+            .billing-history-item-date {
+                color: $gold-300; // Example color for date based on Figma visual
+            }
+        }
+    }
+
+     .current-plan-wrapper {
+        display: flex;
+        gap: clamp(10px, 1.0417vw, 20px);
+        flex-direction: column;
+        align-items: start;
+
+        .current-plan-section-header {
+            font-weight: 600;
+            font-size: clamp(13px, 1.0417vw, 20px);
+            line-height: 150%;
+            letter-spacing: 0%;
+            color: $white;
+        }
+
+        .plan-card {
+            &.plan-card-selected {
+                border: 2px solid #619267;
+            }
+
+            .plan-card-header-wrapper {
+                .plan-card-header {}
+
+                .plan-card-paragraph {}
+            }
+
+            .plan-card-price {}
+
+
+            .choose-plan-btn {
+                // width: ;
+                background: #5B7F601A;
+
+            }
+        }
+    }
+
+
+    .active-bundles {
+        width: 31.5104vw;
+    }

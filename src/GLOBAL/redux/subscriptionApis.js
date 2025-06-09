@@ -1,5 +1,5 @@
 import axios from "axios";
-import { fetchPackageReducer, paymentInitiatedReducer, purchaseHistoryReducer, premiumSubReducer } from "./slice/subscriptionSlice";
+import { fetchPackageReducer, paymentInitiatedReducer, purchaseHistoryReducer, premiumSubReducer, activeSubscriptionReducer } from "./slice/subscriptionSlice";
 import { store } from "../redux/store";
 import { ERROR_MESSAGES, TOAST } from '../../utils/constants'
 import { checkActiveSubscription } from "../../utils/activeSubs";
@@ -47,7 +47,37 @@ export const purchasePackage = async (product_id, subscriber_uid, email) => {
     }
 }
 
-export const fetchPurchaseHistory = async (dispatch, active) => {
+export const fetchPurchaseHistory = async (dispatch) => {
+    try {
+        // API URL
+        const selectedOperator = JSON.parse(window.localStorage.getItem('afri_selected_operator'))
+        const subscriber_uid = window.localStorage.getItem('afri_username')
+        const operator_uid = selectedOperator.operator_uid
+        const url = `https://tvanywhereonline.com/cm/api/orders/?operator_uid=${operator_uid}&subscriber_uid=${subscriber_uid}&limit=30`;
+
+        // Request headers
+        const headers = {
+            'Password': process.env.REACT_APP_API_PASSWORD,
+            'Content-Type': 'application/json'
+        };
+
+        
+        // Making POST request using Axios with async/await
+        const response = await axios.get(url, { headers });
+
+        if (response.data.status === "ok") {
+            dispatch(purchaseHistoryReducer(response.data.data))
+            const premiumSub = checkActiveSubscription(response.data.data)
+
+            dispatch(premiumSubReducer(premiumSub))
+        }   
+
+
+    } catch (error) {
+        // console.error('An error occurred:', error.message);
+    }
+}
+export const fetchActivePackages = async (dispatch, active) => {
     try {
         // API URL
         const selectedOperator = JSON.parse(window.localStorage.getItem('afri_selected_operator'))
@@ -66,7 +96,7 @@ export const fetchPurchaseHistory = async (dispatch, active) => {
         const response = await axios.get(url, { headers });
 
         if (response.data.status === "ok") {
-            dispatch(purchaseHistoryReducer(response.data.data))
+            dispatch(activeSubscriptionReducer(response.data.data))
             const premiumSub = checkActiveSubscription(response.data.data)
 
             dispatch(premiumSubReducer(premiumSub))

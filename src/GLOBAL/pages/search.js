@@ -10,14 +10,30 @@ import { selectSortIcon, selectCountryIcon, selectReleaseYearIcon } from "../../
 import { fetchGenres, fetchMovieByGenre } from "../redux/fetchMoviesApi";
 import { setActiveGenreTab } from '../redux/slice/genreTabSlice';
 import { genreTabs } from '../constants/genres'
-
+import TextInput from "../components/formInputs/textInput";
+import { WrapperSearch, SearchFilter } from "../../utils/assets";
+import { search } from "../redux/fetchMoviesApi";
+import { Link } from "react-router-dom";
+// import { handleSearchInput } from "../redux/slice/inputSlice";
 const Search = () => {
   const dispatch = useDispatch();
   const { searchQuery, searchResponse } = useSelector((state) => state.input);
   const { genres } = useSelector((state) => state.fetchMovies);
   const { activeGenreTab } = useSelector(state => state.genreTab);
   const [filtered, setFiltered] = useState(false);
+ const [showFilter, setShowFilter] = useState(false);
+   const handleSearchInput = (e) => {
+      const text = e.target.value;
+      console.log('Search input changed:', text);
+      // setSearchQuery(text);
+      console.log('Dispatching search action with text:', text);
+      dispatch(search(text));
+    };
 
+    const handleSearchFilter = () => {
+     setShowFilter(prev => !prev);
+     console.log('Search filter toggled:', showFilter);
+    };
   useEffect(() => {
     fetchGenres(dispatch);
   }, [dispatch]);
@@ -37,12 +53,20 @@ const Search = () => {
     <>
       <Header />
       <div className="inner-sections-wrapper">
-        <FilterComponent
+ <div className="search-filter-wrapper">
+                  <div className="search-wrapper">
+                    <TextInput value={searchQuery} onChange={handleSearchInput} icon={<WrapperSearch className="wrapper-search"/>} className="header-search-textinput"/>
+                  </div>
+                  <div className="filter-wrapper" onClick={handleSearchFilter}>
+                    <SearchFilter  className="search-filter-img" />
+                  </div>
+                </div>
+        {!showFilter && <FilterComponent
           genres={genres}
           activeGenreTab={activeGenreTab}
           setActiveGenreTab={genre => dispatch(setActiveGenreTab(genre))}
           onFilter={() => setFiltered(true)}
-        />
+        />}
         <ReelWrapper
           title={`Search results for: ${searchQuery}`}
           movies={filtered && activeGenreTab !== "ALL" ? filteredMovies : searchResponse}

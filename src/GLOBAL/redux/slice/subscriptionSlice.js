@@ -9,6 +9,7 @@ const fetchPackageSlice = createSlice({
     productPrice: null,
     paymentInitiated: false,
     purchaseHistory: null,
+    activePackages: null,
     isChecked: false,
     activeSubscription: false,
     premiumSub: JSON.parse(window.localStorage.getItem('premiumSub')) || false // Initialize from localStorage
@@ -47,6 +48,7 @@ const fetchPackageSlice = createSlice({
     purchaseHistoryReducer: (state, action) => {
       state.purchaseHistory = action.payload
     },
+  
     handleToggleMenuReducer: (state, action) => {
       state.isChecked = action.payload
       

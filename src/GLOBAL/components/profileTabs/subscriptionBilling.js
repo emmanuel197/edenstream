@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { SubscriptionsAndBillingIcon, SettingsArrowRight, watchBackArrow, ContentPreferencesIcon, AccountInformationIcon, WatchHistoryIcon, NotificationsAndRemindersIcon, AddPaymentPlus, mtnPaymentImg, visaPaymentImg, mastercardPaymentImg, dateRangeImg, changeSubModalImg, paymentSuccessModalImg, pauseDurationModalImg, datePickerCaret } from "../../../utils/assets";
+import { useState, useEffect} from "react";
+import { SubscriptionsAndBillingIcon, SettingsArrowRight, watchBackArrow, ContentPreferencesIcon, AccountInformationIcon, WatchHistoryIcon, NotificationsAndRemindersIcon, AddPaymentPlus, mtnPaymentImg, visaPaymentImg, mastercardPaymentImg, dateRangeImg, changeSubModalImg, paymentSuccessModalImg, pauseDurationModalImg, datePickerCaret, HistoryIcon } from "../../../utils/assets";
 import "../../components/styles/profileTabs/subscription-billing.scss";
 import Button from "../../components/buttons/Button";
 import EdenStreamsPlanCard from "../cards/EdenStreamsPlanCard";
@@ -11,10 +11,23 @@ import TextInput from "../formInputs/textInput";
 import SelectInput from "../formInputs/selectInput";
 import DateRangePicker from "../datePicker";
 import GenericModal from "../genericModal";
+import { fetchPurchaseHistory, fetchActivePackages } from "../../redux/subscriptionApis";
+import { useDispatch, useSelector } from "react-redux";
 
 const SubscriptionBilling = ({ active }) => {
     const [selectedOption, setSelectedOption] = useState(null);
+    const dispatch = useDispatch();
+    const { purchaseHistory, isChecked, activeSubscription } = useSelector(
+    (state) => state.fetchPackages
+  );
 
+          
+useEffect(() => {
+    fetchActivePackages(dispatch, "Active");
+    fetchPurchaseHistory(dispatch);
+   
+
+  }, [dispatch]);
     if (active === 'Subscription & Billing') {
         const handleBack = () => {
             setSelectedOption(null);
@@ -54,11 +67,12 @@ export default SubscriptionBilling;
 
 const SubscriptionMainDetail = ({ onSelectOption }) => {
     const options = [
-        { id: 1, icon: <AccountInformationIcon className="subscription-icon subscription-plan-img" />, text: "Subscription Plan" },
-        { id: 2, icon: <ContentPreferencesIcon className="subscription-icon payment-methods-img" />, text: "Payment Methods" },
+        { id: 1, icon: <AccountInformationIcon className="subscription-icon subscription-plan-img" />, text: "Bundles Plan" },
+        {id: 2, icon: <ContentPreferencesIcon className="subscription-icon active-bundles-img" />, text: "Active Bundles"},
         { id: 3, icon: <WatchHistoryIcon className="subscription-icon billing-history-img" />, text: "Billing History" },
+        // { id: 4, icon: <ContentPreferencesIcon className="subscription-icon payment-methods-img" />, text: "Payment Methods" },
         // { id: 4, icon: <NotificationsAndRemindersIcon className="subscription-icon subscription-settings-img" />, text: "Subscription Settings" },
-        { id: 5, icon: <SubscriptionsAndBillingIcon className="subscription-icon manage-subscriptions-img" />, text: "Manage Subscription" }
+        // { id: 5, icon: <SubscriptionsAndBillingIcon className="subscription-icon manage-subscriptions-img" />, text: "Manage Subscription" }
     ];
 
     return (
@@ -81,124 +95,124 @@ const SubscriptionMainDetail = ({ onSelectOption }) => {
     );
 };
 
-const PaymentMethods = () => {
-    // Example data structure for top payment cards
-    const [addPaymentMethod, setAddPaymentMethod] = useState(false)
-    const [selectedMethod, setSelectedMethod] = useState(null)
-    const [paymentCards] = useState([
-        {
-            id: 1,
-            title: "Sakuku",
-            balance: "Gh845",
-            number: "1234 1234 1234 1234",
-            expiry: null,
-            variant: "sakuku-card", // for styling overrides
-        },
-        {
-            id: 2,
-            title: "Mtn Momo",
-            balance: null,
-            number: "3555 7644 0037 1021",
-            expiry: "Exp 24/26",
-            variant: "momo-card", // for styling overrides
-        },
-    ]);
+// const PaymentMethods = () => {
+//     // Example data structure for top payment cards
+//     const [addPaymentMethod, setAddPaymentMethod] = useState(false)
+//     const [selectedMethod, setSelectedMethod] = useState(null)
+//     const [paymentCards] = useState([
+//         {
+//             id: 1,
+//             title: "Sakuku",
+//             balance: "Gh845",
+//             number: "1234 1234 1234 1234",
+//             expiry: null,
+//             variant: "sakuku-card", // for styling overrides
+//         },
+//         {
+//             id: 2,
+//             title: "Mtn Momo",
+//             balance: null,
+//             number: "3555 7644 0037 1021",
+//             expiry: "Exp 24/26",
+//             variant: "momo-card", // for styling overrides
+//         },
+//     ]);
 
-    // Example data structure for payment method items
-    const [methodList, setMethodList] = useState([
-        { id: 1, label: "Mobile Money", removable: true },
-        { id: 2, label: "Visa Card", removable: false },
-        { id: 3, label: "Master Card", removable: false },
-    ]);
+//     // Example data structure for payment method items
+//     const [methodList, setMethodList] = useState([
+//         { id: 1, label: "Mobile Money", removable: true },
+//         { id: 2, label: "Visa Card", removable: false },
+//         { id: 3, label: "Master Card", removable: false },
+//     ]);
 
-    // Handler to remove a payment method from the list
-    const handleRemoveMethod = (id) => {
-        setMethodList((prev) => prev.filter((item) => item.id !== id));
-    };
+//     // Handler to remove a payment method from the list
+//     const handleRemoveMethod = (id) => {
+//         setMethodList((prev) => prev.filter((item) => item.id !== id));
+//     };
 
-    // Handler to simulate adding a new payment method
-    const handleAddMethod = () => {
-        return (
-            setAddPaymentMethod((prev) => !prev)
-        )
-    };
+//     // Handler to simulate adding a new payment method
+//     const handleAddMethod = () => {
+//         return (
+//             setAddPaymentMethod((prev) => !prev)
+//         )
+//     };
 
-    // Renders the form for the selected payment method
-    const renderPaymentMethodView = () => {
-        switch (selectedMethod) {
-            case 1:
-                return <MomoPaymentView />;
-            case 2:
-                return <VisaPaymentView />;
-            case 3:
-                return <MastercardPaymentView />;
-            default:
-                return null;
-        }
-    };
-    // If a payment method is selected, render only its component
-    if (selectedMethod) {
-        const handleCancel = () => {
-            console.log("cancel")
-        }
+//     // Renders the form for the selected payment method
+//     const renderPaymentMethodView = () => {
+//         switch (selectedMethod) {
+//             case 1:
+//                 return <MomoPaymentView />;
+//             case 2:
+//                 return <VisaPaymentView />;
+//             case 3:
+//                 return <MastercardPaymentView />;
+//             default:
+//                 return null;
+//         }
+//     };
+//     // If a payment method is selected, render only its component
+//     if (selectedMethod) {
+//         const handleCancel = () => {
+//             console.log("cancel")
+//         }
 
-        const handleConfirm = () => {
-            console.log("confirm")
-        }
-        return (
-            <>
-            <div className="payment-method-form-container">
-                {renderPaymentMethodView()}
-            </div>
-            {/* <GenericModal
-                headerText="Deleting Payment Mode"
-                paragraphText="Are you sure you want to delete this payment mode. Deleting this payment mode means you would lose all information attached to this payment mode"
-                img={pauseDurationModalImg}
-                sectionClassName="manage-subscriptions-modal-section"
-                ContentWrapper="manage-subscriptions-modal-content-wrapper"
-                buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="pause-duration-btn" label="Confirm" action={handleConfirm} />] }
-            /> */}
-            </>
-        );
-    }
+//         const handleConfirm = () => {
+//             console.log("confirm")
+//         }
+//         return (
+//             <>
+//             <div className="payment-method-form-container">
+//                 {renderPaymentMethodView()}
+//             </div>
+//             {/* <GenericModal
+//                 headerText="Deleting Payment Mode"
+//                 paragraphText="Are you sure you want to delete this payment mode. Deleting this payment mode means you would lose all information attached to this payment mode"
+//                 img={pauseDurationModalImg}
+//                 sectionClassName="manage-subscriptions-modal-section"
+//                 ContentWrapper="manage-subscriptions-modal-content-wrapper"
+//                 buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="pause-duration-btn" label="Confirm" action={handleConfirm} />] }
+//             /> */}
+//             </>
+//         );
+//     }
 
-    return (
-        <>
-            {!addPaymentMethod ? <div className="payment-methods-container">
-                {/* Top Payment Cards */}
-                <div className="payment-cards-wrapper">
-                    {paymentCards.map((card) => (
-                        <div key={card.id} className={`payment-card ${card.variant}`}>
-                            <div className="payment-card-content">
-                                <h4 className="payment-card-title">{card.title}</h4>
-                                <div className="payment-card-bottom-details">
-                                    {card.balance && <p className="payment-card-balance">{card.balance}</p>}
-                                    <p className="payment-card-number">{card.number}</p>
-                                    {card.expiry && <p className="payment-card-exp">{card.expiry}</p>}
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
+//     return (
+//         <>
+//             {!addPaymentMethod ? <div className="payment-methods-container">
+//                 {/* Top Payment Cards */}
+//                 <div className="payment-cards-wrapper">
+//                     {paymentCards.map((card) => (
+//                         <div key={card.id} className={`payment-card ${card.variant}`}>
+//                             <div className="payment-card-content">
+//                                 <h4 className="payment-card-title">{card.title}</h4>
+//                                 <div className="payment-card-bottom-details">
+//                                     {card.balance && <p className="payment-card-balance">{card.balance}</p>}
+//                                     <p className="payment-card-number">{card.number}</p>
+//                                     {card.expiry && <p className="payment-card-exp">{card.expiry}</p>}
+//                                 </div>
+//                             </div>
+//                         </div>
+//                     ))}
+//                 </div>
 
-                {/* Payment Methods List */}
-                <div className="payment-methods-list">
-                    {methodList.map((method) => (
-                        <div key={method.id} className="payment-method-item" onClick={() => setSelectedMethod(method.id)}>
-                            <span className="payment-method-label">{method.label}</span>
-                            <SettingsArrowRight className="payment-arrow-right" />
-                        </div>
-                    ))}
-                </div>
+//                 {/* Payment Methods List */}
+//                 <div className="payment-methods-list">
+//                     {methodList.map((method) => (
+//                         <div key={method.id} className="payment-method-item" onClick={() => setSelectedMethod(method.id)}>
+//                             <span className="payment-method-label">{method.label}</span>
+//                             <SettingsArrowRight className="payment-arrow-right" />
+//                         </div>
+//                     ))}
+//                 </div>
 
-                {/* Add New Payment Method Button */}
-                <Button className="add-new-payment-btn" action={handleAddMethod} label="Add New Payment Method" svg={<AddPaymentPlus className="add-payment-plus" />} />
+//                 {/* Add New Payment Method Button */}
+//                 <Button className="add-new-payment-btn" action={handleAddMethod} label="Add New Payment Method" svg={<AddPaymentPlus className="add-payment-plus" />} />
 
-            </div> : <AddPaymentMethod />}
-        </>
+//             </div> : <AddPaymentMethod />}
+//         </>
 
-    );
-};
+//     );
+// };
 
 const MomoPaymentView = () => {
     const momopaymentdata = [{ name: "Davida Dzato" }, { "card Number": "**** *** 348" }, { "Valid From": "10/15" }, { "expire Date": "10/20" }]
@@ -435,13 +449,7 @@ const AddMomoPaymentMethod = () => {
 
 const SubscriptionPlans = () => {
     const [paymentSuccess, setPaymentSuccess] = useState(false)
-    const currentPlan = {
-        planTitle: "Monthly Plan",
-        planDescription:
-            "Access to a wider selection of movies and shows, including most new releases and exclusive content.",
-        planPrice: "Gh300.99",
-        planDuration: "monthly"
-    };
+   
 
     // 2) Upgrade/downgrade plans
     const upgradePlans = [
@@ -476,17 +484,7 @@ const SubscriptionPlans = () => {
         <>
             <div className="subscription-plans-view">
                 {/* Current Plan */}
-                <div className="current-plan-wrapper">
-                    <h3 className="current-plan-section-header">Current Plan</h3>
-                    <EdenStreamsPlanCard
-                        variant="selected" // highlight the current plan
-                        planTitle={currentPlan.planTitle}
-                        planDescription={currentPlan.planDescription}
-                        planPrice={currentPlan.planPrice}
-                        planDuration={currentPlan.planDuration}
-                    />
-                </div>
-
+              
                 {/* Upgrade/Downgrade Options */}
                 <div className="upgrade-plans-wrapper">
                     <h3 className="upgrade-plans-section-header">Upgrade/Downgrade Options</h3>
@@ -518,21 +516,69 @@ const SubscriptionPlans = () => {
 };
 
 
+// Component to display a single billing history item based on Figma
+const BillingHistoryItem = ({ image, title, orderNo, price, date }) => {
+    return (
+        <div className="billing-history-item">
+            <img loading="lazy" src={image} alt={title} className="billing-history-item-image" />
+            <div className="billing-history-item-details">
+                <h4 className="billing-history-item-title">{title}</h4>
+                <p className="billing-history-item-order">Order No: {orderNo}</p>
+                <p className="billing-history-item-price">Price: {price}</p>
+                <p className="billing-history-item-date">On {date}</p>
+            </div>
+            {/* Assuming the 'D' circle is a status indicator or similar,
+                you might add an element here if needed based on the full Figma context.
+                For now, I'll omit it as the image only shows 'D' without clear context. */}
+        </div>
+    );
+};
+
 const BillingHistory = () => {
-    const [dateRangeSelected, setDateRangeSelect] = useState(false)
+    const [dateRangeSelected, setDateRangeSelect] = useState(false);
+    const planImage = "/assets/word-of-god.png"; // Placeholder image for billing history items
+    // Updated placeholder billing history data to match Figma fields
+    // const [billingHistoryData, setBillingHistoryData] = useState([
+        // { id: 1, image: '/assets/word-of-god.png', title: 'Daily', orderNo: '3358880', price: 'GHS 3', date: '2025-05-25' },
+        // { id: 2, image: '/assets/word-of-god.png', title: 'Weekly', orderNo: '3358881', price: 'GHS 70', date: '2025-05-18' },
+        // { id: 3, image: '/assets/word-of-god.png', title: 'Monthly', orderNo: '3358882', price: 'GHS 300.99', date: '2025-04-25' },
+    // ]);
+    const billingHistoryData = useSelector((state) => state.fetchPackages.purchaseHistory) || [];
+    const filteredBillingHistoryData = billingHistoryData.filter((item) => item.product_name !== "Free");
+  
     const handledateRangeSelect = () => {
         setDateRangeSelect((prev) => !prev)
     }
     return (
         <div className="billing-history">
-            <div className="select-date-range">
+            {/* <div className="select-date-range">
                 <div className={`select-date-range-header ${dateRangeSelected && "date-range-selected"}`} onClick={handledateRangeSelect}>
-                    <img loading="lazy" className="date-range-img" src={dateRangeImg} />
+                    <img loading="lazy" className="date-range-img" src={dateRangeImg} alt="Date Range Icon" />
                     <p className="date-range-text">Select Date Range</p>
                 </div>
                 {dateRangeSelected && <DateRangePicker />}
-            </div>
+            </div> */}
 
+            {/* Render the list of billing history items or "No History" message */}
+            {filteredBillingHistoryData.length > 0 ? (
+                <div className="billing-history-list">
+                    {filteredBillingHistoryData.map(item => (
+                        <BillingHistoryItem
+                            key={item.id}
+                            image={planImage}
+                            title={item.product_name}
+                            orderNo={item.id}
+                            price={item.price}
+                            date={item.purchase_date    }
+                        />
+                    ))}
+                </div>
+            ) : (
+                <div className="no-billing-history">
+                    <HistoryIcon className="no-billing-history-icon" />
+                    <p className="no-billing-history-text">No History</p>
+                </div>
+            )}
         </div>
     );
 };
@@ -673,16 +719,46 @@ const SubscriptionSettings = () => {
     )
 }
 
+const ActiveBundles = () => {
+   const currentPlan = useSelector((state) => state.fetchPackages.activeSubscription);
+   const filteredCurrentPlan = currentPlan.filter((plan) => plan.product_name !== "Free");
+    console.log("Current Plan", currentPlan)
+    const planImage = '/assets/word-of-god.png'
+    return (
+        <div className="active-bundles">
+
+               <div className="current-plan-wrapper">
+                   
+                    {filteredCurrentPlan.length > 0 ? filteredCurrentPlan.map((plan, index) => (
+                        <BillingHistoryItem
+                        key={plan.id}
+                            image={planImage}
+                            title={plan.product_name}
+                            orderNo={plan.id}
+                            price={plan.price}
+                            date={plan.purchase_date}
+                        />
+                    )) :<div className="no-billing-history">
+                    <HistoryIcon className="no-billing-history-icon" />
+                     <p className="active-bundles-text">You have no active bundles at the moment.</p>
+                </div>}
+                   
+                </div>
+           
+        </div>
+    );
+};
+
 const SubscriptionContent = ({ selectedOption }) => {
     switch (selectedOption) {
         case 1:
             return <SubscriptionPlans />;
         case 2:
-            return <PaymentMethods />;
+            return <ActiveBundles/>
         case 3:
             return <BillingHistory />;
-        case 4:
-            return <SubscriptionSettings />
+        // case 4:
+        //     return <PaymentMethods />;
         case 5:
             return <ManageSubscription />;
         default:

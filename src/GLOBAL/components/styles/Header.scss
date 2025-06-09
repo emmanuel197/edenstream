@@ -510,29 +510,7 @@
       display: flex;
       gap: 1.5625vw;
 
-      .notification-icon {
-        background: transparent;
-
-
-        .align-content {
-          .notification-svg {
-            width: clamp(16px, 1.25vw, 24px);
-            aspect-ratio: 24 / 24.33147430419922;
-
-            &:hover,
-            &.selected {
-              path {
-                fill: #5B7F60;
-                stroke: none;
-
-              }
-            }
-
-
-
-          }
-        }
-      }
+      
 
       .notification-dropdown {
         position: absolute;
@@ -732,12 +710,13 @@
       .search-dropdown {
         position: absolute;
         top: 100%;
-        background-color: $black-06;
+        background-color: #02060D6B;
         right: 0;
         width: 22.9688vw;
         height: auto;
         border-radius: .5208vw;
         margin-right: 7.8125vw;
+        box-shadow: 0px 4px 30px 0px #2626264D;
 
         .search-filter-wrapper {
           display: flex;
@@ -784,6 +763,11 @@
             .search-filter-img {
               width: clamp(16px, 1.25vw, 24px);
               aspect-ratio: 1 / 1;
+              
+              path {
+                fill: $gold-200;
+                stroke: $gold-200;
+              }
             }
           }
         }
@@ -897,16 +881,7 @@
         }
       }
 
-      .search-icon {
-        background: transparent;
-
-        .align-content {
-          img {
-            width: 3.2vw;
-            aspect-ratio: 1 / 1;
-          }
-        }
-      }
+      
 
       .profile-wrapper {
         display: flex;
@@ -1007,6 +982,9 @@
     }
   }
 
+ .right-content-mobile {
+  display: none;
+ }
   .hamburger-icon {
     display: none !important;
     width: clamp(35px, 2.5vw, 48px);
@@ -1060,6 +1038,14 @@
       display: none !important;
     }
 
+     .right-content-mobile {
+    display: flex; 
+    align-items: center;
+    gap: clamp(10px, 0.833vw, 16px);
+    margin-left: auto;}
+
+
+
     .hamburger-icon {
       margin-left: auto;
       display: block !important;
@@ -1071,3 +1057,50 @@
   }
 
 }
+
+
+.search-icon {
+        background: transparent;
+
+        .align-content {
+          .search-svg {
+            width: clamp(24px, 1.25vw, 24px);
+            aspect-ratio: 1 / 1;
+            &:hover {
+                path {
+                  stroke: $gold-200;
+                }
+              }
+            &.selected {
+              path {
+                stroke: $gold-200;
+              }
+            }
+          }
+        }
+      }
+
+
+      .notification-icon {
+        background: transparent;
+
+
+        .align-content {
+          .notification-svg {
+            width: clamp(24px, 1.25vw, 24px);
+            aspect-ratio: 24 / 24.33147430419922;
+
+            &:hover,
+            &.selected {
+              path {
+                fill: $gold-200;
+                stroke: none;
+
+              }
+            }
+
+
+
+          }
+        }
+      }
