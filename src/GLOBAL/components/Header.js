@@ -112,19 +112,23 @@ const Header = ({ variantClassName }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [userInfo, setUserInfo] = useState(COOKIES.get("user_info"));
-  
+
   const showNotificationHandler = () => {
-    setShowNotificationDropdown((prev) => !prev
-    )
+    setShowSearchDropdown(false); // Close search dropdown
+    setShowProfileDropdown(false); // Close profile dropdown
+    setShowNotificationDropdown((prev) => !prev); // Toggle notification dropdown
   }
   const showSearchHandler = () => {
-    setShowSearchDropdown((prev) => !prev
-    )
+    setShowNotificationDropdown(false); // Close notification dropdown
+    setShowProfileDropdown(false); // Close profile dropdown
+    setShowSearchDropdown((prev) => !prev); // Toggle search dropdown
   }
   const showProfileHandler = () => {
-    setShowProfileDropdown((prev) => !prev
-    )
+    setShowNotificationDropdown(false); // Close notification dropdown
+    setShowSearchDropdown(false); // Close search dropdown
+    setShowProfileDropdown((prev) => !prev); // Toggle profile dropdown
   }
+
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;

@@ -6,7 +6,8 @@ import Button from "./buttons/Button";
 import "./styles/Drawer.scss";
 import { closeBtn } from "../../utils/assets";
 import { COOKIES } from "../../utils/constants";
-
+import { logout } from "../redux/account";
+import {LogoutIcon} from "../../utils/assets";
 const Drawer = ({user_info}) => {
   const dispatch = useDispatch();
   const location = useLocation();
@@ -21,7 +22,8 @@ const Drawer = ({user_info}) => {
         {label:"Music", link: "music"},
         {label: "Live Tv", link: "livetv"},
         {label: "My List", link: "mylist"},
-        {label:"Subscriptions", link: "subscription"} ]
+        {label:"Subscriptions", link: "subscription"},
+    {label: "Profile", link: "profile"} ]
 
   const [showDropdown, setShowDropdown] = useState(false);
   const toggleDropdown = () => setShowDropdown(!showDropdown);
@@ -54,6 +56,9 @@ const Drawer = ({user_info}) => {
                </Link>
              </li>
           )})}
+           <li className={`${!user_info && "invisible"}`}><Link className="nav-link logout" onClick={() => logout()}>
+                            Logout</Link></li>
+          
           {!user_info && <div className="signup-login-wrapper">
           <Link className="login-btn" to="/login" onClick={() => _hideDrawer(false)}>Log in</Link> {/* Close drawer on login link click */}
           <Link className="signup-btn" to="/signup" onClick={() => _hideDrawer(false)}>Sign Up</Link> {/* Close drawer on signup link click */}
