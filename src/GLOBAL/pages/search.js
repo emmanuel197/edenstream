@@ -17,18 +17,19 @@ import { Link } from "react-router-dom";
 // import { handleSearchInput } from "../redux/slice/inputSlice";
 const Search = () => {
   const dispatch = useDispatch();
-  const { searchQuery, searchResponse } = useSelector((state) => state.input);
+  const {  searchResponse } = useSelector((state) => state.input);
   const { genres } = useSelector((state) => state.fetchMovies);
   const { activeGenreTab } = useSelector(state => state.genreTab);
   const [filtered, setFiltered] = useState(false);
+   const [searchQuery, setSearchQuery] = useState("");
  const [showFilter, setShowFilter] = useState(false);
-   const handleSearchInput = (e) => {
-      const text = e.target.value;
-      console.log('Search input changed:', text);
-      // setSearchQuery(text);
-      console.log('Dispatching search action with text:', text);
-      dispatch(search(text));
-    };
+     const handleSearchInput = (e) => {
+       const text = e.target.value;
+       console.log('Search input changed:', text);
+       setSearchQuery(text);
+       console.log('Dispatching search action with text:', text);
+       dispatch(search(text));
+     };
 
     const handleSearchFilter = () => {
      setShowFilter(prev => !prev);

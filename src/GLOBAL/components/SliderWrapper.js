@@ -8,7 +8,7 @@ const SliderWrapper = ({ title, children, isTopTen }) => {
                     <div className='slider-section-name' >
                         {isTopTen?<div>
                             <h3><span className="primary-color-text">AFRIPLAY</span> <span style={{fontSize:'1.5rem'}}>| TOP 10</span></h3>
-                        </div>:<h3 style={{ fontFamily: 'Open Sans' }}>{title}</h3>}
+                        </div>:<h3 className="slide-title" style={{ fontFamily: 'Open Sans' }}>{title}</h3>}
                         <img loading="lazy" src='/assets/svg/chevron-right.svg' alt='chevron right' />
                     </div>
                     {children}

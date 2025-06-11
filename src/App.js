@@ -38,7 +38,7 @@ function App() {
       <Route path="/home" element={<ProtectedRoute><Home /></ProtectedRoute>} />
         <Route index element={<Landing />} />
         <Route path="/otp-verification" element={<OTPVerification />} />
-        <Route path="/contact" element={<ProtectedRoute><ContactUsPage /></ProtectedRoute>} />
+        {/* <Route path="/contact" element={<ProtectedRoute><ContactUsPage /></ProtectedRoute>} /> */}
         <Route path="/subscription" element={<ProtectedRoute><SubscriptionPage /></ProtectedRoute>} />
         <Route path="/movies" element={<ProtectedRoute><MoviesPage/></ProtectedRoute>}/>
         <Route path="/movie/:id" element={<ProtectedRoute><MovieDetailsPage /></ProtectedRoute>} />

@@ -55,31 +55,64 @@
             }
             .support-detail {
                 width: 100%;
-                
                 padding: clamp(10px, .8333vw, 16px);
                 background: transparent;
                 border: 2px solid #999999;
                 box-shadow: 0px 1px 0px 0px #363B4740 inset;
                 border-radius: 6px;
-                align-items: center;
-                display: flex;
+                display: flex; // Change to flex column to stack content and detail
+                flex-direction: column;
+                cursor: pointer; // Indicate it's interactive
+                transition: border-color 0.3s ease; // Optional: transition border color
+
+                &:hover {
+                    border-color: $gold-200; // Optional: change border on hover
+                }
+
+                &-content { // Style for the icon and text row
+                    display: flex;
+                    align-items: center;
+                }
 
                 &-img {
                     margin-right: 1.4583vw;
                     width: clamp(12px, 1.25vw, 24px);
                     aspect-ratio: 1 / 1;
-                
+
                     path {
                         fill: $gold-200;
                     }
                 }
-                
+
                 &-text {
                     font-weight: 500;
                     font-size: clamp(10px, .8333vw, 16px);
                     line-height: 1.25vw;
                     letter-spacing: 0%;
                     color: $white;
+                }
+
+                &-detail-wrapper { // Wrapper for the detail text
+                    max-height: 0; // Initially hidden
+                    overflow: hidden;
+                    transition: max-height 0.5s ease-in-out; // Transition for sliding effect
+                    padding-left: calc(clamp(12px, 1.25vw, 24px) + 1.4583vw); // Align detail text with main text
+                    padding-top: 0; // No padding top initially
+                      &.hovered { // Show detail on hover
+                    max-height: 9999px; // Use a large value to ensure content is visible
+                    padding-top: clamp(8px, .4167vw, 8px); // Add padding top when shown
+                }
+                }
+
+              
+
+                &-detail-text { // Style for the detail text
+                    font-weight: 400;
+                    font-size: clamp(9px, .7292vw, 14px);
+                    line-height: 1.1458vw;
+                    letter-spacing: 0%;
+                    color: #CCCCCC; // Lighter color for detail
+                    word-break: break-all; // Prevent overflow for long emails
                 }
             }
         }

@@ -40,7 +40,7 @@ const MovieCard = ({ movie, type, active }) => {
     title: ""
   });
 
- 
+  console.log("MovieCard movie", movie);
     // Determine if the movie is in the watchlist
     const isWatchlisted = watchlist.some(
         (item) => item.movie_id === movie.id || (item.movie && item.movie.movie_id === movie.id)
@@ -113,7 +113,7 @@ const MovieCard = ({ movie, type, active }) => {
 
     // Existing MovieCardComponent logic for other types
     const MovieCardComponent = () => (
-        <div className="movie-card">
+        <div className="movie-card live-tv-movie-card ">
             <div
                 className="mc-image-wrapper"
                 onClick={() => {
@@ -126,7 +126,7 @@ const MovieCard = ({ movie, type, active }) => {
                 }}
             >
                 <LazyLoadImage
-                    className="mc-image"
+                    className={`mc-image`}
                     // Pass type and channelInfo to getImageSrc (though they won't be used here)
                     src={getImageSrc(movie_image, movie)}
                     alt={movie.name || movie.title}
@@ -161,7 +161,7 @@ const MovieCard = ({ movie, type, active }) => {
     console.log("Channel info", channelInfo);
     return (
       // channelInfo.image_stores[0].id !== undefined && 
-      (<div className="movie-card">
+      (<div className="movie-card live-tv-movie-card">
         <Link to={`/watch/live/${channelInfo?.uid}`}>
           <div className="movie-box">
             <div className="poster-div">

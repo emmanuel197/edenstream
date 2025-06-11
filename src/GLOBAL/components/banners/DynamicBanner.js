@@ -19,8 +19,9 @@ import {
   plusIcon,
   minusIcon
 } from "../../../utils/assets";
+import Spinner from "../Spinner";
 
-
+import { ErrorComponent } from "../../pages/errorPage";
 const fetchDataForBannerSlider = (recentlyAdded) => {
   if (!recentlyAdded?.length) return [];
 
@@ -42,6 +43,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   const { inspiring, watchlist } = useSelector((state) => state.fetchMovies);
   console.log("watchlist[DynamicBanner]", watchlist)
   const [isPlaying, setIsPlaying] = useState(false);
+   const [loading, setLoading] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -410,9 +412,8 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
     }
   };
 
-  if (!movieData) {
-    return null;
-  }
+  if (loading) return <Spinner wrapperClass="spinner-wrapper" className="watch-spinner"/>;
+  if (!movieData) return <ErrorComponent/>
 
   const truncatedDescription = movieData.description?.length > 150 
     ? `${movieData.description.substring(0, 150)}...` 

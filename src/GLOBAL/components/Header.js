@@ -19,6 +19,7 @@ const Header = ({ variantClassName }) => {
   const { profile } = useSelector((state) => state.account);
   const cookies = new Cookies();
   const location = useLocation();
+  console.log('Header location:');
   const dispatch = useDispatch();
   const { showDrawer } = useSelector(state => state.drawer);
   const _toggleDrawer = () => dispatch(toggleDrawer(!showDrawer));
@@ -63,7 +64,7 @@ const Header = ({ variantClassName }) => {
   const navigate = useNavigate();
   // Get search results from Redux
   const { searchResponse } = useSelector((state) => state.input);
-  // console.log('Header searchResponse:', searchResponse);
+  console.log('Header searchResponse:', searchResponse);
 
   const profileItems = [
     {
@@ -258,8 +259,8 @@ const Header = ({ variantClassName }) => {
                   <div className="search-results-wrapper">
                     {searchResponse.slice(0, 2).map((result) => (
                       <div className="search-result" key={result.id}>
-                        <h6 className="search-result-header">{result.title || result.name}</h6>
-                        <div className="search-result-detail">
+                        {/* <h6 className="search-result-header">{result.title || result.name}</h6> */}
+                        <div className="search-result-detail" onClick={() => navigate(`/watch/movie/${result.uid}`, { state: { title: result.title } })}>
                           <img className="search-result-img" src={getImageSrc(result.image_id, result)}/>
                           <p className="search-result-title">{result.title || result.name}</p>
                         </div>
@@ -297,73 +298,14 @@ const Header = ({ variantClassName }) => {
              </div>)}
         </div>
       <div className="right-content-mobile">
-        {userInfo && <Button className="notification-icon" svg={<NotificationIcon className={`notification-svg ${showNotificationDropdown && "selected"}`} />} action={showNotificationHandler} page="/" />}
-        {showNotificationDropdown && <div className="notification-dropdown"
-              >
-                <h4 className="notification-dropdown-header">
-                  Notifications
-                </h4>
-                <div className="mark-as-read"><img src={doubleCheck} className="mark-as-read-img" /><p>Mark as Read</p></div>
-                {notifications.length > 0 ? <><div className="notification-content-wrapper">
-                  <h5 className="notification-period-header">Today</h5>
-                  {notifications.map((notification) => (
-                    <div key={notification.id} className="notification-detail">
-                      <span className="notification-detail-img">{notification.icon}</span>
-                      <div className="notification-detail-text">
-                        <h6 className="notification-detail-header">{notification.title}</h6>
-                        <p className="notification-detail-body">{notification.body}</p>
-                        <Link to={notification.linkUrl} className="notification-detail-link">{notification.linkText}</Link>
-                      </div>
-                      <div className="notification-status-time">
-                        <p className="notification-time">{notification.time}</p>
-                        {notification.isUnread && <span className="notification-status unread"></span>}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-                <div className="view-all-notifications">
-                  <a className="van-text">View All Notification</a>
-                </div></> :<div className="no-notifications-wrapper">
-                  <img className="no-notifications-img" src={noNotifications} />
-                  <p className="no-notifications-text">No Notifications</p>
-                </div>}
-                
-                
-              </div>}
+        {userInfo && <Button
+          className={`notification-icon `}
+          svg={<NotificationIcon className={`notification-svg ${showNotificationDropdown && "selected"} ${location.search == "?tab=Notifications%20%26%20Reminders" ? "active" : ""}`} />}
+          // action={showNotificationHandler} // Keep the action to toggle the dropdown
+          page="/profile?tab=Notifications%20%26%20Reminders" // Navigate to the Notifications & Reminders tab
+        />}
         {userInfo && <Button className="search-icon" svg={<SearchIcon className={`search-svg ${location.pathname ==="/search" && "selected"}`}/> }  page="/search" />}
-        {/* {showSearchDropdown && <div className="search-dropdown"
-              >
-                <div className="search-filter-wrapper">
-                  <div className="search-wrapper">
-                    <TextInput value={searchQuery} onChange={handleSearchInput} icon={<WrapperSearch className="wrapper-search"/>} className="header-search-textinput"/>
-                  </div>
-                  <Link to="/search" className="filter-wrapper">
-                   <SearchFilter  className="search-filter-img"/>
-                  </Link>
-                </div>
-                {searchResponse && searchResponse.length > 0 ? <>
-                  <div className="search-results-wrapper">
-                    {searchResponse.slice(0, 2).map((result) => (
-                      <div className="search-result" key={result.id}>
-                        <h6 className="search-result-header">{result.title || result.name}</h6>
-                        <div className="search-result-detail">
-                          <img className="search-result-img" src={getImageSrc(result.image_id, result)}/>
-                          <p className="search-result-title">{result.title || result.name}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="view-all-results">
-                    <a className="var-text" onClick={() => navigate('/search')} style={{cursor: 'pointer'}}>View all Search Results</a>
-                  </div>
-                </> : <div className="no-search-results">
-                  <NoStream className="no-stream-img" />
-                  <p className="no-stream-text">We are sorry ,we cannot find the streaming
-                    content you are looking for</p>
-                </div>}
-              </div>} */}
         {!showDrawer && <Button icon={hamburgerIcon} className="hamburger-icon" action={_toggleDrawer} />}
-
       </div>
   
       </header>

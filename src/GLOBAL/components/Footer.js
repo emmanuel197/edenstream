@@ -24,7 +24,7 @@ const Footer = ({marginTop, marginBottom}) => {
 
   const footerLinks = {
     home: ["Featured", "Movies", "Word", "Music", "Live TV", "Live Radio"],
-    support: ["Contact", "FAQs"],
+    support: ["FAQs"],
     subscription: ["Plans", "Features"]
   };
 

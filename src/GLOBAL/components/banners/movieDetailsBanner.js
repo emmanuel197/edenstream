@@ -4,8 +4,10 @@ import Button from "../buttons/Button";
 import ReactPlayer from "react-player";
 import { useParams, useNavigate, useLocation } from "react-router-dom";
 import { returnMovieDetails, fetchTrailer, updateWatchlist, removeWatchlist, fetchWatchlist, favoritedMovies, checkFavoritedStatus, addToFavorites } from "../../redux/fetchMoviesApi";
-import { playIcon, pauseIcon, unmuteIcon, muteIcon, LikeIcon, plusIcon, minusIcon } from "../../../utils/assets";
+import { playIcon, pauseIcon, unmuteIcon, muteIcon, LikeIcon, plusIcon, minusIcon, NoStream } from "../../../utils/assets";
 import { useDispatch, useSelector } from "react-redux";
+import Spinner from "../Spinner";
+import { ErrorComponent } from "../../pages/errorPage";
 
 const MovieDetailsBanner = () => {
   const { id } = useParams();
@@ -132,8 +134,8 @@ const MovieDetailsBanner = () => {
     }
   };
 
-  if (loading) return <div style={{minHeight: 300}}>Loading banner...</div>;
-  if (!movieData) return <div style={{minHeight: 300}}>Movie not found.</div>;
+  if (loading) return <Spinner wrapperClass="spinner-wrapper" className="watch-spinner"/>;
+  if (!movieData) return <ErrorComponent/>
 
   const truncatedDescription = movieData.description?.length > 150
     ? `${movieData.description.substring(0, 150)}...`

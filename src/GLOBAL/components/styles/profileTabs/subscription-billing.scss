@@ -290,6 +290,97 @@
 
 }
 
+.generic-modal-section {
+    &.cancel-subscription-modal-section {
+        width: 35vw;
+        padding: 2vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1000;
+        position: fixed;
+
+        @media (max-width: 840px) {
+            width: 80%;
+            padding: 20px;
+        }
+        @media (max-width: 500px) {
+            width: 90%;
+            padding: 15px;
+        }
+
+        .modal-content-wrapper {
+            &.cancel-subscription-modal-content-wrapper {
+                width: 100%;
+                gap: 1.5vw;
+                align-items: center;
+
+                @media (max-width: 840px) {
+                    gap: 20px;
+                }
+
+                .modal-content-header {
+                    text-align: center;
+                }
+
+                .modal-content-paragraph {
+                    text-align: center;
+                }
+
+                .modal-buttons-container {
+                    display: flex;
+                    justify-content: center;
+                    gap: 1vw;
+
+                    @media (max-width: 840px) {
+                        gap: 15px;
+                    }
+                    @media (max-width: 500px) {
+                        flex-direction: column;
+                        gap: 10px;
+                    }
+
+                    .cancel-btn,
+                    .confirm-cancel-btn {
+                        width: 10vw;
+                        aspect-ratio: unset;
+                        padding: 0.7vw 1vw;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+
+                        @media (max-width: 840px) {
+                            width: 120px;
+                            padding: 10px 15px;
+                        }
+                        @media (max-width: 500px) {
+                            width: 100%;
+                        }
+                    }
+
+                    .cancel-btn {
+                        background: #141414;
+                        border: 1px solid #333;
+                        color: #ccc;
+                    }
+
+                    .confirm-cancel-btn {
+                        //use the gold and black linear gradient
+                         background: linear-gradient(
+        to right,
+        $gold-gradient-default,
+        $gold-gradient-default-secondary
+    );
+                        
+                        color: $white;
+                        border: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
 .subscription-settings-main {
     display: flex;
     flex-direction: column;
@@ -844,6 +935,9 @@
         width: 100%;
         gap: clamp(10px, 1.0417vw, 20px); // Gap between image and details
 
+        &:hover {
+            border-color: $gold-200; // Example hover effect
+        }
         .billing-history-item-image {
             width: clamp(40px, 4.1667vw, 80px); // Adjust size based on Figma
             aspect-ratio: 1 / 1;
@@ -888,7 +982,8 @@
         gap: clamp(10px, 1.0417vw, 20px);
         flex-direction: column;
         align-items: start;
-
+        min-width: 100%;
+        
         .current-plan-section-header {
             font-weight: 600;
             font-size: clamp(13px, 1.0417vw, 20px);
@@ -922,4 +1017,8 @@
 
     .active-bundles {
         width: 31.5104vw;
+        @media (max-width: 840px) {
+            width: 100%;
+            
+        }
     }

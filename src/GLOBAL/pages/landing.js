@@ -24,6 +24,7 @@ import { COOKIES } from "../../utils/constants";
 import "../components/styles/landing.scss";
 import ReelWrapper from "../components/reels/ReelWrapper";
 import WantToAccess from "../components/WantToAccess";
+import { WCToast } from "wc-toast";
 const Landing = () => {
   // I am setting cookies that ll later check for user browser when user logs in
   // this will help in setting the device info for login post API
@@ -55,6 +56,7 @@ const Landing = () => {
   return (
     <>
       <main>
+        <wc-toast></wc-toast>
         <div className="landing-page-bg">
           <Header />
           <Hero />

@@ -1091,14 +1091,13 @@
             aspect-ratio: 24 / 24.33147430419922;
 
             &:hover,
-            &.selected {
+            &.selected , &.active{
               path {
                 fill: $gold-200;
                 stroke: none;
 
               }
             }
-
 
 
           }

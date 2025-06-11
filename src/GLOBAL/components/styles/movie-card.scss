@@ -10,7 +10,10 @@
     border: 0.0625rem solid $black-15;
     row-gap: .8333vw;
     aspect-ratio: 178.39999389648438 / 259;
-  
+    &.live-tv-movie-card {
+        aspect-ratio: 1 / 1;
+       
+    }
 
     &.moviecard-profile {
         background: $black-10;
@@ -28,7 +31,9 @@
             object-fit: fill;
             aspect-ratio: 178.39999389648438 / 259;
            
-
+            &.livetv-movie-card {
+                aspect-ratio: 1 / 1;
+            }
             @media (max-width: 500px) {
                 object-fit: cover;
             }

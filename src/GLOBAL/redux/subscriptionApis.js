@@ -136,6 +136,7 @@ export const cancelSubscription = async (product_id) => {
         // console.log(response)
         if (response.data.status === "ok") {
             const url = `https://tvanywhereonline.com/cm/api/purchase/?operator_uid=${operator_uid}&method=update`
+            
             const response = await axios.post(url, body, { headers });
             if (response.data.status === "ok") {
                 window.location.href = '/home'
@@ -153,3 +154,56 @@ export const cancelSubscription = async (product_id) => {
         // console.error('An error occurred:', error.message);
     }
 }
+
+export const cancelAutoRenewal = async (product_id) => {
+    store.dispatch(fetchPackageReducer(true)); // Indicate loading
+    try {
+        const selectedOperator = JSON.parse(window.localStorage.getItem('afri_selected_operator'));
+        const operator_uid = selectedOperator.operator_uid;
+        const subscriber_uid = window.localStorage.getItem('afri_username')
+        console.log('Subscriber UID:', subscriber_uid);
+        // API URL for updating the purchase (used for cancelling auto-renewal)
+        const url = `https://tvanywhereonline.com/cm/api/purchase/?operator_uid=${operator_uid}&method=update`;
+
+        // Request headers
+        const headers = {
+            'Password': process.env.REACT_APP_API_PASSWORD,
+            'Content-Type': 'application/json'
+        };
+
+        // Request body - includes necessary info for the update method
+        const body = {
+            "subscriber_uid": subscriber_uid,
+            "product_id": product_id,
+            "medium": "web",
+            // Assuming the API expects a field to specifically cancel auto-renewal.
+            // Based on the context of the cancelSubscription function using method=update,
+            // the API might infer cancellation from the method itself or require a specific flag.
+            // Without explicit API docs, we'll use the same body as the second call in cancelSubscription.
+            // If a specific flag is needed (e.g., "auto_renew": false), it should be added here.
+        };
+
+        console.log('Cancel Auto-Renewal request body:', body);
+
+        // Making POST request using Axios
+        const response = await axios.post(url, body, { headers });
+
+        console.log('Cancel Auto-Renewal response:', response);
+
+        if (response.data.status === "ok") {
+            TOAST.success("Auto-renewal cancelled successfully.");
+            // Optionally dispatch an action to update the local state,
+            // e.g., refetch active subscriptions or update the specific subscription status
+            // store.dispatch(fetchActivePackages(store.dispatch, 'active'));
+        } else {
+            // Handle API response indicating failure
+            TOAST.warning(response.data.message || "Failed to cancel auto-renewal.");
+        }
+
+    } catch (error) {
+        TOAST.error(error.response.data.message); // Use a more specific error message if available
+        console.error('An error occurred while cancelling auto-renewal:', error);
+    } finally {
+        store.dispatch(fetchPackageReducer(false)); // Stop loading
+    }
+};

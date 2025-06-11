@@ -11,8 +11,11 @@ import TextInput from "../formInputs/textInput";
 import SelectInput from "../formInputs/selectInput";
 import DateRangePicker from "../datePicker";
 import GenericModal from "../genericModal";
-import { fetchPurchaseHistory, fetchActivePackages } from "../../redux/subscriptionApis";
+import { fetchPurchaseHistory, fetchActivePackages, cancelSubscription, cancelAutoRenewal } from "../../redux/subscriptionApis";
 import { useDispatch, useSelector } from "react-redux";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 const SubscriptionBilling = ({ active }) => {
     const [selectedOption, setSelectedOption] = useState(null);
@@ -21,11 +24,11 @@ const SubscriptionBilling = ({ active }) => {
     (state) => state.fetchPackages
   );
 
-          
+
 useEffect(() => {
     fetchActivePackages(dispatch, "Active");
     fetchPurchaseHistory(dispatch);
-   
+
 
   }, [dispatch]);
     if (active === 'Subscription & Billing') {
@@ -37,6 +40,7 @@ useEffect(() => {
 
         return (
             <section className="subscription-billing-section">
+                <wc-toast></wc-toast>
                 <div className="subscription-billing-section-header-wrapper">
                     <SubscriptionsAndBillingIcon className="subscription-billing-section-header-icon" />
                     <h2 className="subscription-billing-header">Subscription & Billing</h2>
@@ -279,7 +283,7 @@ const AddPaymentMethod = () => {
             console.log("got it")
         }
         return (
-            <> 
+            <>
             {/* <GenericModal
             headerText="Payment Method Added!"
             paragraphText="Payment method successfully added! You can now use [Selected Payment Option] for transactions."
@@ -449,7 +453,7 @@ const AddMomoPaymentMethod = () => {
 
 const SubscriptionPlans = () => {
     const [paymentSuccess, setPaymentSuccess] = useState(false)
-   
+
 
     // 2) Upgrade/downgrade plans
     const upgradePlans = [
@@ -484,14 +488,14 @@ const SubscriptionPlans = () => {
         <>
             <div className="subscription-plans-view">
                 {/* Current Plan */}
-              
+
                 {/* Upgrade/Downgrade Options */}
                 <div className="upgrade-plans-wrapper">
                     <h3 className="upgrade-plans-section-header">Upgrade/Downgrade Options</h3>
                     <PlansContainer variant="column" planData={upgradePlans} />
-                    {/* 
-            ^ Pass a custom prop (e.g. `plansData`) so PlansContainer 
-            knows which plans to render. 
+                    {/*
+            ^ Pass a custom prop (e.g. `plansData`) so PlansContainer
+            knows which plans to render.
           */}
                 </div>
             </div>
@@ -517,9 +521,9 @@ const SubscriptionPlans = () => {
 
 
 // Component to display a single billing history item based on Figma
-const BillingHistoryItem = ({ image, title, orderNo, price, date }) => {
+const BillingHistoryItem = ({ image, title, orderNo, price, date, onClick }) => {
     return (
-        <div className="billing-history-item">
+        <div className="billing-history-item" onClick={onClick}>
             <img loading="lazy" src={image} alt={title} className="billing-history-item-image" />
             <div className="billing-history-item-details">
                 <h4 className="billing-history-item-title">{title}</h4>
@@ -527,9 +531,6 @@ const BillingHistoryItem = ({ image, title, orderNo, price, date }) => {
                 <p className="billing-history-item-price">Price: {price}</p>
                 <p className="billing-history-item-date">On {date}</p>
             </div>
-            {/* Assuming the 'D' circle is a status indicator or similar,
-                you might add an element here if needed based on the full Figma context.
-                For now, I'll omit it as the image only shows 'D' without clear context. */}
         </div>
     );
 };
@@ -537,18 +538,15 @@ const BillingHistoryItem = ({ image, title, orderNo, price, date }) => {
 const BillingHistory = () => {
     const [dateRangeSelected, setDateRangeSelect] = useState(false);
     const planImage = "/assets/word-of-god.png"; // Placeholder image for billing history items
-    // Updated placeholder billing history data to match Figma fields
-    // const [billingHistoryData, setBillingHistoryData] = useState([
-        // { id: 1, image: '/assets/word-of-god.png', title: 'Daily', orderNo: '3358880', price: 'GHS 3', date: '2025-05-25' },
-        // { id: 2, image: '/assets/word-of-god.png', title: 'Weekly', orderNo: '3358881', price: 'GHS 70', date: '2025-05-18' },
-        // { id: 3, image: '/assets/word-of-god.png', title: 'Monthly', orderNo: '3358882', price: 'GHS 300.99', date: '2025-04-25' },
-    // ]);
     const billingHistoryData = useSelector((state) => state.fetchPackages.purchaseHistory) || [];
     const filteredBillingHistoryData = billingHistoryData.filter((item) => item.product_name !== "Free");
-  
+
+
     const handledateRangeSelect = () => {
         setDateRangeSelect((prev) => !prev)
     }
+
+
     return (
         <div className="billing-history">
             {/* <div className="select-date-range">
@@ -724,11 +722,38 @@ const ActiveBundles = () => {
    const filteredCurrentPlan = currentPlan.filter((plan) => plan.product_name !== "Free");
     console.log("Current Plan", currentPlan)
     const planImage = '/assets/word-of-god.png'
+
+    const [showCancelModal, setShowCancelModal] = useState(false);
+    const [selectedBillingItem, setSelectedBillingItem] = useState(null);
+
+    const handleItemClick = (item) => {
+        setSelectedBillingItem(item);
+        setShowCancelModal(true);
+    };
+
+    const handleCancelModalClose = () => {
+        setShowCancelModal(false);
+        setSelectedBillingItem(null);
+    };
+
+    const handleConfirmCancellation = async () => {
+        if (selectedBillingItem) {
+           
+          
+
+            
+            await cancelAutoRenewal(selectedBillingItem.product_id);
+          
+        }
+        handleCancelModalClose();
+    };
+
+
     return (
         <div className="active-bundles">
 
                <div className="current-plan-wrapper">
-                   
+
                     {filteredCurrentPlan.length > 0 ? filteredCurrentPlan.map((plan, index) => (
                         <BillingHistoryItem
                         key={plan.id}
@@ -737,14 +762,27 @@ const ActiveBundles = () => {
                             orderNo={plan.id}
                             price={plan.price}
                             date={plan.purchase_date}
+                            onClick={() => handleItemClick(plan)}
                         />
                     )) :<div className="no-billing-history">
                     <HistoryIcon className="no-billing-history-icon" />
                      <p className="active-bundles-text">You have no active bundles at the moment.</p>
                 </div>}
-                   
+
                 </div>
-           
+
+            {showCancelModal && selectedBillingItem && (
+                <GenericModal
+                    headerText="Confirm Auto-Renewal Cancellation?"
+                    paragraphText={`Are you sure you want to cancel auto-renewal for your "${selectedBillingItem.product_name}" subscription? You will lose access after the current period ends.`}
+                    sectionClassName="cancel-subscription-modal-section"
+                    ContentWrapper="cancel-subscription-modal-content-wrapper"
+                    buttons={[
+                        <Button className="cancel-btn" label="Cancel" action={handleCancelModalClose} />,
+                        <Button className="confirm-cancel-btn" label="Confirm" action={handleConfirmCancellation} />
+                    ]}
+                />
+            )}
         </div>
     );
 };
