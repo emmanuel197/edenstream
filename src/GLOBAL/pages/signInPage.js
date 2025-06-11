@@ -92,7 +92,7 @@ const SignInPage = () => {
     //       <div className="signup-form-container">
     //         <h2 className="signup-form-header">Sign In</h2>
     <AuthLayout headerText="Sign In">
-       <wc-toast></wc-toast>
+       {/* <wc-toast style={{ zIndex: 1000000 }} ></wc-toast> */}
       <div className="form-fields">
         <div className="form-row">
           <TextInput

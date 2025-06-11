@@ -61,7 +61,7 @@ function App() {
         {/* <Route path="/series" element={<ProtectedRoute><Series /></ProtectedRoute>} /> */}
 
         {/* Add the new route for FaqPage */}
-        <Route path="/faqs" element={<ProtectedRoute><FaqPage /></ProtectedRoute>} />
+        <Route path="/faqs" element={<FaqPage />} />
 
 
         <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />

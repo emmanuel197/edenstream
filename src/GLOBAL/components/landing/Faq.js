@@ -58,6 +58,7 @@ const Faq = ({marginTop, marginBottom}) => {
 
   return (
     <section className="faq-section" style={{marginTop: marginTop, marginBottom: marginBottom}}>
+      <wc-toast></wc-toast>
       <div className="faq-section-header-wrapper">
         <div className="faq-section-header-container">
           <h2 className="faq-section-header">Frequently Asked Questions</h2>

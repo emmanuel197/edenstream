@@ -56,7 +56,7 @@ const Landing = () => {
   return (
     <>
       <main>
-        <wc-toast></wc-toast>
+        <wc-toast style={{ zIndex: 1000000 }}></wc-toast>
         <div className="landing-page-bg">
           <Header />
           <Hero />

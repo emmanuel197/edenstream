@@ -37,6 +37,7 @@ const AuthLayout = ({
   }
   return (
     <div className="auth-layer">
+      <wc-toast></wc-toast>
     <Header variantClassName="auth-variant" />
     <main className="auth-wrapper">
       
