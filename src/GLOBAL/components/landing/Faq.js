@@ -69,7 +69,7 @@ const Faq = ({marginTop, marginBottom}) => {
         <Button
           className="ask-a-question-btn"
           label="Ask a question"
-          page="/home"
+          page="/profile?tab=Support"
         />
       </div>
 
