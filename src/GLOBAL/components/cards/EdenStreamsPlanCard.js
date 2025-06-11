@@ -4,6 +4,8 @@ import "../../components/styles/EdenStreamsPlanCard.scss";
 import { selectedPlanIcon } from "../../../utils/assets";
 import { useDispatch } from "react-redux";
 import { subscriptionModalReducer } from '../../redux/slice/subscriptionSlice';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { COOKIES } from "../../../utils/constants"; // Import COOKIES
 
 const EdenStreamsPlanCard = ({
   variant,
@@ -17,16 +19,26 @@ const EdenStreamsPlanCard = ({
   const [selectedPlan, setSelectedPlan] = useState(false);
   const dispatch = useDispatch();
   const cardRef = useRef();
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const _initPurchasePackage = () => {
-    if (onChoose) onChoose(uid, cardRef);
-    // setSelectedPlan(true);
-    // dispatch(subscriptionModalReducer({
-    //   isOpen: true,
-    //   productId: uid,
-    //   productName: planTitle,
-    //   productPrice: planPrice,
-    //   currency: 'GHS'
-    // }));
+    const user_info = COOKIES.get("user_info"); // Check for user_info cookie
+
+    if (!user_info) {
+      // If user is not logged in, redirect to login page
+      navigate('/login');
+    } else {
+      // If user is logged in, proceed with choosing the plan
+      if (onChoose) onChoose(uid, cardRef);
+      // setSelectedPlan(true);
+      // dispatch(subscriptionModalReducer({
+      //   isOpen: true,
+      //   productId: uid,
+      //   productName: planTitle,
+      //   productPrice: planPrice,
+      //   currency: 'GHS'
+      // }));
+    }
   };
   return (
     <div ref={cardRef} className={`plan-card ${variant==="selected" && "plan-card-selected"}`}>

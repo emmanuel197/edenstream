@@ -20,14 +20,22 @@ import OTPVerification from "../components/otpVerificationPage/otpVerification";
 import { fetchGenres } from "../redux/fetchMoviesApi";
 import Cookies from "universal-cookie";
 import { ERROR_MESSAGES } from '../../utils/constants';
-
+import { COOKIES } from "../../utils/constants"
 const SignUpPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { isLoading } = useSelector((state) => state.auth);
   const { step, inputStarted } = useSelector((state) => state.form);
   const [nextAction, setNextAction] = useState(() => () => {});
-  
+  const user_info = COOKIES.get("user_info");
+   useEffect(() => {
+    // Check if user is authenticated
+    
+    
+      // Redirect to home if authenticated
+      user_info && navigate('/');
+    
+ }, [user_info]) 
   // Define total steps constant
   const TOTAL_SIGNUP_STEPS = 5;
 
