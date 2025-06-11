@@ -253,3 +253,49 @@ export const addNewsletterEmail = async (email) => {
         throw error; // Re-throw the error if needed by the caller
     }
 }
+
+export const fetchNotifications = async (dispatch) => {
+    try {
+        const { operator_uid } = user_info?.data?.data || {};
+        if (!operator_uid) {
+            console.error("Operator UID not found.");
+            TOAST.error("Operator information missing."); // Add error TOAST
+            return;
+        }
+        const subscriber_uid = window.localStorage.getItem('afri_username');
+        const response = await axios.get(`https://tvanywhereonline.com/cm/api/inbox/?operator_uid=${operator_uid}&subscriber_uid=${subscriber_uid}`);
+
+        if (response.data.status === "ok") {
+            dispatch(getMessages(response.data.data));
+            console.log("Notifications fetched successfully:", response);
+        } else {
+            TOAST.warning(response.data.message || "Failed to fetch notifications."); // Add warning TOAST
+        }
+    } catch (error) {
+        console.error('Error fetching notifications:', error);
+        TOAST.error(error.response?.data?.message || "An error occurred while fetching notifications."); // Add error toast
+    }
+}
+
+export const deleteNotification = async (notificationId) => {
+    try {
+        const { operator_uid } = user_info?.data?.data || {};
+        if (!operator_uid) {
+            console.error("Operator UID not found.");
+            TOAST.error("Operator information missing."); // Add error TOAST
+            return;
+        }
+        const subscriber_uid = window.localStorage.getItem('afri_username');
+        const response = await axios.delete(`https://tvanywhereonline.com/cm/api/inbox/?operator_uid=${operator_uid}&subscriber_uid=${subscriber_uid}&notification_id=${notificationId}&content_id=null&content_uid=null&image_id=null&content_type=null`);
+
+        if (response.data.status === "ok") {
+            console.log("Notification deleted successfully:", response);
+            TOAST.success("Notification deleted successfully!"); // Add success TOAST
+        } else {
+            TOAST.warning(response.data.message || "Failed to delete notification."); // Add warning TOAST
+        }
+    } catch (error) {
+        console.error('Error deleting notification:', error);
+        TOAST.error(error.response?.data?.message || "An error occurred while deleting the notification."); // Add error toast
+    }
+}

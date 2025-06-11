@@ -27,11 +27,12 @@ import SeriesPage from "./GLOBAL/pages/seriesPage";
 import Watch from "./GLOBAL/pages/watch"
 import LiveTvPage from "./GLOBAL/components/liveTvPage";
 import MyListPage from "./GLOBAL/pages/myListPage";
+import FaqPage from "./GLOBAL/pages/faqPage"; // Import the new FaqPage component
 // import RedirectAuthenticated from "./GLOBAL/components/RedirectAuthenticated";
 
 function App() {
   // const isAuthenticated = window.localStorage.getItem('isAuthenticated')
-  
+
   return (
     <BrowserRouter>
       <Routes>
@@ -43,9 +44,9 @@ function App() {
         <Route path="/movies" element={<ProtectedRoute><MoviesPage/></ProtectedRoute>}/>
         <Route path="/movie/:id" element={<ProtectedRoute><MovieDetailsPage /></ProtectedRoute>} />
         <Route path="/livetv" element={<ProtectedRoute><LiveTvPage/></ProtectedRoute>}/>
-        <Route path="/series" element={<ProtectedRoute><SeriesPage/></ProtectedRoute>}/>
-        <Route path="/word" element={<ProtectedRoute><DevotionalPage/></ProtectedRoute>}/>
-        <Route path="/music" element={<ProtectedRoute><MusicPage/></ProtectedRoute>}/>
+        {/* <Route path="/series" element={<ProtectedRoute><SeriesPage/></ProtectedRoute>}/> */}
+        {/* <Route path="/word" element={<ProtectedRoute><DevotionalPage/></ProtectedRoute>}/> */}
+        {/* <Route path="/music" element={<ProtectedRoute><MusicPage/></ProtectedRoute>}/> */}
         <Route path="/mylist" element={<ProtectedRoute><MyListPage/></ProtectedRoute>}/>
         <Route path="/signup" element={<SignUpPage />} />
         <Route path="/login" element={<SignInPage />} />
@@ -54,16 +55,19 @@ function App() {
 
         <Route path="/watch/:type/:id" element={<ProtectedRoute><Watch /></ProtectedRoute>}/>
 
-        
+
         <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} />
 
         {/* <Route path="/series" element={<ProtectedRoute><Series /></ProtectedRoute>} /> */}
 
-   
+        {/* Add the new route for FaqPage */}
+        <Route path="/faqs" element={<ProtectedRoute><FaqPage /></ProtectedRoute>} />
+
+
         <Route path="/search" element={<ProtectedRoute><Search /></ProtectedRoute>} />
 
         <Route path="/out-of-region" element={<ErrorPage text='Service is only available in Ghana and Nigeria' />} />
-        
+
 
         <Route path="*" element={<ErrorPage text='Page not found!' />} />
       </Routes>

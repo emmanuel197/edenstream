@@ -1,114 +1,61 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { noNotifications, DeleteNotificationIcon, NotificationsAndRemindersIcon, ProfileSettingsIcon, watchBackArrow, MarkAllAsReadIcon, pauseDurationModalImg, paymentSuccessModalImg } from "../../../utils/assets"
 import Button from "../buttons/Button";
 import "../../components/styles/profileTabs/notifications-reminders.scss"
 import ToggleSwitch from "../formInputs/toggleSwitch";
 import GenericModal from "../genericModal";
+import { fetchNotifications, deleteNotification } from "../../redux/account"; // Import deleteNotification
+import { useSelector, useDispatch } from "react-redux"; // Import useDispatch
 
 const NotificationReminders = ({ active }) => {
     const [selectedFilter, setSelectedFilter] = useState("All");
-    const [showSettings, setShowSettings] = useState(true);
+    const notifications = useSelector((state) => state.account.messages);
+    const dispatch = useDispatch(); // Get the dispatch function
+
+    // State for the delete confirmation modal
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [notificationToDeleteId, setNotificationToDeleteId] = useState(null);
+
     const handleConfirm = () => {
         console.log("confirm")
     }
     const handleCancel = () => {
         console.log("cancel")
     }
-    if (active === 'Notifications & Reminders') {
-        const notifications = [
-            {
-                timeSentHeader: "Today",
-                notificationsd: [
-                    {
-                        id: 1,
-                        icon: "🔔",
-                        title: "Your Live Devotional Starts Now!",
-                        body: "Join today’s morning devotional with Pastor Grace Thompson. Tap to join the stream.",
-                        linkText: "Tap to join the stream.",
-                        linkUrl: "#",
-                        time: "12:19AM",
-                        isUnread: true,
-                    },
-                    {
-                        id: 2,
-                        icon: "🎵",
-                        title: "Latest Gospel Music Drop!",
-                        body: "Listen to the newest release by Maverick City Music now on Eden Stream. Tap to join the stream.",
-                        linkText: "Tap to join the stream.",
-                        linkUrl: "#",
-                        time: "02:19PM",
-                        isUnread: true,
-                    }
-                ]
-            },
-            {
-                timeSentHeader: "Earlier",
-                notificationsd: [
-                    {
-                        id: 3,
-                        icon: "🔔",
-                        title: "Subscription Renewal Reminder",
-                        body: "Your Eden Stream Premium plan renews on April 8.",
-                        linkText: "Manage Subscription",
-                        linkUrl: "#",
-                        time: "2d",
-                        isUnread: true,
-                    },
-                    {
-                        id: 4,
-                        icon: "🔥",
-                        title: "Limited-Time Offer: Get 1 Month Free!",
-                        body: "Sign up for a 12-month plan and get 1 month free!",
-                        linkText: "See Offer",
-                        linkUrl: "#",
-                        time: "7d",
-                        isUnread: true,
-                    },
-                    {
-                        id: 5,
-                        icon: "📺",
-                        title: "Watch History: New Sermon 'YOU' Level!",
-                        body: "We saw you might enjoy the new sermon “YOU” Level by Pastor Lisa Brown. Tap to watch now!",
-                        linkText: "Tap to watch now",
-                        linkUrl: "#",
-                        time: "8d",
-                        isUnread: true,
-                    },
-                    {
-                        id: 6,
-                        icon: "🔔",
-                        title: "Subscription Renewal Reminder",
-                        body: "Your Eden Stream Premium plan renews on April 1.",
-                        linkText: "Manage Subscription",
-                        linkUrl: "#",
-                        time: "1mo",
-                        isUnread: false,
-                    },
-                    {
-                        id: 7,
-                        icon: "🔥",
-                        title: "Limited-Time Offer: Get 1 Month Free!",
-                        body: "Sign up for a 12-month plan and get 1 month free!",
-                        linkText: "See Offer",
-                        linkUrl: "#",
-                        time: "2mo",
-                        isUnread: false,
-                    },
-                    {
-                        id: 8,
-                        icon: "📺",
-                        title: "Watch History: New Sermon 'YOU' Level!",
-                        body: "We saw you might enjoy the new sermon “YOU” Level by Pastor Lisa Brown. Tap to watch now!",
-                        linkText: "Tap to watch now",
-                        linkUrl: "#",
-                        time: "2mo",
-                        isUnread: false,
-                    }
-                ]
-            }
-        ];
+    useEffect(() => {
+        // Fetch notifications when the component mounts
+        fetchNotifications(dispatch); // Dispatch the action
+    }, [dispatch]); // Add dispatch to the dependency array
 
+    // Function to show the delete confirmation modal
+    const handleDeleteNotification = (notificationId) => {
+        setNotificationToDeleteId(notificationId);
+        setShowDeleteModal(true);
+    };
+
+    // Function to handle confirmation from the modal
+    const confirmDelete = async () => {
+        if (notificationToDeleteId) {
+            const success = await deleteNotification(notificationToDeleteId);
+            if (success) {
+                // Refetch notifications after successful deletion
+                fetchNotifications(dispatch);
+            }
+            // Hide the modal and reset the ID
+            setShowDeleteModal(false);
+            setNotificationToDeleteId(null);
+        }
+    };
+
+    // Function to handle cancellation from the modal
+    const cancelDelete = () => {
+        setShowDeleteModal(false);
+        setNotificationToDeleteId(null);
+    };
+
+    if (active === 'Notifications & Reminders') {
+        console.log("notifications", notifications)
 
         const clearAllHandler = () => {
             console.log("clear all")
@@ -129,7 +76,6 @@ const NotificationReminders = ({ active }) => {
                     <NotificationsAndRemindersIcon className="notifications-reminders-section-header-icon"/>
                     <h3 className="notifications-reminders-section-header">Notification & Reminders</h3>
                 </div>
-                {showSettings ? <PreferedNotificationSettings setShowSettings={setShowSettings}/> : 
                 <div className="notifications-tab-content-wrapper">
                            {/* <GenericModal
                 headerText="Clear All Notifications?"
@@ -148,7 +94,7 @@ const NotificationReminders = ({ active }) => {
                         <div className="notifications-tab-right-control-btns">
                             <Button svg={<MarkAllAsReadIcon className="markallasread-icon"/>} label="Mark all as read" className="nt-markallasread-btn" action={markallasreadHandler} />
                             <Button svg={<DeleteNotificationIcon className="clear-all-icon"/> }label="Clear All" className="nt-clearall-btn" action={clearAllHandler} />
-                            <ProfileSettingsIcon className="notifications-settings-icon" onClick={() => setShowSettings(true)}  />
+                            <ProfileSettingsIcon className="notifications-settings-icon" />
                         </div>
                     </div>
                     <div className="notifications-tab-content-filter">
@@ -158,9 +104,9 @@ const NotificationReminders = ({ active }) => {
                                 {filterItem}
                             </div>)
                         }) }
-                        
+
                         </div>
-                        
+
                         <div className="notifications-tab-content">
   {notifications && notifications.length > 0 ? (
     notifications.map(({ timeSentHeader, notificationsd }) => (
@@ -173,7 +119,8 @@ const NotificationReminders = ({ active }) => {
               <div className="notification-item-icon">{notification.icon}</div>
               <div className="notifications-item-info">
                 <h6 className="notification-item-title">{notification.title}</h6>
-                <p className="notification-item-body">{notification.body}</p>
+                {/* Use 'message' field from the JSON */}
+                <p className="notification-item-body">{notification.message}</p>
                 {notification.linkText && (
                   <Link to={notification.linkUrl} className="notification-item-link">
                     {notification.linkText}
@@ -182,14 +129,19 @@ const NotificationReminders = ({ active }) => {
               </div>
               <div className="notification-item-time">
                 <p className="notification-time">{notification.time}</p>
-                {notification.isUnread && <span className="notification-item-unread"></span>}
+                {/* Check 'notification_status' field from the JSON */}
+                {notification.notification_status === 'unread' && <span className="notification-item-unread"></span>}
               </div>
             </div>
-            <DeleteNotificationIcon className="delete-notification-item-icon" />
+            {/* Add onClick handler to call handleDeleteNotification */}
+            <DeleteNotificationIcon
+                className="delete-notification-item-icon"
+                onClick={() => handleDeleteNotification(notification.id)} // Call the function to show modal
+            />
           </div>
         ))}
         </div>
-        
+
       </React.Fragment>
     ))
   ) : (
@@ -200,14 +152,31 @@ const NotificationReminders = ({ active }) => {
   )}
 </div>
 
-                </div>}
-                
-               
+                </div>
+
+
             </section>
         )
     }
 
-    return <></>
+    return (
+        <>
+            {/* Render the GenericModal when showDeleteModal is true */}
+            {showDeleteModal && (
+                <GenericModal
+                    headerText="Delete Notification?"
+                    paragraphText="Are you sure you want to delete this notification? This action cannot be undone."
+                    img={pauseDurationModalImg} // Use an appropriate image
+                    sectionClassName="delete-notification-modal-section" // Add a specific class name
+                    ContentWrapper="delete-notification-modal-content-wrapper" // Add a specific class name
+                    buttons={[
+                        <Button key="cancel" className="cancel-btn" label="Cancel" action={cancelDelete} />,
+                        <Button key="confirm" className="delete-btn" label="Delete" action={confirmDelete} /> // Use confirmDelete
+                    ]}
+                />
+            )}
+        </>
+    );
 }
 
 
@@ -251,7 +220,7 @@ const PreferedNotificationSettings = ({ setShowSettings }) => {
                             className="watch-back-arrow"
                             icon={watchBackArrow}
                             action={handleBack}
-                   
+
                         />
               {notificationSettingsToggles.map(({ settingsItemsLabel, notificationSettingItems }) => (
       <React.Fragment key={settingsItemsLabel}>
@@ -259,24 +228,24 @@ const PreferedNotificationSettings = ({ setShowSettings }) => {
         <h4 className="notification-settings-header">{settingsItemsLabel}</h4>
         <div className="notification-settings-items-wrapper">
         {notificationSettingItems.map(({ label }) => (
-        
+
         <div className="notification-setting-item">
-         
-          
+
+
             <h6 className="notification-setting-item-text">{label}</h6>
 
-          
+
          <ToggleSwitch checked={toggleStates[label] || false}
                             onChange={() => handleToggle(label)}/>
         </div>
-    
+
     ))}
         </div>
-        
+
         </div>
-        
+
       </React.Fragment>
-    ))}  
+    ))}
         <div className="save-reset-notification-settings-changes">
             <Button className="reset-notification-settings-btn" label="Reset" action={handleReset}/>
             <Button className="save-notification-settings-btn" label="Save Changes" action={handleSaveChanges}/>

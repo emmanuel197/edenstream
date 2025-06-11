@@ -466,9 +466,9 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
       )}
 
       <div className="dynamic-banner-overlay">
-        <div className="banner-badge">
+        {/* <div className="banner-badge">
           <p className="banner-badge-text">{movieData?.genre || 'Top Trending'}</p>
-        </div>
+        </div> */}
 
         {/* Only show navigation if we don't have bannerData and showSlides is true */}
         {!bannerData && showSlides && (

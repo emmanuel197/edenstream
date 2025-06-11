@@ -21,11 +21,23 @@ import "./styles/Footer.scss";
 const Footer = ({marginTop, marginBottom}) => {
   const [selectedPlatform, setSelectedPlatform] = useState(null); // Track only one selected
 
-
+  // Include paths directly in the footerLinks data structure
   const footerLinks = {
-    home: ["Featured", "Movies", "Word", "Music", "Live TV", "Live Radio"],
-    support: ["FAQs"],
-    subscription: ["Plans", "Features"]
+    home: [
+      { label: "Featured", path: "/" },
+      { label: "Movies", path: "/movies" },
+      // { label: "Word", path: "/word" },
+      // { label: "Music", path: "/music" },
+      { label: "Live TV", path: "/livetv" },
+      // { label: "Live Radio", path: "/liveradio" }
+    ],
+    support: [
+      { label: "FAQs", path: "/faqs" }
+    ],
+    subscription: [
+      { label: "Plans", path: "/subscription" },
+      { label: "Features", path: "/features" } // Assuming a path for Features
+    ]
   };
 
   const socialLinks = [
@@ -62,7 +74,7 @@ const Footer = ({marginTop, marginBottom}) => {
                   alt="EdenStream logo"
                   className="logo-image"
                 />
-                
+
               </div>
               <p className="logo-description">
                 Aliquam monous Igula est, non guivine elit. Conveille me. Donec
@@ -89,10 +101,11 @@ const Footer = ({marginTop, marginBottom}) => {
           <div className="footer-column">
             <h4 className="column-title">HOME</h4>
             <ul className="footer-links">
-              {footerLinks.home.map((link) => (
-                <li key={link}>
-                  <Link className="footer-link" to={`/${link.toLowerCase().replace(" ", "-")}`}>
-                    {link}
+              {/* Use label and path from the object */}
+              {footerLinks.home.map(({ label, path }) => (
+                <li key={label}>
+                  <Link className="footer-link" to={path}>
+                    {label}
                   </Link>
                 </li>
               ))}
@@ -103,9 +116,10 @@ const Footer = ({marginTop, marginBottom}) => {
           <div className="footer-column">
             <h4 className="column-title">SUPPORT</h4>
             <ul className="footer-links">
-              {footerLinks.support.map((link) => (
-                <li key={link}>
-                  <Link className="footer-link" to={`/${link.toLowerCase()}`}>{link}</Link>
+              {/* Use label and path from the object */}
+              {footerLinks.support.map(({ label, path }) => (
+                <li key={label}>
+                  <Link className="footer-link" to={path}>{label}</Link>
                 </li>
               ))}
             </ul>
@@ -115,14 +129,15 @@ const Footer = ({marginTop, marginBottom}) => {
           <div className="footer-column">
             <h4 className="column-title">SUBSCRIPTION</h4>
             <ul className="footer-links">
-              {footerLinks.subscription.map((link) => (
-                <li key={link}>
-                  <Link className="footer-link" to={`/${link.toLowerCase()}`}>{link}</Link>
+              {/* Use label and path from the object */}
+              {footerLinks.subscription.map(({ label, path }) => (
+                <li key={label}>
+                  <Link className="footer-link" to={path}>{label}</Link>
                 </li>
               ))}
             </ul>
           </div>
-               
+
           {/* Download App Column */}
           <div className="footer-column download-column">
             <h4 className="column-title">DOWNLOAD OUR APP</h4>

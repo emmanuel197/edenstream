@@ -53,7 +53,7 @@ export default ProfileSetting
 
 const SettingMainDetail = ({ onSelectSetting, selectedSetting }) => {
   const settings = [
-    { id: 1, settingImg: "🌍", settingText: "Language Selection" },
+    // { id: 1, settingImg: "🌍", settingText: "Language Selection" },
     { id: 2, settingImg: "🎬", settingText: "Playback Settings" },
     { id: 3, settingImg: "🌙", settingText: "Dark Mode Toggle" },
     { id: 4, settingImg: "🛠️", settingText: "Security & Privacy" },
