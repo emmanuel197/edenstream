@@ -614,6 +614,10 @@
               letter-spacing: -1%;
               vertical-align: middle;
 
+
+              &:hover {
+                color: $gold-200;
+              }
             }
           }
         }
