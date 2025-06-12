@@ -4,7 +4,7 @@ import Button from "../buttons/Button";
 import ReactPlayer from "react-player";
 import { fetchBannerContent, fetchTrailer, fetchAllSeries, checkFavoritedStatus, fetchWatchlist, addToFavorites } from "../../redux/fetchMoviesApi";
 import { useSelector, useDispatch } from "react-redux";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import getRandomIndexes from "../../../utils/getRandomIndexes";
 import { updateWatchlist, removeWatchlist } from "../../redux/fetchMoviesApi";
 import {
@@ -62,6 +62,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   const playerRef = useRef(null);
   const timerRef = useRef(null);
   const movieDetailsFetched = useRef(false);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // Update movieData when bannerData changes
   useEffect(() => {
@@ -510,7 +511,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
             <Button
               className="bdc-play-now-btn"
               label="Play Now"
-              page={`/watch/movie/${movieData?.uid}`}
+              action={() => navigate(`/watch/movie/${movieData?.uid}`, { state: { title: movieData?.title } })}
               icon={playIcon}
             />
             <Button

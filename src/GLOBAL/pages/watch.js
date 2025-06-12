@@ -18,6 +18,7 @@ import { createRef } from "react";
 import { clearVideoReducer } from "../redux/slice/moviesSlice";
 import Spinner from "../components/Spinner";
 import { watchBackArrow } from "../../utils/assets";
+import ErrorPage from "../pages/errorPage";
 const testVideo = "https://www.w3schools.com/html/mov_bbb.mp4"; // For debugging
 
 const Watch = forwardRef(({ wcClassName, showControls = true, videoUrl }, ref) => {
@@ -86,7 +87,7 @@ const Watch = forwardRef(({ wcClassName, showControls = true, videoUrl }, ref) =
       setLoading(true);
     }
   }, [isValidVideo, useTestVideo]);
-
+  if (!premiumSub) return <ErrorPage message="You need a premium subscription to watch this content." />;
   return (
     <div className={`watch-container ${wcClassName}`}>
       <div className="inner-sections-wrapper">
