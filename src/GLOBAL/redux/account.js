@@ -230,11 +230,11 @@ export const getProfile = async () => {
 export const addNewsletterEmail = async (email) => {
     try {
         const { operator_uid } = user_info?.data?.data || {};
-        if (!operator_uid) {
-            console.error("Operator UID not found.");
-            TOAST.error("Operator information missing."); // Add error TOAST
-            return;
-        }
+        // if (!operator_uid) {
+        //     console.error("Operator UID not found.");
+        //     TOAST.error("Operator information missing."); // Add error TOAST
+        //     return;
+        // }
         console.log("Subscribing to newsletter with email:", email);
         const response = await axios.post(`https://tvanywhereonline.com/cm/api/newsletter/?operator_uid=${operator_uid}&subscriber=${email}`);
         console.log("Newsletter subscription response:", response.data);
@@ -257,11 +257,11 @@ export const addNewsletterEmail = async (email) => {
 export const fetchNotifications = async (dispatch) => {
     try {
         const { operator_uid } = user_info?.data?.data || {};
-        if (!operator_uid) {
-            console.error("Operator UID not found.");
-            TOAST.error("Operator information missing."); // Add error TOAST
-            return;
-        }
+        // if (!operator_uid) {
+        //     console.error("Operator UID not found.");
+        //     TOAST.error("Operator information missing."); // Add error TOAST
+        //     return;
+        // }
         const subscriber_uid = window.localStorage.getItem('afri_username');
         const response = await axios.get(`https://tvanywhereonline.com/cm/api/inbox/?operator_uid=${operator_uid}&subscriber_uid=${subscriber_uid}`);
 
@@ -280,11 +280,11 @@ export const fetchNotifications = async (dispatch) => {
 export const deleteNotification = async (notificationId) => {
     try {
         const { operator_uid } = user_info?.data?.data || {};
-        if (!operator_uid) {
-            console.error("Operator UID not found.");
-            TOAST.error("Operator information missing."); // Add error TOAST
-            return;
-        }
+        // if (!operator_uid) {
+        //     console.error("Operator UID not found.");
+        //     TOAST.error("Operator information missing."); // Add error TOAST
+        //     return;
+        // }
         const subscriber_uid = window.localStorage.getItem('afri_username');
         const response = await axios.delete(`https://tvanywhereonline.com/cm/api/inbox/?operator_uid=${operator_uid}&subscriber_uid=${subscriber_uid}&notification_id=${notificationId}&content_id=null&content_uid=null&image_id=null&content_type=null`);
 
@@ -303,11 +303,11 @@ export const deleteNotification = async (notificationId) => {
 export const deleteAccount = async () => {
     try {
         const { operator_uid, access_token } = user_info?.data?.data || {};
-        if (!operator_uid || !access_token) {
-            console.error("Operator UID or access token not found.");
-            TOAST.error("Operator information or access token missing."); // Add error TOAST
-            return;
-        }
+        // if (!operator_uid || !access_token) {
+        //     console.error("Operator UID or access token not found.");
+        //     TOAST.error("Operator information or access token missing."); // Add error TOAST
+        //     return;
+        // }
         const subscriber_uid = window.localStorage.getItem('afri_username');
         const response = await axios.delete(`https://tvanywhereonline.com/cm/api/subscriber/?operator_uid=${operator_uid}&subscriber_uid=${subscriber_uid}`, {
             headers: {
