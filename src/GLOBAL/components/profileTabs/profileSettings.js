@@ -32,7 +32,7 @@ const ProfileSetting = ({ active }) => {
                   icon={watchBackArrow}
                   action={handleBack}
                 />
-                <SettingContent selectedSetting={selectedSetting} />
+                <SettingContent selectedSetting={selectedSetting} handleBack={handleBack} />
               </>
             ) : (
               <SettingMainDetail
@@ -146,14 +146,14 @@ const LanguageMain = () => {
 }
 
 
-const DeleteAccount = () => {
+const DeleteAccount = ({ handleBack }) => {
   const placeHolderPhoto = "/assets/profile-placeholder.jpeg";
   const navigate = useNavigate();
   const handleCanceAccountDelete = () => {
- 
+
       console.log("cancel delete")
-      
-    
+      handleBack(); // Call the handleBack function passed from parent
+
   }
 
   const handleConfirmAccountDelete = async () => {
@@ -227,7 +227,7 @@ const SecurityPrivacy = () => {
     </div>
   )
 }
-const SettingContent = ({ selectedSetting }) => {
+const SettingContent = ({ selectedSetting, handleBack }) => {
   switch (selectedSetting) {
     case 1:
       return <LanguageMain />;
@@ -238,7 +238,7 @@ const SettingContent = ({ selectedSetting }) => {
     case 4:
       return <SecurityPrivacy />;
     case 5:
-      return <DeleteAccount />;
+      return <DeleteAccount handleBack={handleBack} />;
     default:
       return null; // If nothing is selected yet, show nothing
   }
