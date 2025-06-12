@@ -385,10 +385,11 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   // Add watchlist toggle handler
   const handleToggleWatchlist = () => {
     if (!movieData) return;
+     const movieId = movieData.id || movieData.movieId;
     if (watchlisted) {
-      removeWatchlist(movieData.id, 'movie');
+      removeWatchlist(movieId, 'movie');
     } else {
-      updateWatchlist(movieData.id, 'movie', 0);
+      updateWatchlist(movieId, 'movie', 0);
     }
     setWatchlisted(!watchlisted);
   };
