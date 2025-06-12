@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedMovieReducer } from "../../redux/slice/moviesSlice";
 import { useHandleNavigation } from "../../components/navigationHelpers";
 import Button from "../buttons/Button";
 import { DeleteWatchlistIcon } from "../../../utils/assets";
-import { fetchWatchlist, removeWatchlist } from "../../redux/fetchMoviesApi";
+import { fetchWatchlist, removeWatchlist, addToFavorites, favoritedMovies } from "../../redux/fetchMoviesApi"; // Import addToFavorites
 import "../../components/styles/movie-card.scss";
 import { fetchChannelInfo } from "../../redux/channels";
 import getEPGInfo from "../../../utils/getEPGInfo";
@@ -27,7 +27,7 @@ export const getImageSrc = (movie_img, movie, type, channelInfo) => {
 const MovieCard = ({ movie, type, active }) => {
     const dispatch = useDispatch();
     const handleClick = useHandleNavigation(movie);
-    const location = window.location.pathname;
+    const location = useLocation().pathname; // Use useLocation hook
     const { watchlist } = useSelector((state) => state.fetchMovies);
 
     console.log("MovieCard: Received movie prop", movie); // Log the movie prop
@@ -47,6 +47,7 @@ const MovieCard = ({ movie, type, active }) => {
     console.log("MovieCard movie", movie.shows);
     console.log("MovieCard type", type);
     console.log("MovieCard uid", channelInfo.uid);
+    console.log(location)
     // Determine if the movie is in the watchlist
     const isWatchlisted = watchlist.some(
         (item) => item.movie_id === movie.id || (item.movie && item.movie.movie_id === movie.id)
@@ -76,11 +77,21 @@ const MovieCard = ({ movie, type, active }) => {
             console.log("MovieCard: Not setting EPG info (not livetv page or missing movie.shows)");
         }
     }, [location, movie.shows]); // Add movie.shows to dependency array
+
     const handleToggleWatchlist = async (e, movieId) => {
         e.stopPropagation();
-        if (isWatchlisted) {
-            await removeWatchlist(movieId, 'movie');
-            await fetchWatchlist(dispatch);
+        if (location === "/mylist") {
+            // On MyList page, toggle watchlist status using addToFavorites
+            console.log("Toggling watchlist status for movie ID:", movieId);
+            await addToFavorites(dispatch, movieId); // Assuming addToFavorites toggles and dispatches necessary actions
+            await favoritedMovies(dispatch) // Refresh the watchlist after toggling
+        } else {
+            // On other pages (like Watch History), only remove if watchlisted
+            if (isWatchlisted) {
+                console.log("Removing from watchlist for movie ID:", movieId);
+                await removeWatchlist(movieId, 'movie');
+                await fetchWatchlist(dispatch); // Refresh the watchlist after removal
+            }
         }
     };
 
@@ -114,7 +125,7 @@ const MovieCard = ({ movie, type, active }) => {
                                 className="delete-watch-history-wrapper"
                                 onClick={(e) => handleToggleWatchlist(e, movie.id)}
                             >
-                                {active === "Watch History" && <DeleteWatchlistIcon
+                                {(active === "Watch History" || location === "/mylist") && <DeleteWatchlistIcon
                                     className={`delete-watch-history${isWatchlisted ? ' active' : ''}`}
                                 />}
                             </div>
@@ -162,7 +173,7 @@ const MovieCard = ({ movie, type, active }) => {
                             className="delete-watch-history-wrapper"
                             onClick={(e) => handleToggleWatchlist(e, movie.id)}
                         >
-                            {active === "Watch History" && <DeleteWatchlistIcon
+                            {(active === "Watch History" || location === "/mylist") && <DeleteWatchlistIcon
                                 className={`delete-watch-history${isWatchlisted ? ' active' : ''}`}
                             />}
                         </div>
@@ -172,7 +183,7 @@ const MovieCard = ({ movie, type, active }) => {
                     <h3 className="mc-title">
                         {movie.name || movie.title}
                     </h3>
-                    
+
                 </div>
             </div>
         );
