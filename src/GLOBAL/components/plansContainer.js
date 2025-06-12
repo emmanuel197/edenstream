@@ -18,6 +18,7 @@ const PlansContainer = ({ variant, planData }) => {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [email, setEmail] = useState("");
   const [emailTouched, setEmailTouched] = useState(false);
+  const isLoading = useSelector((state) => state.fetchPackages.isLoading);
  // Debugging line to check profile state
   React.useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
@@ -103,7 +104,7 @@ const PlansContainer = ({ variant, planData }) => {
       {modalOpen && windowWidth > 420 && (
         <GenericModal headerText="Subscription Purchase Has Been Initiated" paragraphText={<>You will be billed <span className="subscription-price">GHS{productPrice}</span> for the {productName} subscription. Enter your email and click on continue to be redirected to the payment page</>} children={emailInput} buttons={[
           <Button label="Cancel" className="cancel-button" action={handleCancel} />,
-          <Button label="Continue" action={handleContinue} isDisabled={!email || !EMAIL_REGEXP.test(email)} />
+          <Button label="Continue" action={handleContinue} isDisabled={!email || !EMAIL_REGEXP.test(email) || isLoading} />
         ]} />
       )}
       {SubscriptionsData.map((planDetails) => {

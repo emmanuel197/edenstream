@@ -6,7 +6,7 @@ import { checkActiveSubscription } from "../../utils/activeSubs";
 export const purchasePackage = async (product_id, subscriber_uid, email) => {
 
     try {
-        store.dispatch(fetchPackageReducer(true))
+        store.dispatch(fetchPackageReducer(true)) // Dispatch loading state true
         // API URL
         const url = "https://tvanywhereonline.com/cm/api/purchase/?operator_uid=edenstream";
 
@@ -37,10 +37,10 @@ export const purchasePackage = async (product_id, subscriber_uid, email) => {
             store.dispatch(paymentInitiatedReducer(response.data.payment_status));
             window.location.href = '/home'
         }
-        store.dispatch(fetchPackageReducer(false))
+        store.dispatch(fetchPackageReducer(false)) // Dispatch loading state false on success
 
     } catch (error) {
-        store.dispatch(fetchPackageReducer(false))
+        store.dispatch(fetchPackageReducer(false)) // Dispatch loading state false on error
         TOAST.error(ERROR_MESSAGES.SUBSCRIPTION.subscriptionFailed)
         // Debug: Log the error
         console.error('Purchase error:', error);
