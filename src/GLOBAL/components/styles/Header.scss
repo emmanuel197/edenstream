@@ -512,8 +512,7 @@
             text-decoration-offset: 0%;
             text-decoration-thickness: 0%;
             text-decoration-skip-ink: auto;
-            background: linear-gradient(0deg, #5B7F60, #5B7F60),
-              linear-gradient(0deg, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2));
+            background: $gold-200;
             -webkit-text-fill-color: transparent;
             -webkit-background-clip: text;
           }
