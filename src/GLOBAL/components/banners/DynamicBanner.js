@@ -467,12 +467,14 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
 
       <div className="dynamic-banner-overlay">
         {!bannerData && showSlides && (
-          <div className="play-and-navigators-wrapper">
-            <Button
-              icon={arrowLeft}
-              className="pan-arrow-left"
-              action={handlePrevious}
-            />
+          <div className={`play-and-navigators-wrapper ${allSlides.length <= 1 ? 'center-play' : ''}`}>
+            {allSlides.length > 1 && (
+              <Button
+                icon={arrowLeft}
+                className="pan-arrow-left"
+                action={handlePrevious}
+              />
+            )}
 
             {showPlayButton && (
               <Button
@@ -482,11 +484,13 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
               />
             )}
 
-            <Button
-              icon={arrowRight}
-              className="pan-arrow-right"
-              action={handleNext}
-            />
+            {allSlides.length > 1 && (
+              <Button
+                icon={arrowRight}
+                className="pan-arrow-right"
+                action={handleNext}
+              />
+            )}
           </div>
         )}
 
