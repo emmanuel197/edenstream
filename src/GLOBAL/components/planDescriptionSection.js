@@ -6,9 +6,9 @@ const PlanDescriptionSection = ({ marginTop, marginBottom }) => {
   const subscriptionPlans = [
     {
       feature: "Price",
-      daily: "$9.99/Month",
-      weekly: "$12.99/Month",
-      monthly: "$14.99/Month",
+      daily: "gh3/Day",
+      weekly: "gh18/Week",
+      monthly: "gh45/Month",
     },
     {
       feature: "Content",
