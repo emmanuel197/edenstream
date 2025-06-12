@@ -49,12 +49,16 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: .7292vw;
+            gap: clamp(20px, 1.563vw, 30px);
             align-self: center;
             margin-bottom: 6.4063vw;
-
+            
+            @media screen and (max-width: 600px) {
+                width: 80%;
+                
+            }
             .no-watch-history-icon {
-                width: 9.1146vw;
+                width: clamp(90px, 9.1146vw, 175px);
                 aspect-ratio: 1 / 1;
 
                 path {
@@ -64,8 +68,8 @@
 
             .no-watch-history-text {
                 font-weight: 500;
-                font-size: .8333vw;
-                line-height: 1.0417vw;
+                font-size: clamp(12px, 0.833vw, 15.994px);
+                line-height: clamp(13px, 1.0417vw, 20.001px);
                 letter-spacing: 0%;
                 text-align: center;
                 color: $white;
@@ -73,10 +77,10 @@
 
             .browse-content-btn {
                 font-weight: 500;
-                font-size: .8333vw;
+                font-size: clamp(10px, .8333vw, 15.999px);
                 line-height: 153%;
                 letter-spacing: 0%;
-                width: 9.1146vw;
+                width: fit-content;
                 aspect-ratio: 175/ 45;
                 gap: .2083vw;
                 border-radius: .2604vw;
