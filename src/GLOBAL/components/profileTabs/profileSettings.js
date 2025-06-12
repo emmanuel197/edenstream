@@ -5,6 +5,9 @@ import Radio from "../formInputs/radioInput";
 import Button from "../../components/buttons/Button";
 import ToggleSwitch from "../../components/formInputs/toggleSwitch";
 import GenericModal from "../genericModal";
+import { useNavigate } from "react-router-dom";
+import { deleteAccount } from "../../../GLOBAL/redux/account"; // Import deleteAccount
+
 const ProfileSetting = ({ active }) => {
   const [selectedSetting, setSelectedSetting] = useState(null);
   if (active === 'Settings') {
@@ -56,7 +59,7 @@ const SettingMainDetail = ({ onSelectSetting, selectedSetting }) => {
     // { id: 1, settingImg: "🌍", settingText: "Language Selection" },
     { id: 2, settingImg: "🎬", settingText: "Playback Settings" },
     { id: 3, settingImg: "🌙", settingText: "Dark Mode Toggle" },
-    { id: 4, settingImg: "🛠️", settingText: "Security & Privacy" },
+    // { id: 4, settingImg: "🛠️", settingText: "Security & Privacy" },
     { id: 5, settingImg: "🛑", settingText: "Delete Account" },
   ];
 
@@ -145,17 +148,17 @@ const LanguageMain = () => {
 
 const DeleteAccount = () => {
   const placeHolderPhoto = "/assets/profile-placeholder.jpeg";
-
+  const navigate = useNavigate();
   const handleCanceAccountDelete = () => {
-    return (
+ 
       console.log("cancel delete")
-    )
+      
+    
   }
 
-  const handleConfirmAccountDelete = () => {
-    return (
-      console.log("confirm delete")
-    )
+  const handleConfirmAccountDelete = async () => {
+    // Call the deleteAccount function from account.js
+    await deleteAccount();
   }
   return (
 
@@ -239,4 +242,4 @@ const SettingContent = ({ selectedSetting }) => {
     default:
       return null; // If nothing is selected yet, show nothing
   }
-}; 
+};

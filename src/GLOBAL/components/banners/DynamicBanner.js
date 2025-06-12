@@ -38,12 +38,14 @@ const fetchDataForBannerSlider = (recentlyAdded) => {
   return slides;
 };
 
+const MAX_RETRIES = 3; // Define maximum retry attempts
+
 const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSlides = true, bannerData }) => {
   const location = useLocation();
   const { inspiring, watchlist } = useSelector((state) => state.fetchMovies);
   console.log("watchlist[DynamicBanner]", watchlist)
   const [isPlaying, setIsPlaying] = useState(false);
-   const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [showPlayButton, setShowPlayButton] = useState(true);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
@@ -56,6 +58,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [watchlisted, setWatchlisted] = useState(false);
   const [favoritedStatus, setFavoritedStatus] = useState(false);
+  const [retryCount, setRetryCount] = useState(0); // State to track retry attempts
   const playerRef = useRef(null);
   const timerRef = useRef(null);
   const movieDetailsFetched = useRef(false);
@@ -79,10 +82,6 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
         return;
       }
 
-      // console.log('Debug: Loading slides');
-      // console.log('Current path:', location.pathname);
-      // console.log('Inspiring data:', inspiring);
-      
       try {
         if (location.pathname === "/series") {
           console.log('Debug: Fetching series data');
@@ -99,16 +98,13 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
             };
           });
           console.log('Debug: Series slides loaded:', _allSlides);
-          
+
           if (_allSlides && _allSlides.length > 0) {
             setAllSlides(_allSlides);
             setSelectedMovie(_allSlides[0]);
             setMovieData(_allSlides[0]);
           } else {
             console.log('Debug: No series data, using dummy data');
-            // setAllSlides(DUMMY_SLIDES);
-            // setSelectedMovie(DUMMY_SLIDES[0]);
-            // setMovieData(DUMMY_SLIDES[0]);
           }
         } else {
           console.log('Debug: Using inspiring data');
@@ -120,24 +116,18 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
               : null,
           }));
           console.log('Debug: Inspiring slides:', slides);
-          
+
           if (slides && slides.length > 0) {
             setAllSlides(slides);
             setSelectedMovie(slides[0]);
             setMovieData(slides[0]);
           } else {
             console.log('Debug: No inspiring data, using dummy data');
-            // setAllSlides(DUMMY_SLIDES);
-            // setSelectedMovie(DUMMY_SLIDES[0]);
-            // setMovieData(DUMMY_SLIDES[0]);
           }
         }
       } catch (error) {
         console.error('Error loading slides:', error);
         console.log('Debug: Error occurred, using dummy data');
-        // setAllSlides(DUMMY_SLIDES);
-        // setSelectedMovie(DUMMY_SLIDES[0]);
-        // setMovieData(DUMMY_SLIDES[0]);
       }
     };
 
@@ -148,9 +138,9 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   const handlePrevious = () => {
     console.log('Debug: handlePrevious called');
     console.log('Current slides:', allSlides);
-    
+
     if (!allSlides.length) return;
-    
+
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex === 0 ? allSlides.length - 1 : prevIndex - 1;
       const nextMovie = allSlides[newIndex];
@@ -166,9 +156,9 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   const handleNext = () => {
     console.log('Debug: handleNext called');
     console.log('Current slides:', allSlides);
-    
+
     if (!allSlides.length) return;
-    
+
     setCurrentIndex((prevIndex) => {
       const newIndex = prevIndex === allSlides.length - 1 ? 0 : prevIndex + 1;
       const nextMovie = allSlides[newIndex];
@@ -215,10 +205,11 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
 
     const loadBannerContent = async () => {
       if (!propMovieData && !allSlides.length) {
+        if (retryCount >= MAX_RETRIES) {
+          console.error('Max retries reached for loading banner content.');
+          return;
+        }
         try {
-          // Wait for watchlist to be loaded
-          if (!watchlist || watchlist.length === 0) return;
-
           const bannerContent = await fetchBannerContent();
           if (inspiring && inspiring.length > 0) {
             const firstInspiring = inspiring[0];
@@ -233,19 +224,26 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
               movieId: firstInspiring.id,
               type: firstInspiring.type?.toLowerCase()
             });
+            if (retryCount > 0) setRetryCount(0);
+          } else {
+            console.log('fetchBannerContent succeeded, but inspiring data is empty.');
           }
         } catch (error) {
-          console.error('Error loading banner content:', error);
+          console.error(`Error loading banner content (Attempt ${retryCount + 1}/${MAX_RETRIES}):`, error);
+          setRetryCount(prevCount => prevCount + 1);
+          setTimeout(loadBannerContent, 2000);
         }
       } else if (allSlides.length) {
         setMovieData(allSlides[currentIndex]);
+        if (retryCount > 0) setRetryCount(0);
       } else {
         setMovieData(propMovieData);
+        if (retryCount > 0) setRetryCount(0);
       }
     };
 
     loadBannerContent();
-  }, [propMovieData, allSlides, currentIndex, inspiring, watchlist]);
+  }, [propMovieData, allSlides, currentIndex, inspiring, watchlist, retryCount]);
 
   // Fetch trailer URL when movieData changes
   useEffect(() => {
@@ -275,7 +273,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
 
     console.log('Play button clicked');
     console.log('Current isPlaying state:', isPlaying);
-    
+
     if (playerRef.current) {
       const player = playerRef.current.getInternalPlayer();
       console.log('Player internal state:', {
@@ -415,8 +413,8 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
   if (loading) return <Spinner wrapperClass="spinner-wrapper" className="watch-spinner"/>;
   if (!movieData) return <ErrorComponent/>
 
-  const truncatedDescription = movieData.description?.length > 150 
-    ? `${movieData.description.substring(0, 150)}...` 
+  const truncatedDescription = movieData.description?.length > 150
+    ? `${movieData.description.substring(0, 150)}...`
     : movieData.description;
 
   console.log('Render state:', {
@@ -466,17 +464,12 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
       )}
 
       <div className="dynamic-banner-overlay">
-        {/* <div className="banner-badge">
-          <p className="banner-badge-text">{movieData?.genre || 'Top Trending'}</p>
-        </div> */}
-
-        {/* Only show navigation if we don't have bannerData and showSlides is true */}
         {!bannerData && showSlides && (
           <div className="play-and-navigators-wrapper">
-            <Button 
-              icon={arrowLeft} 
-              className="pan-arrow-left" 
-              action={handlePrevious} 
+            <Button
+              icon={arrowLeft}
+              className="pan-arrow-left"
+              action={handlePrevious}
             />
 
             {showPlayButton && (
@@ -487,15 +480,14 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
               />
             )}
 
-            <Button 
-              icon={arrowRight} 
-              className="pan-arrow-right" 
-              action={handleNext} 
+            <Button
+              icon={arrowRight}
+              className="pan-arrow-right"
+              action={handleNext}
             />
           </div>
         )}
 
-        {/* Show centered play button when showSlides is false */}
         {!bannerData && !showSlides && showPlayButton && (
           <div className="play-and-navigators-wrapper center-play">
             <Button
@@ -528,20 +520,20 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
               icon={informationCircle}
             />
             <div className="bdc-icon-btns">
-              <Button 
-                className={`bdc-plus-btn ${watchlisted ? 'active' : ''}`} 
+              <Button
+                className={`bdc-plus-btn ${watchlisted ? 'active' : ''}`}
                 action={() => handleToggleWatchlist(movieData.id)}
-                icon={watchlisted ? minusIcon : plusIcon} 
+                icon={watchlisted ? minusIcon : plusIcon}
               />
               <Button
                 className={`bdc-like-btn${favoritedStatus ? ' liked' : ''}`}
                 action={handleLikeClick}
                 svg={<LikeIcon className={favoritedStatus ? 'liked' : ''} />}
               />
-              <Button 
-                className="bdc-mute-btn" 
-                action={handleMuteDynamic} 
-                icon={isMuted ? unmuteIcon : muteIcon} 
+              <Button
+                className="bdc-mute-btn"
+                action={handleMuteDynamic}
+                icon={isMuted ? unmuteIcon : muteIcon}
               />
             </div>
           </div>
@@ -554,47 +546,3 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
 };
 
 export default DynamicBanner;
-
-
-
-// const DUMMY_SLIDES = [
-//   {
-//     id: 'dummy1',
-//     title: 'War Room',
-//     description: 'With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos\'s actions and undo the chaos to the universe, no matter what consequences may be in store.',
-//     genre: 'Action',
-//     image_id: 'dummy_image_1',
-//     movieId: 'dummy1',
-//     imageUrl: 'https://images.unsplash.com/photo-1440404653325-ab127d49abc1',
-//     type: 'movie',
-//     images: {
-//       POSTER: 'dummy_image_1'
-//     }
-//   },
-//   {
-//     id: 'dummy2',
-//     title: 'Black Panther',
-//     description: 'After the death of his father, T\'Challa returns home to the African nation of Wakanda to take his rightful place as king.',
-//     genre: 'Action',
-//     image_id: 'dummy_image_2',
-//     movieId: 'dummy2',
-//     imageUrl: 'https://images.unsplash.com/photo-1478720568477-152d9b164e26',
-//     type: 'movie',
-//     images: {
-//       POSTER: 'dummy_image_2'
-//     }
-//   },
-//   {
-//     id: 'dummy3',
-//     title: 'The Woman King',
-//     description: 'A historical epic inspired by true events that took place in The Kingdom of Dahomey, one of the most powerful states of Africa in the 18th and 19th centuries.',
-//     genre: 'Drama',
-//     image_id: 'dummy_image_3',
-//     movieId: 'dummy3',
-//     imageUrl: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1',
-//     type: 'movie',
-//     images: {
-//       POSTER: 'dummy_image_3'
-//     }
-//   }
-// ];

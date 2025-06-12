@@ -299,3 +299,31 @@ export const deleteNotification = async (notificationId) => {
         TOAST.error(error.response?.data?.message || "An error occurred while deleting the notification."); // Add error toast
     }
 }
+
+export const deleteAccount = async () => {
+    try {
+        const { operator_uid, access_token } = user_info?.data?.data || {};
+        if (!operator_uid || !access_token) {
+            console.error("Operator UID or access token not found.");
+            TOAST.error("Operator information or access token missing."); // Add error TOAST
+            return;
+        }
+        const subscriber_uid = window.localStorage.getItem('afri_username');
+        const response = await axios.delete(`https://tvanywhereonline.com/cm/api/subscriber/?operator_uid=${operator_uid}&subscriber_uid=${subscriber_uid}`, {
+            headers: {
+                Authorization: `Bearer ${access_token}`
+            }
+        });
+
+        if (response.data.status === "ok") {
+            console.log("Account deleted successfully:", response);
+            TOAST.success("Account deleted successfully!"); // Add success TOAST
+            clearStorage();
+        } else {
+            TOAST.warning(response.data.message || "Failed to delete account."); // Add warning TOAST
+        }
+    } catch (error) {
+        console.error('Error deleting account:', error);
+        TOAST.error(error.response?.data?.message || "An error occurred while deleting the account."); // Add error toast
+    }
+}

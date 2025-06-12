@@ -195,7 +195,11 @@
             width: 50%;
             align-items: center;
             &.active {
-                background: linear-gradient(136.62deg, #5B7F60 6.32%, #3E6042 44.93%, #04271C 88.82%);
+                background: linear-gradient(
+        to right,
+        $gold-gradient-default,
+        $gold-gradient-default-secondary
+    );
                 box-shadow: 0px 2px 0px 0px #FFFFFF0A inset;
             }
 

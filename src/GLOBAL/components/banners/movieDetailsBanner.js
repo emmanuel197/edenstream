@@ -135,7 +135,7 @@ const MovieDetailsBanner = () => {
   };
 
   if (loading) return <Spinner wrapperClass="spinner-wrapper" className="watch-spinner"/>;
-  if (!movieData) return <ErrorComponent/>
+  // if (!movieData) return <ErrorComponent/>
 
   const truncatedDescription = movieData.description?.length > 150
     ? `${movieData.description.substring(0, 150)}...`

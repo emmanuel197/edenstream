@@ -19,7 +19,7 @@ const ErrorPage = ({ text }) => {
 
 export const ErrorComponent = () => {
     const handleReload = () => {
-    console.log("reload")
+        window.location.reload();
  }
  const location = useLocation()
     return (
@@ -29,7 +29,7 @@ export const ErrorComponent = () => {
                     We are sorry ,we cannot find the streaming
                     content you are looking for
                 </p>
-                {location.pathname==="*" &&<Button className="reload-app-btn" label="Reload App" action={handleReload}/>}
+               <Button className="reload-app-btn" label="Reload App" action={handleReload}/>
             </section>
     )
 }

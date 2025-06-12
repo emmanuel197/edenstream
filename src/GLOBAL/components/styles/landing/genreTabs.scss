@@ -11,7 +11,11 @@
     .active-genre-tab {
         // background: $kg_color;
         // border-color: $kg_color;
-        color: #000;
+       background: linear-gradient(
+            to right,
+            $gold-gradient-hover,
+            $gold-gradient-hover-secondary
+        );;
     }
 
     &::-webkit-scrollbar {
@@ -35,8 +39,12 @@
         user-select: none;
 
         &:hover {
-            background: #fff;
-            color: #000;
+            background: linear-gradient(
+        to right,
+        $gold-gradient-default,
+        $gold-gradient-default-secondary
+    );
+            color: $white;
         }
     }
 }
