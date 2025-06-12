@@ -58,14 +58,14 @@ const WatchHistory = ({ active }) => {
                     {loading ? <div>Loading watch history...</div> :
                       (fullMovies.length > 0 ? <YesWatchHistory active={active} showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={fullMovies}/> :
                      <NoWatchHistory/>) }
-                     <div className="pagination-wrapper">
+                     {/* <div className="pagination-wrapper">
                         <div className="page-number">1</div>
                         <div className="page-number">2</div>
                         <div className="page-number">3</div>
                         <div className="next-page">
                             <PaginationNextIcon/>
                         </div>
-                     </div>
+                     </div> */}
                 </div>
             </section>
         )
@@ -101,7 +101,7 @@ const YesWatchHistory = ({history, showClearWatchModal, setShowClearWatchModal, 
             sectionClassName="watch-history-section-modal"
             ContentWrapper="watch-history-modal-content-wrapper"
             buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="clearall-btn" label="Clear All" action={handleClearAll} />] } />} */}
-            <RwContentContainer movies={history} isChannelsSection={true} active={active}/>
+            <RwContentContainer movies={history} active={active}/>
         </div>
     )
 }

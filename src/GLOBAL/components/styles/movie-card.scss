@@ -4,14 +4,17 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    aspect-ratio: 1 / 1;
+    
     padding: clamp(8px, 0.833vw, 16px);
     border-radius: 10px;
     border: 0.0625rem solid $black-15;
     row-gap: .8333vw;
     aspect-ratio: 178.39999389648438 / 259;
+    .movie-card-livetv {
+        text-decoration: none;
+    }
     &.live-tv-movie-card {
-        aspect-ratio: 1 / 1;
+        aspect-ratio: 1 / 1 !important;
        
     }
 
@@ -27,12 +30,13 @@
         .mc-image {
             width: 100%;
             border-radius: 10px;
-            aspect-ratio: 339.75 / 268;
+            // aspect-ratio: 339.75 / 268;
             object-fit: fill;
             aspect-ratio: 178.39999389648438 / 259;
            
             &.livetv-movie-card {
-                aspect-ratio: 1 / 1;
+                object-fit: fill;
+                aspect-ratio: 1 / 1 !important;
             }
             @media (max-width: 500px) {
                 object-fit: cover;
@@ -118,6 +122,7 @@
 
     .mc-content {
         display: flex;
+        flex-direction: column;
         align-items: center;
         justify-content: center;
         border-radius: 2.656vw;
@@ -125,7 +130,9 @@
         border: 1px solid $black-15;
         padding: clamp(4px, 0.313vw, 6px) clamp(12px, 29vw, 14px);
         width: 100%;
-
+        .epg {
+            color: $gold-200;
+        }
         &.episode-title {
             width: fit-content
         }
@@ -159,3 +166,4 @@
     height: max-content;
     margin-bottom: 10px;
 }
+

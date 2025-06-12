@@ -59,14 +59,7 @@ const MyListPage = ({ active }) => {
                   {loading ? <div>Loading watch history...</div> :
                     (likedMovies?.length > 0 ? <YesMyList showClearWatchModal={showClearWatchModal} setShowClearWatchModal={()=> setShowClearWatchModal()} history={likedMovies}/> :
                    <NoMyList/>) }
-                   <div className="pagination-wrapper">
-                      <div className="page-number">1</div>
-                      <div className="page-number">2</div>
-                      <div className="page-number">3</div>
-                      <div className="next-page">
-                          <PaginationNextIcon/>
-                      </div>
-                   </div>
+                  
               </div>
           </section>
           <Footer/> 
@@ -106,7 +99,7 @@ const YesMyList = ({history, showClearWatchModal, setShowClearWatchModal}) => {
             ContentWrapper="watch-history-modal-content-wrapper"
             buttons={[<Button className="cancel-btn" label="Cancel" action={handleCancel} />, <Button className="clearall-btn" label="Clear All" action={handleClearAll} />] } />} */}
             <h2 className="my-list-header">My List</h2>
-            <RwContentContainer movies={history} isChannelsSection={true}/>
+            <RwContentContainer movies={history}/>
         </div>
     )
 }

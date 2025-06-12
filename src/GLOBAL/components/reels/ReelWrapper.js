@@ -52,7 +52,7 @@ const NoResults = () => {
 
 export const RwContentContainer = ({ movies, marginTop, isChannelsSection = false, active }) => {
   const { containerRef, scrollThumbRef } = useCustomScrollbar("74");
-
+  const location = useLocation();
   console.log("WatchHistory - movie data:", movies);
 
   return (
@@ -77,7 +77,7 @@ export const RwContentContainer = ({ movies, marginTop, isChannelsSection = fals
             newEpisode: false
           };
           // console.log('Movie card props:', movieCardProps);
-          return <MovieCard key={movie.id} movie={movieCardProps} active={active} />;
+          return <MovieCard key={movie.id} type={movie.type} movie={location.pathname === "/livetv" ? movie : movieCardProps} active={active} />;
         })}
       </div>
       {!isChannelsSection && <CustomScrollbar thumbRef={scrollThumbRef} />}
