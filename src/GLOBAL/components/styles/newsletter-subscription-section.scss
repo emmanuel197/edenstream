@@ -87,15 +87,15 @@
                 }
 
                 .ask-a-question {
-                    
+                    width: fit-content;
                     padding: clamp(13px, 0.938vw, 18.01px) 1.25vw;
                     margin-left: -0.5rem;
                     border-radius: 0.625rem;
-                    background-image: linear-gradient(
-                        to right,
-                        $gold-gradient-hover,
-                        $gold-gradient-hover-secondary
-                    );
+                    // background-image: linear-gradient(
+                    //     to right,
+                    //     $gold-gradient-hover,
+                    //     $gold-gradient-hover-secondary
+                    // );
 
                     @media (max-width: 965px) {
                         padding: clamp(5px, 0.938vw, 18.01px) 1.25vw;
