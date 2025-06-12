@@ -6,7 +6,7 @@ import { closeBtn, paymentOptionsArrow, previewPlaceholder, accountSetupSuccessI
 import TextInput from "../components/formInputs/textInput";
 import PasswordInput from "../components/formInputs/passwordInput";
 import Checkbox from "../components/formInputs/checkbox";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { signupBg } from "../../utils/assets";
 import { nextStep, prevStep, setStep } from "../redux/slice/formSlice";
 import { chunkArray } from "../../utils/chunkArr";
@@ -24,19 +24,18 @@ import { COOKIES } from "../../utils/constants"
 const SignUpPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const { isLoading } = useSelector((state) => state.auth);
   const { step, inputStarted } = useSelector((state) => state.form);
   const [nextAction, setNextAction] = useState(() => () => {});
-  const user_info = COOKIES.get("user_info");
+  const cookies = new Cookies();
+  const user_info = cookies.get("user_info");
+
    useEffect(() => {
-    // Check if user is authenticated
-    
-    
-      // Redirect to home if authenticated
-      user_info && navigate('/');
-    
- }, [user_info]) 
-  // Define total steps constant
+    if (user_info && location.pathname === '/signup' && ![3, 4, 5].includes(step)) {
+      navigate('/');
+    }
+ }, [user_info, navigate, location.pathname, step]) 
   const TOTAL_SIGNUP_STEPS = 5;
 
   const renderStep = () => {
@@ -51,13 +50,6 @@ const SignUpPage = () => {
         return <ChangeAvatar setNextButtonAction={setNextAction} />;
       case 5:
         return <AccountSetupSuccess />;
-      // case 4:
-      //   return <Step4 />;
-      // case 5:
-      //   return <Step5 />;
-      // case 6:
-      //   return <Step6 />;
-      // Add more cases for additional steps
       default:
         return <Step1 />;
     }
@@ -70,16 +62,12 @@ const SignUpPage = () => {
       3: 'Next',
       4: 'Next',
       5: 'Done'
-      // 5: 'Start Membership',
-      // 6: 'Start Membership',
     };
     return labels[step] || 'Continue';
   };
 
   const signUpFormWrapperClassName = `${step ? ` step${step}` : ""}`;
 
-  // Only show the "Next" button for certain steps
-  // const showNextButton = ![5, 6, 7].includes(step);
   useEffect(() => {
     if (step === 5) {
       setNextAction(() => () => {
@@ -88,13 +76,6 @@ const SignUpPage = () => {
     }
   }, [step, navigate]);
   return (
-    // <main>
-    //   <Header />
-    //   <div className="signup-form">
-    //     <div className={signUpFormWrapperClassName}>
-    //       <Button className="signup-close-btn" icon={closeBtn} page="/" />
-    //       <div className="signup-form-container">
-    //         <h2 className="signup-form-header">Sign Up</h2>
     <AuthLayout 
       headerText="Sign Up" 
       wrapperClassName={signUpFormWrapperClassName}
@@ -117,7 +98,6 @@ const SignUpPage = () => {
             label="please do not email me about EdenStream Offers"
           />
         )}
-        {/* <p className="signup-checkbox-text">please do not email me about EdenStream Offers</p> */}
 
         <div className="signin-now-wrapper">
           <p className="already-have-an-account">
@@ -126,14 +106,7 @@ const SignUpPage = () => {
           <Link className="signin-now-link" to="/login">Sign In Now</Link>
         </div>
       </div>
-      {/* </div>
-        </div> */}
-      {/* <div className="signup-page-bg">
-            <img loading="lazy" src={signupBg} alt="signup-page-bg"/>
-          </div> */}
     </AuthLayout>
-    //   <Footer marginTop="5.313vw" />
-    // </main>
   );
 };
 
@@ -197,7 +170,6 @@ const Step1 = ({ setNextButtonAction }) => {
 
       setErrors(newErrors);
       if (hasError) return;
-      // Create a new object for submission
       let submitData = { ...formData };
       if (submitData.dob && typeof submitData.dob !== 'string') {
         submitData = { ...submitData, dob: submitData.dob.toISOString() };
@@ -275,8 +247,8 @@ const Step1 = ({ setNextButtonAction }) => {
 const Step2 = ({ setNextButtonAction, variant }) => {
   const dispatch = useDispatch();
   const { formData, handleInputChange, handleSubmit } = useSignupForm(2);
-  const { formData: formDataStep1 } = useSignupForm(1); // Get step 1 form data
-  const mobileNumber = formDataStep1.mobileNumber; // Get mobile number from step 1 form data
+  const { formData: formDataStep1 } = useSignupForm(1);
+  const mobileNumber = formDataStep1.mobileNumber;
 
   useEffect(() => {
     console.log('[Step2] formData:', formData);
@@ -323,7 +295,6 @@ export const Step3 = ({ setNextButtonAction, className, initialSelectedCategorie
     );
   };
 
-  // Set the Next button action for Step3 (signup flow only)
   useEffect(() => {
     if (!setNextButtonAction) return;
     setNextButtonAction(() => () => {
@@ -339,7 +310,6 @@ export const Step3 = ({ setNextButtonAction, className, initialSelectedCategorie
 
   const columns = chunkArray(genres, 4);
 
-  // Handler for Save Changes in edit mode
   const handleSave = () => {
     if (selectedCategories.length < 5) {
       setError('Please select at least 5 categories to proceed.');
@@ -386,7 +356,6 @@ export const Step3 = ({ setNextButtonAction, className, initialSelectedCategorie
           </div>
         ))}
       </div>
-      {/* Render Save Changes button in edit mode */}
       {onSave && (
         <Button className="save-prefchanges-btn" label="Save Changes" action={handleSave} />
       )}
@@ -394,170 +363,11 @@ export const Step3 = ({ setNextButtonAction, className, initialSelectedCategorie
   );
 };
 
-// const Step4 = () => {
-//   return (
-//     <div className="step3">
-//       <div className="choose-how-wrapper">
-//         <h3 className="choose-how-header">Choose how to pay</h3>
-//         <p className="choose-how-paragraph">
-//           Your payment is encrypted and you can change how you pay anytime
-//         </p>
-//       </div>
-//       <PlansContainer variant="step3" />
-//     </div>
-//   );
-// };
-
-// const Step5 = () => {
-//   const dispatch = useDispatch();
-//   const goCreditCard = () => {
-//     dispatch(setStep(5));
-  // };
-
-  // const goMobileMoney = () => {
-  //   dispatch(setStep(6));
-  // };
-//   return (
-//     <div className="step4">
-//       <div className="how-to-pay-wrapper">
-//         <h3 className="how-to-pay-header">Choose how to pay</h3>
-//         <p className="how-to-pay-paragraph">
-//           Your payment is encrypted and you can change how you pay anytime
-//         </p>
-//       </div>
-//       <div className="payment-options-btn-group">
-//         <Button
-//           className="credit-debit-btn"
-//           label="Credit or Debit Card"
-//           icon={paymentOptionsArrow}
-//           action={goCreditCard}
-//         />
-//         <Button
-//           className="momo-btn"
-//           label="Mobile Money"
-//           icon={paymentOptionsArrow}
-//           action={goMobileMoney}
-//         />
-//       </div>
-//     </div>
-//   );
-// };
-
-// const Step6 = () => {
-//   const dispatch = useDispatch();
-//   const goBack = () => {
-//     dispatch(setStep(3));
-//   };
-//   const avatarHandler = () => {
-//     dispatch(setStep(7))
-//   }
-//   return (
-//     <div className="step5">
-//       <div className="credit-header-wrapper">
-//         <h3 className="credit-header">Set up your credit or debit Card</h3>
-//         <p className="credit-paragraph">
-//           Your payment is encrypted and you can change how you pay anytime
-//         </p>
-//       </div>
-//       <div className="credit-card-form">
-//         <div className="form-row">
-//           <TextInput
-//             className="step5-form-textinput-size "
-//             placeholder="Card Number"
-//           />
-//         </div>
-//         <div className="form-row">
-//           <TextInput
-//             className="step5-form-textinput-size "
-//             placeholder="Expiration Date"
-//           />
-//           <TextInput className="step5-form-textinput-size " placeholder="CVV" />
-//         </div>
-//         <div className="form-row">
-//           <TextInput
-//             className="step5-form-textinput-size "
-//             placeholder="Name on the card"
-//           />
-//         </div>
-//         <div className="change-selected-plan-wrapper">
-//           <p className="selected-plan-text">GH.10.00/daily</p>
-//           {/* <Link className="change-plan-link">Change</Link> */}
-//           <Button className="change-plan-link" label="change" action={goBack} />
-//         </div>
-//         <Checkbox
-//           className="credit-form-checkbox"
-//           label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
-//         />
-//       </div>
-//       <Button
-//         className="start-membership-btn"
-//         label="Start Membership"
-//         action={avatarHandler}
-//       />
-//     </div>
-//   );
-// };
-
-// const Step7 = () => {
-//   const dispatch = useDispatch();
-//   const goBack = () => {
-//     dispatch(setStep(3));
-//   };
-//   return (
-//     <div className="step6">
-//       <div className="mobile-money-header-wrapper">
-//         <h3 className="mobile-money-header">Set up your Mobile Money</h3>
-//         <p className="mobile-money-paragraph">
-//           Your payment is encrypted and you can change how you pay anytime
-//         </p>
-//       </div>
-//       <div className="mobile-money-form">
-//         <div className="form-row">
-//           {/* <TextInput
-//             className="step5-form-textinput-size "
-//             placeholder="Card Number"
-//           /> */}
-//           <SelectInput
-//             placeholder="Select Network"
-//             options={[
-//               { value: "Mtn", label: "Mtn" },
-//               { value: "Telecel", label: "Telecel" },
-//               { value: "AirtelTigo", label: "AirtelTigo" }
-//             ]}
-//           />
-//         </div>
-//         <div className="form-row">
-//           <TextInput
-//             className="step6-form-textinput-size"
-//             placeholder="Expiration Date"
-//           />
-//           <TextInput className="step6-form-textinput-size" placeholder="CVV" />
-//         </div>
-//         <div className="change-selected-plan-wrapper">
-//           <p className="selected-plan-text">GH.10.00/daily</p>
-//           {/* <Link className="change-plan-link">Change</Link> */}
-//           <Button className="change-plan-link" label="change" action={goBack} />
-//         </div>
-//         <Checkbox
-//           className="credit-form-checkbox"
-//           label="By checking the box, you agree to our Terms of Use and Privacy Policy, and confirm you're over 18."
-//         />
-//       </div>
-//       <Button
-//         className="start-membership-btn"
-//         label="Start Membership"
-//         action={goBack}
-//       />
-//     </div>
-//   );
-// };
 const ChangeAvatar = ({ setNextButtonAction }) => {
-  // Main preview (the big image in the center)
   const [mainPreview, setMainPreview] = useState(null);
   const cookies = new Cookies();
   const dispatch = useDispatch();
 
-  // Suppose we have 5 avatar options
   const [avatarOptions] = useState([
     { id: 1, src: "/assets/avatar1.png" },
     { id: 2, src: "/assets/avatar2.png" },
@@ -565,7 +375,6 @@ const ChangeAvatar = ({ setNextButtonAction }) => {
     { id: 4, src: "/assets/avatar4.png" },
   ]);
 
-  // Keep track of original avatar to allow reset
   const [originalAvatar] = useState(mainPreview);
 
   const handleAvatarClick = (src) => {
@@ -576,7 +385,6 @@ const ChangeAvatar = ({ setNextButtonAction }) => {
     setMainPreview(originalAvatar);
   };
 
-  // Set the Next button action for ChangeAvatar
   useEffect(() => {
     if (!setNextButtonAction) return;
     setNextButtonAction(() => () => {
@@ -589,7 +397,6 @@ const ChangeAvatar = ({ setNextButtonAction }) => {
 
   return (
     <div className="change-avatar-container">
-      {/* Large center preview */}
       <div className="choose-avatar-header-wrapper">
         <h3 className="choose-avatar-header">Choose An Avatar</h3>
         <p className="choose-avatar-paragraph">Select any of the avatar to suit your preference with your username</p>
@@ -603,7 +410,6 @@ const ChangeAvatar = ({ setNextButtonAction }) => {
         <div className="edit-icon-overlay">
 
         </div>
-        {/* <TextInput className="change-avatar-textinput" placeholder="User Name" /> */}
       </div>
 
       <div className="thumbnail-row">
