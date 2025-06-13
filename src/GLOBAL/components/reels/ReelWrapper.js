@@ -38,13 +38,12 @@ const ReelWrapper = ({title, movies}) => {
         </section>
     )
 }
-const NoResults = () => {
+export const NoResults = ({message}) => {
     return (
         <div className="no-result-wrapper">
             <img loading="lazy" src={noResultsImg} className="no-results-img"/>
             <p className="no-results-text">
-                We are sorry ,we cannot find the streaming 
-                content you are looking for    
+               {message} 
             </p>
         </div>
     )

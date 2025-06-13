@@ -14,6 +14,7 @@ import TextInput from "../components/formInputs/textInput";
 import { WrapperSearch, SearchFilter } from "../../utils/assets";
 import { search } from "../redux/fetchMoviesApi";
 import { Link } from "react-router-dom";
+import { NoResults } from "../components/reels/ReelWrapper";
 // import { handleSearchInput } from "../redux/slice/inputSlice";
 const Search = () => {
   const dispatch = useDispatch();
@@ -68,10 +69,23 @@ const Search = () => {
           setActiveGenreTab={genre => dispatch(setActiveGenreTab(genre))}
           onFilter={() => setFiltered(true)}
         />}
-        <ReelWrapper
-          title={`Search results for: ${searchQuery}`}
-          movies={filtered && activeGenreTab !== "ALL" ? filteredMovies : searchResponse}
-        />
+        {searchQuery ? ( // Only show results or no results message if a search query exists
+          searchResponse && searchResponse.length > 0 ? ( // Check if there are search results
+            <ReelWrapper
+              title={`Search results for: ${searchQuery}`}
+              movies={filtered && activeGenreTab !== "ALL" ? filteredMovies : searchResponse}
+            />
+          ) : (
+            // Display "no results" message when query exists but no results are found
+            <NoResults
+              message={`No results found for "${searchQuery}". Please try a different search term.`}/>
+          )
+        ) : (
+          // Optionally display a message or nothing when no search query has been entered yet
+          <div className="initial-search-prompt">
+            Enter a search term to find content.
+          </div>
+        )}
       </div>
       <Footer marginTop="24.1146vw" />
     </>
