@@ -522,7 +522,7 @@ const DynamicBanner = ({ movieData: propMovieData, showControls = false, showSli
             <Button
               className="bdc-information-circle-btn"
               label="More Info"
-              page={`/movie/${movieData?.id}`}
+              page={`/movie/${movieData?.uid}`}
               icon={informationCircle}
             />
             <div className="bdc-icon-btns">
