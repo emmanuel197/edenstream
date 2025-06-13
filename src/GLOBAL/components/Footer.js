@@ -142,7 +142,7 @@ const Footer = ({marginTop, marginBottom}) => {
           <div className="footer-column download-column">
             <h4 className="column-title">DOWNLOAD OUR APP</h4>
             <div className="download-links-container">
-              <a href="#" className="download-link">
+              <a href="https://apps.apple.com/us/app/edenstream/id6744041468" className="download-link">
                 {/* <AppStore className="store-icon" /> */}
                 <img loading="lazy" className="download-platform-img" src={appleDownload}/>
                 <div className="download-text">
@@ -150,7 +150,8 @@ const Footer = ({marginTop, marginBottom}) => {
                   <strong>App Store</strong>
                 </div>
               </a>
-              <a href="#" className="download-link">
+              <a href="https://play.google.com/store/apps/details?id=com.tvanywhereafrica.edenstream
+" className="download-link">
               <img loading="lazy" className="download-platform-img" src={googlePlayDownload}/>
                 {/* <PlayStore className="store-icon" /> */}
                 <div className="download-text">
