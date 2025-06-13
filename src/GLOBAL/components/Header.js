@@ -282,25 +282,39 @@ const Header = ({ variantClassName }) => {
                     <SearchFilter className="search-filter-img" />
                   </Link>
                 </div>
-                {searchResponse && searchResponse.length > 0 ? <>
-                  <div className="search-results-wrapper">
-                    {searchResponse.slice(0, 2).map((result) => (
-                      <div className="search-result" key={result.id}>
-                        <div className="search-result-detail" onClick={() => navigate(`/watch/movie/${result.uid}`, { state: { title: result.title } })}>
-                          <img className="search-result-img" src={getImageSrc(result.image_id, result)} />
-                          <p className="search-result-title">{result.title || result.name}</p>
-                        </div>
+                {searchQuery ? ( // Only show results or no results message if a search query exists
+                  searchResponse && searchResponse.length > 0 ? ( // Check if there are search results
+                    <>
+                      <div className="search-results-wrapper">
+                        {searchResponse.slice(0, 2).map((result) => (
+                          <div className="search-result" key={result.id}>
+                            <div className="search-result-detail" onClick={() => navigate(`/watch/movie/${result.uid}`, { state: { title: result.title } })}>
+                              <img className="search-result-img" src={getImageSrc(result.image_id, result)} />
+                              <p className="search-result-title">{result.title || result.name}</p>
+                            </div>
+                          </div>
+                        ))}
                       </div>
-                    ))}
+                      <div className="view-all-results">
+                        <a className="var-text" onClick={() => navigate('/search')} style={{ cursor: 'pointer' }}>View all Search Results</a>
+                      </div>
+                    </>
+                  ) : (
+                    // Display "no results" message when query exists but no results are found
+                    <div className="no-search-results">
+                      <NoStream className="no-stream-img" />
+                      <p className="no-stream-text">We are sorry, we cannot find the streaming
+                        content you are looking for</p>
+                    </div>
+                  )
+                ) : (
+                   <div className="no-search-results">
+       
+                  <div className="initial-search-prompt">
+                    Enter a search term to find content.
                   </div>
-                  <div className="view-all-results">
-                    <a className="var-text" onClick={() => navigate('/search')} style={{ cursor: 'pointer' }}>View all Search Results</a>
                   </div>
-                </> : <div className="no-search-results">
-                  <NoStream className="no-stream-img" />
-                  <p className="no-stream-text">We are sorry ,we cannot find the streaming
-                    content you are looking for</p>
-                </div>}
+                )}
               </div>}
               <div ref={profileRef} className="profile-wrapper" onClick={showProfileHandler}>
                 <img className="profile-img" src={cookies.get('edenstream_avatar') || headerProfilePlaceholder} alt="Profile Avatar" />
