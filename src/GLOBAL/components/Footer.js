@@ -171,7 +171,7 @@ const Footer = ({marginTop, marginBottom}) => {
       {/* Footer Bottom */}
       <div className="footer-bottom">
         <div className="copyright">
-          © 2025 - TvAnywhere. Designed by Davida Dzato. All rights reserved
+          © 2025 - TvAnywhere. Developed by Emmanuel Amokuandoh. All rights reserved
         </div>
       </div>
     </footer>
